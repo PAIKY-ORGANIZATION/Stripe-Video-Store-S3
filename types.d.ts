@@ -12,6 +12,11 @@ type Video = {
 }
 
 
+
+
+
+
+
 type Merch = {
     title: string,
     description: string,
