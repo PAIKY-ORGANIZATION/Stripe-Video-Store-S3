@@ -1,4 +1,4 @@
-type Video = {
+type VideoProduct = {
     title: string,
     author: string,
     s3VideoKey: string,
@@ -23,4 +23,11 @@ type Merch = {
     price: number,
     currency: string,
     image: string
+}
+
+
+type ActionResponse = {
+    success: boolean,
+    message: string,
+    data?: any
 }

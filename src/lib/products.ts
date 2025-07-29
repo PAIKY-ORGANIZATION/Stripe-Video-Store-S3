@@ -1,4 +1,4 @@
-export const videos: Video[] = [
+export const videos: VideoProduct[] = [
     {
         author: 'SpeedSilver',
         title: 'I Made 100 Players Simulate Medieval Civilization in Minecraft...',

@@ -1,10 +1,37 @@
 "use client"
 
+import { generateStripeSession } from "@/actions/generate-stripe-session"
+
+import type { video  as  PrismaVideo } from "@/generated/prisma/client"
+
+import { toast } from "react-hot-toast"
 
 
+export default function  VideoShow({videoArray}: {videoArray: PrismaVideo[] }) {
+
+    const handleBuy = async (videoId: string)=>{
+    
+        console.log('TEST');
+        
+
+        const createSessionResponse = await generateStripeSession(videoId)
+
+        console.log({createSessionResponse});
+       
+        if(!createSessionResponse.success){
+            toast.error(createSessionResponse.message)
+            return
+        }
+
+       
+
+        window.location.href = createSessionResponse.data.sessionUrl as string
+
+    
+        return
+    }
 
 
-export default function  VideoShow({videoArray}: {videoArray: Video[] }) {
     return (
         <div className="h-full bg-[#171615] w-full p-10">
             <div className="w-full h-full gap-4 flex flex-col">
@@ -30,7 +57,10 @@ export default function  VideoShow({videoArray}: {videoArray: Video[] }) {
                                         <span className="font-medium text-white">Author:</span> {video.author}
                                     </p>
                                 </div>
-                                <button className="flex items-center justify-center rounded-lg bg-green-600 text-white p-2 mt-4 hover:bg-green-700 self-center w-[15%] text-center hover:cursor-pointer">
+                                <button
+                                    className="flex items-center justify-center rounded-lg bg-green-600 text-white p-2 mt-4 hover:bg-green-700 self-center w-[15%] text-center hover:cursor-pointer"
+                                    onClick={()=>{handleBuy(video.id)}}
+                                >
                                     <p>Buy</p> 
                                 </button>
                             </div>
