@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma"
-import { NextAuthOptions } from "next-auth"
+import NextAuth, { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 
 
@@ -43,6 +43,8 @@ const authOption: NextAuthOptions = {
             return true
         },
 
+
+        //$ Here we can manipulate the JWT. 
         async jwt ({token, account}) { //- This is saved in the user's browser.
             //$ This function is called:
                 //$  1- Once including the "account" object (when signing in)
@@ -65,6 +67,7 @@ const authOption: NextAuthOptions = {
             return token
         },
 
+        //! We could just not include this callback but you can modify the session.
         async session({session, token}){ //$ The returned "Session" will always be passed to "useSession()" and "getSession()"
 
             //* Session looks like this by default:
@@ -76,9 +79,7 @@ const authOption: NextAuthOptions = {
             //     },
             //     expires: string
             // }
-
-            token.email
-            session.user?.email
+            return session
         }
     }
 }
