@@ -1,12 +1,27 @@
+import Success from "@/components/Success";
+import { prisma } from "@/lib/prisma";
+
 type Props = {
-    params: {
-        productId: Promise<string>
+	params: {
+		productId: Promise<string>;
+	};
+};
+
+export default async function SuccessPage({ params }: Props) {
+
+    const id = await params.productId
+
+    const video = await prisma.video.findFirst({
+        where: {id}
+    })
+
+
+    if(!video){
+        return <p> Something went wrong creating the success page :(</p>
     }
-}
 
 
-export default async function SuccessPage({params}: Props) {
-    return (
-        <div>Thanks for your purchasing {params.productId}</div>
-    )
+	return (
+		<Success video={video}></Success>
+	);
 }

@@ -19,7 +19,9 @@ const setENV = ()=>{
         "AWS_ACCESS_KEY",
         "AWS_SECRET_ACCESS_KEY",
         "AWS_BUCKET_NAME",
-        "STRIPE_SECRET_KEY"
+        "STRIPE_SECRET_KEY",
+        "CLIENT_SECRET_GOOGLE",
+        "CLIENT_ID_GOOGLE"
     ];
 
     requiredVars.forEach((varName)=>{
