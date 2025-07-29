@@ -1,5 +1,10 @@
 import inquirer from "inquirer";
+import { seedDb } from "./seed_db";
+import { emptyDb } from "./empty_db";
 
+
+const seedDbKey = 'Seed videos in database'
+const deleteDbKey = 'Wipe entire database'
 
 const main = async ()=>{
 
@@ -8,14 +13,19 @@ const main = async ()=>{
             message: 'Select Action to perform',
             name: 'Action',
             type: 'list',
-            choices: ['1', '2']
+            choices: [seedDbKey, deleteDbKey]
         }
     ])
 
 
-    console.log(result.Action);
-    
-
+    switch(result.Action){
+        case seedDbKey:
+            await  seedDb()
+            break
+        case deleteDbKey:
+            await emptyDb()
+            break
+    }
 }
 
 
