@@ -22,16 +22,17 @@ datasource db {
 // }
 
 model video {
-  id          String @id @default(uuid())
-  author      String
-  title       String
-  description String
-  likes       Int
-  views       Int
-  s3Key       String
-  youtubeUrl  String
-  price       Int
-  currency    String
+  id             String @id @default(uuid())
+  author         String
+  title          String
+  description    String
+  likes          Int
+  views          Int
+  s3VideoKey     String
+  s3ThumbnailKey String
+  youtubeUrl     String
+  price          Int
+  currency       String
 
   @@map("videos")
 }

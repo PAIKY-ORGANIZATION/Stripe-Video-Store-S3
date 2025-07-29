@@ -1,11 +1,21 @@
 type Video = {
     title: string,
     author: string,
-    s3Key: string,
+    s3VideoKey: string,
+    s3ThumbnailKey: string,
     description: string,
     likes: number,
     views: number,
     price: number,
     currency: string,
-    youtubeUrl: string
+    youtubeUrl: string,
+}
+
+
+type Merch = {
+    title: string,
+    description: string,
+    price: number,
+    currency: string,
+    image: string
 }

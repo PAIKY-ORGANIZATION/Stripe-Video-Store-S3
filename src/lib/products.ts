@@ -5,7 +5,9 @@ export const videos: Video[] = [
         description: '100 players will be forced to create civilizations in this realistic medieval Minecraft simulation! Resources are limited, and they must traded between kingdoms, or claimed through war.',
         likes: 366000,
         views: 15000000,
-        s3Key: 'medieval.mp4',
+        s3VideoKey: 'medieval.mp4',
+        s3ThumbnailKey: 'medieval_thumbnail.jpeg',
+        // s3PreviewKey: ,
         youtubeUrl: 'https://www.youtube.com/watch?v=ML4z_fpJYZA&t=4s',
         price: 20,
         currency: 'usd'
@@ -16,8 +18,9 @@ export const videos: Video[] = [
         description: "This is a Minecraft Social Experiment where 100 Players Simulate Civilization on a Zombie Island and are divided into two groups, Survivors and Scientists. They will have to face different challenges like the zombies, a blood moon and eventually go to war.",
         likes: 228000,
         views: 9737011,
-
-        s3Key: 'zombies.mp4',
+        s3VideoKey: 'zombies.mp4',
+        s3ThumbnailKey:'zombies_thumbnail.jpeg',
+        // s3PreviewKey: ,
         youtubeUrl: 'https://www.youtube.com/watch?v=4Uhqaf5ERfs&t=3s',
         price: 15,
         currency: 'usd'
@@ -28,7 +31,9 @@ export const videos: Video[] = [
         description: "In this video, I put 1000 Minecraft players in a massive prison. There were 1000 cells, 100 guards, and 1 warden. Each player only had one life. Will the guards maintain order, or will the prisoners riot and escape? Who will survive? Find out now!",
         likes: 525000,
         views: 19761199,
-        s3Key: 'prison.mp4',
+        s3VideoKey: 'prison.mp4',
+        s3ThumbnailKey: 'prison_thumbnail.jpeg ',
+        // s3PreviewKey: ,
         youtubeUrl: 'https://www.youtube.com/watch?v=t0rxOfr77YQ',
         price: 25,
         currency: 'usd'
