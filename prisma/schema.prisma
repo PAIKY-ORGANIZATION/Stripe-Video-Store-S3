@@ -29,7 +29,7 @@ model video {
   likes          Int
   views          Int
   s3VideoKey     String
-  s3ThumbnailKey String
+  thumbnailLocalPath String
   youtubeUrl     String
   price          Int
   currency       String

@@ -2,7 +2,7 @@ type Video = {
     title: string,
     author: string,
     s3VideoKey: string,
-    s3ThumbnailKey: string,
+    thumbnailLocalPath: string,
     description: string,
     likes: number,
     views: number,
