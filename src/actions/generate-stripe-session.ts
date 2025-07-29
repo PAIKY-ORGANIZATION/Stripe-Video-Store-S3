@@ -26,7 +26,7 @@ export const generateStripeSession = async (videoId: string): Promise<ActionResp
                         quantity: 1,
                     },
                 ],
-                success_url: 'http://localhost:3000',
+                success_url: 'http://localhost:3000/success/' + videoId,
                 cancel_url: 'http://localhost:3000',
                 mode: 'payment',
                 billing_address_collection: 'required'
