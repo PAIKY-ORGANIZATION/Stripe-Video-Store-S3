@@ -1,6 +1,5 @@
 import { stripe } from "@/lib/stripe";
-import { headers } from "next/headers";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 
 const signingSecret = process.env.STRIPE_SIGNING_SECRET!
@@ -8,20 +7,29 @@ const signingSecret = process.env.STRIPE_SIGNING_SECRET!
 export const POST = async (req: NextRequest) => {
     const bodyBinary = await req.text() //? Might need extra configuration to receive in binary form
 
-    const headerStore = await headers()
 
-    const binaryHeader = headers().get('stripe-signature')
+    const binaryHeader = req.headers.get('stripe-signature')!
 
 
     let event
 
     try{
-        event = stripe.webhooks.constructEvent(bodyBinary, signingSecret, binaryHeader)
+        event = stripe.webhooks.constructEvent(bodyBinary, binaryHeader, signingSecret)
     }catch(e){
         console.log(e);	
+        return NextResponse.json({ error: e }, { status: 400 });
     }
 
-    console.log({bodyBinary});
+
+    switch(event.type){
+        case "checkout.session.completed":
+            const data = event.data.object:;
+    }
+
+    
+
+    return new Response('Received', {status: 200})
+
     
 
 }

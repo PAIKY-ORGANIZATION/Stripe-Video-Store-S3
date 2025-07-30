@@ -2,17 +2,15 @@ import Success from "@/components/Success";
 import { prisma } from "@/lib/prisma";
 
 type Props = {
-	params: {
-		productId: Promise<string>;
-	};
+	params: Promise<{productId: string}>
 };
 
 export default async function SuccessPage({ params }: Props) {
 
-    const id = await params.productId
+    const {productId} = await params
 
     const video = await prisma.video.findFirst({
-        where: {id}
+        where: {id: productId}
     })
 
 

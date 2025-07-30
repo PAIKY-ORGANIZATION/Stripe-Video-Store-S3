@@ -7,7 +7,6 @@ export default async function MainPage() {
 
     const session = await getServerSession()
 
-    console.log({session});
     
 
     const videoArray: PrismaVideo[] = await loadVideosShow()
