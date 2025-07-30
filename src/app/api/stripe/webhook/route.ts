@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 
