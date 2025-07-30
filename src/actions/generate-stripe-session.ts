@@ -3,14 +3,16 @@
 import { prisma } from '@/lib/prisma';
 import { stripe } from '@/lib/stripe';
 import {getServerSession} from 'next-auth'
-
+import { redirect } from 'next/navigation';
+import {Session} from 'next-auth'
 
 export const generateStripeSession = async (videoId: string): Promise<ActionResponse> => {
 
-    const userSession = await getServerSession() //* Getting the user session with nextauth.
+    const userSession: Session | null = await getServerSession() //* Getting the user session with nextauth.
 
     if(!userSession){ //$ As far as I understand we can trust that if there is a session is because they owe auth and JWT verification was successful
-        return {message: 'You are not logged in', success: false}
+        // return {message: 'You are not logged in', success: false}
+        redirect('/api/auth/signin')
     }
 
     try{
