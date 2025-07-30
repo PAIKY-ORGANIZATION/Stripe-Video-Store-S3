@@ -3,7 +3,7 @@ import NextAuth, { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 
 
-const CLIENT_ID_GOOGLE = process.env.CLIENT_ID_GOOGLE
+const CLIENT_ID_GOOGLE = process.env.CLIENT_ID_GOOGLE!
 const CLIENT_SECRET_GOOGLE = process.env.CLIENT_SECRET_GOOGLE
 
 
@@ -13,6 +13,11 @@ const authOption: NextAuthOptions = {
         strategy:  'jwt',
         maxAge: 30 * 24 * 60 * 60, // 30 days
     },
+
+    //¡ If you're wondering, the redirect uri will be hardcoded from next JS and it has to be:
+    // http://localhost:3000/api/auth/callback/google
+    // !When you set it up in the Google app.
+    //! The redirect uri is where all the callbacks will run after successful authentication.
     providers: [
         GoogleProvider({
             clientId: CLIENT_ID_GOOGLE!,
