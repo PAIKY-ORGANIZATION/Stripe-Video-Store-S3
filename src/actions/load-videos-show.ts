@@ -16,9 +16,14 @@ export const loadVideosShow = async (): Promise<PrismaVideo[]>=>{
     
 
 
-    //% user.videos looks like this: [ { id: '1' }, { id: '2' }, { id: '3' } ]
-    const ownedVideosIdsArray: string[] = user.videos.map((video)=> video.id)
+    //% user.purchases looks like this: 
+    //% [ { video: {. . . . . id: string} }, { video: {. . . . . id: string} }, { video: {. . . . . id: string} } ]
+    const ownedVideosIdsArray: string[] = user.purchases.map((purchase)=> purchase.video.id)
     //% It ends like this: [ '1', '2', '3' ]
+
+    console.log({ownedVideosIdsArray});
+    
+
 
     //* The purpose of this is to return only videos that a logged-in user has NOT bought
     return allVideos.filter((videoObject)=>{

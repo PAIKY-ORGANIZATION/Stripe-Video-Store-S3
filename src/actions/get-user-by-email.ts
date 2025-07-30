@@ -22,9 +22,17 @@ export const getUserBySessionEmail = async ()=>{
     const user = await prisma.user.findUnique({
         where: {email},  
         include: {
-            videos: true //-*$?¡
+            purchases: {
+                select: {
+                    video: true
+                }
+            } //-*$?¡
         }
     })
+
+
+    console.dir({user}, {depth: null});
+    
 
     return user
 

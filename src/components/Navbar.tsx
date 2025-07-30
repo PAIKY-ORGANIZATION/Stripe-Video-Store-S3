@@ -14,6 +14,7 @@ export default function Navbar() {
             <div className="text-xl flex items-center gap-4  justify-around w-[40%] ">
                 <Link className="hover:cursor-pointer hover:underline" href={'/'}> Store</Link>
                 <Link className="hover:cursor-pointer hover:underline" href={'/library'}> Your library</Link>
+                <Link className="hover:cursor-pointer hover:underline" href={'/purchase-history'}> Purchase History</Link>
             </div>
 
             <div className="h-full flex items-center gap-4  justify-end">
