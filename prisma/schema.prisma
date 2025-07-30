@@ -34,9 +34,7 @@ model video {
   views              Int
   s3VideoKey         String
   thumbnailLocalPath String
-  youtubeUrl         String
   price              Int
-  currency           String
   purchases purchase[]
 
   @@map("videos")
@@ -47,8 +45,8 @@ model purchase { //$ This is a custom junction table. I can admit creating this 
   id String @id @default(uuid())
   userId String
   videoId String
-  user user @relation(fields: [userId], references: [id])
-  video video @relation(fields: [videoId], references: [id])
+  user user @relation(fields: [userId], references: [id], onDelete: Cascade)
+  video video @relation(fields: [videoId], references: [id], onDelete: Cascade)
   paymentIntentId String
 
   createdAt DateTime @default(now())

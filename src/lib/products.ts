@@ -8,9 +8,7 @@ export const videos: VideoProduct[] = [
         s3VideoKey: 'medieval.mp4',
         thumbnailLocalPath: '/thumbnails/medieval_thumbnail.jpeg',
         // s3PreviewKey: ,
-        youtubeUrl: 'https://www.youtube.com/watch?v=ML4z_fpJYZA&t=4s',
         price: 20,
-        currency: 'usd'
     },
     {
         author: 'SpeedSilver',
@@ -21,9 +19,7 @@ export const videos: VideoProduct[] = [
         s3VideoKey: 'zombies.mp4',
         thumbnailLocalPath:'/thumbnails/zombies_thumbnail.jpeg',
         // s3PreviewKey: ,
-        youtubeUrl: 'https://www.youtube.com/watch?v=4Uhqaf5ERfs&t=3s',
         price: 15,
-        currency: 'usd'
     },
     {
         author: 'ish',
@@ -34,8 +30,6 @@ export const videos: VideoProduct[] = [
         s3VideoKey: 'prison.mp4',
         thumbnailLocalPath: '/thumbnails/prison_thumbnail.jpeg',
         // s3PreviewKey: ,
-        youtubeUrl: 'https://www.youtube.com/watch?v=t0rxOfr77YQ',
         price: 25,
-        currency: 'usd'
     }
 ]

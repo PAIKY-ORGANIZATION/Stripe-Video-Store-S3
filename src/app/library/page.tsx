@@ -12,7 +12,9 @@ export default async function library() {
 
     if(!session){ redirect('/api/auth/signin')}
 
-    const userVideos = await getUserVideos()
+    const userPurchases = await getUserVideos()
+
+    const userVideos = userPurchases
 
     return (
         <Library userVideos={userVideos} />

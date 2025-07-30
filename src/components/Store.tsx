@@ -50,7 +50,7 @@ export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
                                     className="flex items-center justify-center rounded-lg bg-green-600 text-white p-2 mt-4 hover:bg-green-700 self-center w-[20%] text-center hover:cursor-pointer"
                                     onClick={()=>{handleBuy(video.id)}}
                                 >
-                                    <p>Buy for {video.price}{video.currency === 'usd' ? '$' : video.currency}</p> 
+                                    <p>Buy for {video.price}$</p> 
                                 </button>
                             </div>
                         </div>

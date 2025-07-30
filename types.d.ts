@@ -7,8 +7,6 @@ type VideoProduct = {
     likes: number,
     views: number,
     price: number,
-    currency: string,
-    youtubeUrl: string,
 }
 
 

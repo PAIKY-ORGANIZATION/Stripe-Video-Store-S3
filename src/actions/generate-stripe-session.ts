@@ -26,7 +26,7 @@ export const generateStripeSession = async (videoId: string): Promise<ActionResp
                             name: video.title,
                             description: video.description,
                         },
-                        currency: video?.currency,
+                        currency: 'usd',
                         unit_amount: video.price * 100,
                     },
                     quantity: 1,

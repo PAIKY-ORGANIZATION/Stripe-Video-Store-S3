@@ -23,17 +23,15 @@ export const getUserBySessionEmail = async ()=>{
         where: {email},  
         include: {
             purchases: {
-                select: {
+                include: {
                     video: true
                 }
-            } //-*$?¡
+            }
         }
     })
 
-
-    console.dir({user}, {depth: null});
+    // console.dir({user}, {depth: null});
     
-
     return user
 
 }
