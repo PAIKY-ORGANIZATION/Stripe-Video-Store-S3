@@ -37,9 +37,7 @@ export const authOptions: NextAuthOptions = {
 
 
 
-            if(!profile?.email){ throw new Error('Email is required')
-
-            }
+            if(!profile?.email){ throw new Error('Email is required')}
             await prisma.user.upsert({
                 where: {email: profile.email},
                 create: {
@@ -56,6 +54,7 @@ export const authOptions: NextAuthOptions = {
 
 
         //$ Here we can manipulate the JWT. 
+        //$ This is like our Express authentication middleware that will run on every request passing the user ID to the following request handlers
         async jwt ({token, account, user, session, profile,  }) { //- This is saved in the user's browser.
             //$ This function is called:
                 //$  1- Once including the "account" object (when signing in)
@@ -70,27 +69,27 @@ export const authOptions: NextAuthOptions = {
             //     exp: ...
             // }
 
-            if(account){
-                token.accessToken = account.access_token //$ you can access this token later if you want to call the Google API.
+            if(account && user.email){
+                token.id = user?.id!                
             }
 
 
             return token
         },
 
-        //! We could just not include this callback but you can modify the session.
-        async session({session, token}){ //$ The returned "Session" will always be passed to "useSession()" and "getSession()"
+        //! We could just not include this callback.
+        // async session({session, token}){ //$ The returned "Session" will always be passed to "useSession()" and "getSession()"
 
-            //* Session looks like this by default:
-            // {
-            //     user: {
-            //         name: "Jane Doe",
-            //         email: "jane@example.com",
-            //         image: "https://...",
-            //     },
-            //     expires: string
-            // }
-            return session
-        }
+        //     //* Session looks like this by default:
+        //     // {
+        //     //     user: {
+        //     //         name: "Jane Doe",
+        //     //         email: "jane@example.com",
+        //     //         image: "https://...",
+        //     //     },
+        //     //     expires: string
+        //     // }
+        //     return session
+        // }
     }
 }

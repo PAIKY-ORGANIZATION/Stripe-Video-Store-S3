@@ -20,11 +20,6 @@ export default async function RootLayout({children,}: { children: React.ReactNod
 
     const session = await getServerSession(authOptions)
 
-
-    console.log({session});
-    
-
-
 	return (
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
