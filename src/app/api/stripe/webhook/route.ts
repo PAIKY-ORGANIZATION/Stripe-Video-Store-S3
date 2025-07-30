@@ -8,12 +8,8 @@ const signingSecret = process.env.STRIPE_SIGNING_SECRET!
 
 export const POST = async (req: NextRequest) => {
 
-    //* Getting the user session with nextauth.
-    const session = await getServerSession() //$ As far as I understand we can trust that if there is a session is because they owe auth and JWT verification was successful.
+    
 
-    if(!session?.user?.email){
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
 
 
     const bodyBinary = await req.text() //? Might need extra configuration to receive in binary form
