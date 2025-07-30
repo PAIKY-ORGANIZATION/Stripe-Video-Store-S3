@@ -1,10 +1,21 @@
+import { prisma } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 
 const signingSecret = process.env.STRIPE_SIGNING_SECRET!
 
 export const POST = async (req: NextRequest) => {
+
+    //* Getting the user session with nextauth.
+    const session = await getServerSession() //$ As far as I understand we can trust that if there is a session is because they owe auth and JWT verification was successful.
+
+    if(!session?.user?.email){
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+
     const bodyBinary = await req.text() //? Might need extra configuration to receive in binary form
 
 
@@ -23,7 +34,20 @@ export const POST = async (req: NextRequest) => {
 
     switch(event.type){
         case "checkout.session.completed":
-            const data = event.data.object:;
+            const data = event.data.object;
+
+            const {id, metadata} = data
+
+            await prisma.user.update({
+                where: {email: session?.user?.email},
+                data: {
+                    videos: {
+                        connect: {id: metadata?.videoId!}
+                    }
+                }
+            })
+
+
     }
 
     

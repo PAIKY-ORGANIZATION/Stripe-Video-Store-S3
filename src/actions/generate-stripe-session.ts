@@ -29,7 +29,12 @@ export const generateStripeSession = async (videoId: string): Promise<ActionResp
                 success_url: 'http://localhost:3000/success/' + videoId,
                 cancel_url: 'http://localhost:3000',
                 mode: 'payment',
-                billing_address_collection: 'required'
+                billing_address_collection: 'required',
+                payment_intent_data: {
+                    metadata: { //* Code this is so that I cannot the relationship of the user with the product after success purchase webhook.
+                        videoId
+                    }
+                }
             });
         
         
