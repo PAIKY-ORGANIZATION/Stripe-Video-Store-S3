@@ -8,16 +8,9 @@ const signingSecret = process.env.STRIPE_SIGNING_SECRET!
 
 export const POST = async (req: NextRequest) => {
 
-    
-
-
-
     const bodyBinary = await req.text() //? Might need extra configuration to receive in binary form
 
-
     const binaryHeader = req.headers.get('stripe-signature')!
-
-
     let event
 
     try{

@@ -11,23 +11,15 @@ export default function  VideoShow({videoArray}: {videoArray: PrismaVideo[] }) {
 
     const handleBuy = async (videoId: string)=>{
     
-        console.log('TEST');
-        
-
         const createSessionResponse = await generateStripeSession(videoId)
 
-        console.log({createSessionResponse});
-       
         if(!createSessionResponse.success){
             toast.error(createSessionResponse.message)
             return
         }
 
-       
-
         window.location.href = createSessionResponse.data.sessionUrl as string
 
-    
         return
     }
 
@@ -45,9 +37,6 @@ export default function  VideoShow({videoArray}: {videoArray: PrismaVideo[] }) {
                                 <div className="space-y-2">
                                     <p className="text-xl font-semibold text-white">{video.title}</p>
                                     <p className="text-sm text-gray-300">
-                                        <span className="font-medium text-white">Price:</span> {video.price} {video.currency}
-                                    </p>
-                                    <p className="text-sm text-gray-300">
                                         <span className="font-medium text-white">Views:</span> {video.views}
                                     </p>
                                     <p className="text-sm text-gray-300">
@@ -58,10 +47,10 @@ export default function  VideoShow({videoArray}: {videoArray: PrismaVideo[] }) {
                                     </p>
                                 </div>
                                 <button
-                                    className="flex items-center justify-center rounded-lg bg-green-600 text-white p-2 mt-4 hover:bg-green-700 self-center w-[15%] text-center hover:cursor-pointer"
+                                    className="flex items-center justify-center rounded-lg bg-green-600 text-white p-2 mt-4 hover:bg-green-700 self-center w-[20%] text-center hover:cursor-pointer"
                                     onClick={()=>{handleBuy(video.id)}}
                                 >
-                                    <p>Buy</p> 
+                                    <p>Buy for {video.price}{video.currency === 'usd' ? '$' : video.currency}</p> 
                                 </button>
                             </div>
                         </div>
