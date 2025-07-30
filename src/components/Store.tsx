@@ -7,7 +7,7 @@ import type { video  as  PrismaVideo } from "@/generated/prisma/client"
 import { toast } from "react-hot-toast"
 
 
-export default function  VideoShow({videoArray}: {videoArray: PrismaVideo[] }) {
+export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
 
     const handleBuy = async (videoId: string)=>{
     

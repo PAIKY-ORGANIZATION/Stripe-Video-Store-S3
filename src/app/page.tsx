@@ -1,8 +1,8 @@
 import { loadVideosShow } from "@/actions/load-videos-show"
-import VideoShow from "@/components/VideoShow"
+import {Store} from "@/components/Store"
 import type { video  as  PrismaVideo } from "@/generated/prisma/client"
 
-export default async function MainPage() {
+export default async function StorePage() {
         
 
 
@@ -12,6 +12,6 @@ export default async function MainPage() {
     
 
     return (
-        <VideoShow videoArray={videoArray}></VideoShow>
+        <Store videoArray={videoArray}></Store>
     )
 }
