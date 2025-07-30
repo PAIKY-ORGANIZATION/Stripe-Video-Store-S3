@@ -45,12 +45,13 @@ const authOption: NextAuthOptions = {
                 update: {}
             })
 
+
             return true
         },
 
 
         //$ Here we can manipulate the JWT. 
-        async jwt ({token, account}) { //- This is saved in the user's browser.
+        async jwt ({token, account, user}) { //- This is saved in the user's browser.
             //$ This function is called:
                 //$  1- Once including the "account" object (when signing in)
                 //$  2- Any subsequent requests ("getSession()", "useSession()") with "account" being undefined

@@ -38,11 +38,15 @@ export const generateStripeSession = async (videoId: string): Promise<ActionResp
                 cancel_url: 'http://localhost:3000',
                 mode: 'payment',
                 billing_address_collection: 'required',
-                payment_intent_data: {
-                    metadata: { //* Code this is so that I cannot the relationship of the user with the product after success purchase webhook.
-                        videoId,
-                        userId: userSession.user?.email! //¡ Change to userId
-                    }
+                // payment_intent_data: {
+                //     metadata: { //* Code this is so that I cannot the relationship of the user with the product after success purchase webhook.
+                //         videoId,
+                //         email: userSession.user?.email! 
+                //     }
+                // }
+                metadata: {
+                    videoId, //*  This is so I can set the relationship of the user with the product after success purchase webhook.
+                    email: userSession.user?.email! //¡ Change to userId
                 }
             });
         
