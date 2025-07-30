@@ -22,7 +22,7 @@ model user {
   avatar            String?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
-  videos            video[]
+  purchases purchase[]
 }
 
 model video {
@@ -37,7 +37,23 @@ model video {
   youtubeUrl         String
   price              Int
   currency           String
-  users              user[]
+  purchases purchase[]
 
   @@map("videos")
+}
+
+
+model purchase { //$ This is a custom junction table. I can admit creating this but I want to save additional information such as the payment intent.
+  id String @id @default(uuid())
+  userId String
+  videoId String
+  user user @relation(fields: [userId], references: [id])
+  video video @relation(fields: [videoId], references: [id])
+  paymentIntent String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, videoId])
+  @@map("purchases")
 }

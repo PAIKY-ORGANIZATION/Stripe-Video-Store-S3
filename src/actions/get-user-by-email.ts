@@ -22,11 +22,7 @@ export const getUserBySessionEmail = async ()=>{
     const user = await prisma.user.findUnique({
         where: {email},  
         include: {
-            videos: {
-                select: {
-                    id: true
-                }
-            }
+            videos: true
         }
     })
 

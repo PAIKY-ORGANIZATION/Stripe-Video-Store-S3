@@ -23,12 +23,7 @@ export const POST = async (req: NextRequest) => {
     switch(event.type){
         case "checkout.session.completed":
             const data = event.data.object;
-
             const {id, metadata} = data //* Metadata gets added in the session at "payment_intent_data"
-
-            console.log({metadata});
-            
-
 
             await prisma.user.update({
                 where: {email: metadata?.email},
