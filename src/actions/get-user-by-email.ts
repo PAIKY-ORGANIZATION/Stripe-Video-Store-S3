@@ -10,7 +10,7 @@ import { getServerSession } from "next-auth"
 //$ This is just a little helper function.
 export const getUserBySessionEmail = async ()=>{
 
-    const session = await getServerSession()
+    const session = await getServerSession() //$ As far as I understand we can TRUST that if there is a session is because they owe auth and JWT verification was successful. If you were to modify the JWT cookie on your browser, this WILL FAIL. It works.
 
     
 
@@ -22,7 +22,7 @@ export const getUserBySessionEmail = async ()=>{
     const user = await prisma.user.findUnique({
         where: {email},  
         include: {
-            videos: true
+            videos: true //-*$?¡
         }
     })
 

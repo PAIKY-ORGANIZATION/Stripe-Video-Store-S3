@@ -2,18 +2,14 @@
 
 import { prisma } from '@/lib/prisma';
 import { stripe } from '@/lib/stripe';
-import {getServerSession} from 'next-auth'
 import { redirect } from 'next/navigation';
-import {Session} from 'next-auth'
+import { getUserBySessionEmail } from './get-user-by-email';
 
 export const generateStripeSession = async (videoId: string): Promise<ActionResponse> => {
 
-    const userSession: Session | null = await getServerSession() //* Getting the user session with nextauth.
-
-    if(!userSession){ //$ As far as I understand we can trust that if there is a session is because they owe auth and JWT verification was successful
-        // return {message: 'You are not logged in', success: false}
-        redirect('/api/auth/signin')
-    }
+    const user = await getUserBySessionEmail() //* Getting the user session with nextauth.
+    if(!user)   redirect('/api/auth/signin')
+    
 
     try{
         //* Getting video info from Prisma
@@ -42,8 +38,8 @@ export const generateStripeSession = async (videoId: string): Promise<ActionResp
             billing_address_collection: 'required',
             metadata: {
                 videoId, //*  This is so I can set the relationship of the user with the product after success purchase webhook.
-                email: userSession.user?.email! //¡ Change to userId
-            }
+                userId: user?.id! 
+            } as PurchaseMetadata
         });
     
         return  {message: 'Session created successfully', success: true, data: {sessionUrl: session.url}}

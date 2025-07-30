@@ -49,7 +49,7 @@ model purchase { //$ This is a custom junction table. I can admit creating this 
   videoId String
   user user @relation(fields: [userId], references: [id])
   video video @relation(fields: [videoId], references: [id])
-  paymentIntent String
+  paymentIntentId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

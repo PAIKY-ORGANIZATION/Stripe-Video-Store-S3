@@ -31,3 +31,10 @@ type ActionResponse = {
     message: string,
     data?: any
 }
+
+
+
+type PurchaseMetadata = {
+    videoId: string
+    userId: string
+}
