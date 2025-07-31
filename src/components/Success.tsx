@@ -1,30 +1,25 @@
 "use client"
 
-import type { video } from "@/generated/prisma"
+import Link from "next/link";
 
-export default function  Success({video}: {video: video}) {
+export default function Success({ relevantSessionData }: { relevantSessionData: RelevantSessionData }) {
+	return (
+		<div className="flex flex-col items-center w-full p-20">
+			<h1 className="mb-6 text-3xl font-bold text-green-500">Thank you for your purchase!</h1>
 
-    console.log(video);
-    
-
-    return (
-        <div className="flex flex-col items-center justify-center text-center px-4 w-full">
-			<div className="text-6xl mb-4">🎉</div>
-			<h1 className="text-3xl font-bold mb-2">Congratulations!</h1>
-			<p className="text-lg mb-6">
-				Thank you for purchasing: <strong> "{video.title}"</strong>.
-			</p>
-			<img src={video.thumbnailLocalPath}  className="object-contain rounded mb-6 shadow-md"/>
-
-			<div className="flex gap-4">
-				<a href={''} className="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded hover:bg-blue-700">
-					Download Your Item
-				</a>
-
-				<button className="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded hover:bg-blue-700">
-					Watch now
-				</button>
+			<div className="grid grid-cols-1 gap-6 ">
+				{relevantSessionData.videos.map((video) => (
+					<div key={video.videoId} className="flex flex-col items-center text-center">
+						<img
+							src={video.image}
+							alt={video.title}
+							className="object-cover h-auto mb-2 rounded shadow-md w-75"
+						/>
+						<p className="text-lg font-semibold">{video.title}</p>
+					</div>
+				))}
 			</div>
+			<Link href={'/library'} className="p-2 mt-4 text-white bg-blue-500 rounded hover:underline"> Go to your library</Link>
 		</div>
-    )
+	);
 }

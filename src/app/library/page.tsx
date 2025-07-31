@@ -16,6 +16,8 @@ export default async function library() {
 
     const userVideos = userPurchases
 
+    if(userVideos.length === 0){ return <p className="flex items-center justify-center w-full h-full text-3xl text-white">No videos found 😔</p>}
+
     return (
         <Library userVideos={userVideos} />
     )

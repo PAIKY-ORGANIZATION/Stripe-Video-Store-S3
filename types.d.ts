@@ -29,9 +29,23 @@ type PurchaseMetadata = {
 }
 
 
-//* For the cart in localstorage
+//* For the cart React Context
 type CartVideoObject = {
     videoId: string,
     videoTitle: string,
     videoPrice: number
 }
+
+type RelevantSessionData = {
+    date: string;
+    total: number;
+    videos: {
+        title: string;
+        image: string;
+        videoId: string;
+        videoPrice: number;
+    }[];
+}
+
+
+

@@ -41,6 +41,7 @@ export const _createStripeSessionObject = async (videos: video[], userId: string
     //* Setting line items
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = videos.map((video)=>{return {
         price_data: {
+            
             product_data: {
                 name: video.title,
                 description: video.description,

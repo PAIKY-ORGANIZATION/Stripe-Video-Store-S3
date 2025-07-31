@@ -1,3 +1,4 @@
+import { getRelevantSessionData } from "@/actions/get-relevant-session-data";
 import { prisma } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
 import { NextRequest, NextResponse } from "next/server";
@@ -28,23 +29,13 @@ export const POST = async (req: NextRequest) => {
             const checkoutSessionId = data.id
 
 
-            console.dir({data}, {depth: null});
-            
+            const relevantSessionData: RelevantSessionData = await getRelevantSessionData(checkoutSessionId) //$ The productId's are stored as metadata per each product
+                
+            for(const video of relevantSessionData.videos){
 
-
-
-            // const logTest = await prisma.purchase.create({
-            //     data: {
-            //         paymentIntentId,
-            //         checkoutSessionId,
-            //         videoId: metadata.videoId,
-            //         userId: metadata.userId
-            //     }
-            // })
-
-            // console.log({logTest});
-            
-
+            }
+ 
+            break;
 
     }
 
