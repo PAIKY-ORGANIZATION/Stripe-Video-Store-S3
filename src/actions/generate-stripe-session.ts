@@ -5,34 +5,47 @@ import { stripe } from '@/lib/stripe';
 import { redirect } from 'next/navigation';
 import { getUserBySessionEmail } from './get-user-by-email';
 
-export const generateStripeSession = async (videoId: string): Promise<ActionResponse> => {
+export const generateStripeSession = async (videoIdArray: string[]): Promise<ActionResponse> => {
 
     const user = await getUserBySessionEmail() //* Getting the user session with nextauth.
     if(!user)   redirect('/api/auth/signin')
     
 
-    try{
-        //* Getting video info from Prisma
-        const video = await prisma.video.findFirstOrThrow({
-            where: { id: videoId },
-        });
+    //* Getting video info from Prisma
+    const videos = await prisma.video.findMany({ where: {id: {in: videoIdArray }},});
     
+    if(videos.length !== videoIdArray.length) return {message: 'One or more videos were not found', success: false}
+
+    try{
         //* Creating Stripe session
         const session = await stripe.checkout.sessions.create({
-            line_items: [
-                {
-                    price_data: {
-                        product_data: {
-                            name: video.title,
-                            description: video.description,
-                        },
-                        currency: 'usd',
-                        unit_amount: video.price * 100,
+            // line_items: [
+            //     {
+            //         price_data: {
+            //             product_data: {
+            //                 name: video.title,
+            //                 description: video.description,
+            //             },
+            //             currency: 'usd',
+            //             unit_amount: video.price * 100,
+            //         },
+            //         quantity: 1,
+            //     },
+            // ],
+
+            line_items: videos.map((video)=>{return {
+                price_data: {
+                    product_data: {
+                        name: video.title,
+                        description: video.description,
+                        images:[ video.thumbnailLocalPath] //? Try to display these in success page
                     },
-                    quantity: 1,
+                    unit_amount: video.price * 100,
+                    currency: 'usd' 
                 },
-            ],
-            success_url: 'http://localhost:3000/success/' + videoId,
+                quantity: 1
+            }}),
+            success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
             cancel_url: 'http://localhost:3000',
             mode: 'payment',
             billing_address_collection: 'required',
