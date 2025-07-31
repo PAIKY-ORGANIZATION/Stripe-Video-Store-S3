@@ -3,15 +3,14 @@
 import { generateStripeSession } from "@/actions/generate-stripe-session"
 import type { video  as  PrismaVideo } from "@/generated/prisma/client"
 import { toast } from "react-hot-toast"
+import { useCartContext } from "./CartContext"
 
 
-type VideoObjectLocalStorage = {
-    videoId: string,
-    videoTitle: string,
-    videoPrice: number
-}
+
 
 export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
+
+    const {handleAddItem} = useCartContext()
 
     const handleBuy = async (videoId: string)=>{
     
@@ -29,20 +28,11 @@ export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
 
     const handleAddToCart = (videoId: string, videoPrice: number, videoTitle: string)=>{
 
-
-        //* Parsing the ids array.
-        const localStorageJSONold: VideoObjectLocalStorage[] = JSON.parse(localStorage.getItem('cart') || '[]') || [] 
-
-        //* If there is an object with the same video ID that's being added, don't add it
-        if(!localStorageJSONold.find((videoOject: VideoObjectLocalStorage)=> videoOject.videoId === videoId)){
-
-            const localStorageJSONnew = [...localStorageJSONold, {videoId, videoTitle, videoPrice}]
-
-            console.log({localStorageJSONnew});
-            
-
-            localStorage.setItem('cart', JSON.stringify(localStorageJSONnew)) //* Setting the local storage back to a stringified array
-        }
+        const cartItem: CartVideoObject = { videoId, videoPrice, videoTitle}
+        
+        const success = handleAddItem(cartItem)
+        
+        success ? toast.success('Item added to cart'): toast.error('Item already in cart')
 
 
     }

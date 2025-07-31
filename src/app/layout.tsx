@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import SessionProviderUseClient from '@/components/SessionProvider';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/authOptions';
+import CartContextProvider from '@/components/CartContext';
 const geistSans = Geist({
 	variable: '--font-geist-sans',
 	subsets: ['latin'],
@@ -25,14 +26,16 @@ export default async function RootLayout({children,}: { children: React.ReactNod
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				<Toaster></Toaster>
 				<SessionProviderUseClient session={session}>
-					<div className="h-[100vh] flex flex-col">
-						<div className="flex flex-[1]">
-							<Navbar></Navbar>
+					<CartContextProvider>
+						<div className="h-[100vh] flex flex-col">
+							<div className="flex flex-[1]">
+								<Navbar></Navbar>
+							</div>
+							<div className="flex flex-[14] overflow-y-scroll">
+								{children}
+							</div>
 						</div>
-						<div className="flex flex-[14] overflow-y-scroll">
-							{children}
-						</div>
-					</div>
+					</CartContextProvider>
 				</SessionProviderUseClient>
 			</body>
 		</html>

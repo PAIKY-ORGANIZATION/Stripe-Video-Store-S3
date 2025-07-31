@@ -27,3 +27,11 @@ type PurchaseMetadata = {
     videoId: string
     userId: string
 }
+
+
+//* For the cart in localstorage
+type CartVideoObject = {
+    videoId: string,
+    videoTitle: string,
+    videoPrice: number
+}
