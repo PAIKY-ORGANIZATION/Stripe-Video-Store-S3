@@ -19,19 +19,6 @@ export const generateStripeSession = async (videoIdArray: string[]): Promise<Act
     try{
         //* Creating Stripe session
         const session = await stripe.checkout.sessions.create({
-            // line_items: [
-            //     {
-            //         price_data: {
-            //             product_data: {
-            //                 name: video.title,
-            //                 description: video.description,
-            //             },
-            //             currency: 'usd',
-            //             unit_amount: video.price * 100,
-            //         },
-            //         quantity: 1,
-            //     },
-            // ],
 
             line_items: videos.map((video)=>{return {
                 price_data: {
@@ -41,7 +28,7 @@ export const generateStripeSession = async (videoIdArray: string[]): Promise<Act
                         images:[ video.thumbnailLocalPath] //? Try to display these in success page
                     },
                     unit_amount: video.price * 100,
-                    currency: 'usd' 
+                    currency: 'usd'
                 },
                 quantity: 1
             }}),
@@ -50,7 +37,7 @@ export const generateStripeSession = async (videoIdArray: string[]): Promise<Act
             mode: 'payment',
             billing_address_collection: 'required',
             metadata: {
-                videoId, //*  This is so I can set the relationship of the user with the product after success purchase webhook.
+                videoIds: videoIdArray.join(','), //*  This is so I can set the relationshipS of the user with the productS after success purchase webhook.
                 userId: user?.id! 
             } as PurchaseMetadata
         });
