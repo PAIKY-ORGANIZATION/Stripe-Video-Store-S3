@@ -1,0 +1,291 @@
+{
+	"workbench.tree.indent": 15,
+	"workbench.tree.renderIndentGuides": "always",
+	"workbench.colorCustomizations": {
+		"tree.indentGuidesStroke": "#ffffff",
+		"editor.background": "#141414"
+	},
+	"liveServer.settings.port": 5501,
+
+	"explorer.confirmDragAndDrop": false,
+	"editor.codeLens": true,
+	"editor.inlineSuggest.enabled": true,
+	"code-runner.executorMapByGlob": {
+		"pom.xml": "cd $dir && mvn clean package"
+	},
+	"code-runner.executorMap": {
+		"javascript": "node",
+		"java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
+		"c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+		"zig": "zig run",
+		"cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+		"objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+		"php": "php",
+		"python": "python -u",
+		"perl": "perl",
+		"perl6": "perl6",
+		"ruby": "ruby",
+		"go": "go run",
+		"lua": "lua",
+		"groovy": "groovy",
+		"powershell": "powershell -ExecutionPolicy ByPass -File",
+		"bat": "cmd /c",
+		"shellscript": "bash",
+		"fsharp": "fsi",
+		"csharp": "scriptcs",
+		"vbscript": "cscript //Nologo",
+		"typescript": "ts-node",
+		"coffeescript": "coffee",
+		"scala": "scala",
+		"swift": "swift",
+		"julia": "julia",
+		"crystal": "crystal",
+		"ocaml": "ocaml",
+		"r": "Rscript",
+		"applescript": "osascript",
+		"clojure": "lein exec",
+		"haxe": "haxe --cwd $dirWithoutTrailingSlash --run $fileNameWithoutExt",
+		"rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt",
+		"racket": "racket",
+		"scheme": "csi -script",
+		"ahk": "autohotkey",
+		"autoit": "autoit3",
+		"dart": "dart",
+		"pascal": "cd $dir && fpc $fileName && $dir$fileNameWithoutExt",
+		"d": "cd $dir && dmd $fileName && $dir$fileNameWithoutExt",
+		"haskell": "runghc",
+		"nim": "nim compile --verbosity:0 --hints:off --run",
+		"lisp": "sbcl --script",
+		"kit": "kitc --run",
+		"v": "v run",
+		"sass": "sass --style expanded",
+		"scss": "scss --style expanded",
+		"less": "cd $dir && lessc $fileName $fileNameWithoutExt.css",
+		"FortranFreeForm": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+		"fortran-modern": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+		"fortran_fixed-form": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+		"fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+		"sml": "cd $dir && sml $fileName",
+		"mojo": "mojo run",
+		"erlang": "escript",
+		"spwn": "spwn build",
+		"pkl": "cd $dir && pkl eval -f yaml $fileName -o $fileNameWithoutExt.yaml",
+		"gleam": "gleam run -m $fileNameWithoutExt"
+	},
+	"code-runner.showExecutionMessage": false,
+	"code-runner.clearPreviousOutput": true,
+	"code-runner.saveFileBeforeRun": true,
+	"code-runner.runInTerminal": true,
+	"tabnine.experimentalAutoImports": true,
+	"solidity.telemetry": true,
+	"debug.disassemblyView.showSourceCode": false,
+	"editor.smoothScrolling": true,
+	"editor.wordWrap": "on",
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"better-comments.highlightPlainText": true,
+
+	"diffEditor.renderSideBySide": true,
+	"diffEditor.useInlineViewWhenSpaceIsLimited": false,
+	"liveServer.settings.donotVerifyTags": true,
+	"diffEditor.ignoreTrimWhitespace": true,
+	"workbench.settings.applyToAllProfiles": ["typescript.validate.enable"],
+	"typescript.tsserver.log": "off",
+	"git.autofetch": true,
+	"prettier.tabWidth": 6,
+	"prettier.useTabs": true,
+	"[handlebars]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"better-comments.tags": [
+		{
+			"tag": "!",
+			"color": "#FF2D00",
+			"strikethrough": false,
+			"underline": false,
+			"bold": false,
+			"italic": false
+		},
+		{
+			"tag": "¡",
+			"color": "#FFFFFF",
+			"strikethrough": false,
+			"underline": false,
+			"backgroundColor": "#FF2D00",
+			"bold": false,
+			"italic": false
+		},
+		{
+			"tag": "?",
+			"color": "#FFFFFF",
+			"backgroundColor": "#0077FF",
+			"strikethrough": false,
+			"underline": false,
+			"bold": false,
+			"italic": false
+		},
+		{
+			"tag": "%",
+			"color": "#32CD32",
+			"strikethrough": false,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		},
+		{
+			"tag": "//",
+			"color": "#474747",
+			"strikethrough": true,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		},
+		{
+			"tag": "todo",
+			"color": "#FF8C00",
+			"strikethrough": false,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		},
+		{
+			"tag": "*",
+			"color": "#FFA500",
+			"strikethrough": false,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		},
+
+		{
+			"tag": "$",
+			"color": "#FF00FF",
+			"strikethrough": false,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		},
+		{
+			"tag": "/",
+			"color": "#FFFFFF",
+			"strikethrough": false,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		},
+		{
+			"tag": "-",
+			"color": "#FFFFFF",
+			"backgroundColor": "#008001",
+			"strikethrough": false,
+			"underline": false,
+			"bold": false,
+			"italic": false
+		}
+	],
+	"codeium.enableConfig": {
+		"*": true,
+		"plaintext": true,
+		"ignore": true,
+		"prisma": true,
+		"markdown": true,
+		"properties": true,
+		"nginx": true
+	},
+	"codeium.enableCodeLens": false,
+	"files.autoSave": "afterDelay",
+	"terminal.integrated.allowedLinkSchemes": [
+		"file",
+		"http",
+		"https",
+		"mailto",
+		"vscode",
+		"vscode-insiders",
+		"docker-desktop"
+	],
+	"prettier.singleQuote": true,
+	"[prisma]": {
+		"editor.defaultFormatter": "Prisma.prisma"
+	},
+	"json.schemas": [
+
+	],
+	"explorer.compactFolders": false,
+	"[snippets]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	},
+	"git.enableSmartCommit": true,
+	"terminal.integrated.env.windows": {},
+	"markdown-preview-enhanced.previewTheme": "atom-dark.css",
+	"cSpell.userWords": [
+		"appleboy",
+		"authtest",
+		"Brevo",
+		"build",
+		"chalog",
+		"dotenv",
+		"formater",
+		"getbrevo",
+		"getuserinfo",
+		"paiky",
+		"paikynet",
+		"sessionmaker",
+		"Transac"
+	],
+	"errorLens.enabled": true,
+	"errorLens.excludeBySource": [
+	"cSpell" // or whichever extension handles spelling
+	],
+	"workbench.colorTheme": "Default Dark+",
+	"terminal.integrated.suggest.enabled": true,
+	"files.exclude": {
+		"**/.git": false
+	},
+	"remote.autoForwardPortsSource": "hybrid",
+	"database-client.autoSync": true,
+	"[nginx]": {
+		"editor.defaultFormatter": "ahmadalli.vscode-nginx-conf"
+	},
+	"[solidity]": {
+		"editor.defaultFormatter": "NomicFoundation.hardhat-solidity"
+	},
+	
+	"pylint.enabled": true,
+	"pylint.args": [
+        "--disable=C0114", // missing-module-docstring
+        "--disable=C0303",  // Unwanted trailing whitespace
+        "--disable=C0305", // Extra blank lines
+        "--disable=C0304", // Final newline missing
+        "--disable=C0301", // Line too long
+		"--disable=C0116", // Missing function or method docstring
+		"--disable=W0719", // Too broad exception
+		"--disable=C0325", // Unnecessary parentheses after elif
+		
+
+    ],
+
+
+
+	"python.analysis.typeCheckingMode": "strict",
+	"editor.indentSize": "tabSize",
+	"editor.minimap.enabled": false,
+	"remote.SSH.remotePlatform": {
+		"aws_paid_small": "linux"
+	},
+
+	
+	
+	// "errorLens.enabledDiagnosticLevels": [
+	// "error",
+	// "warning",
+	// "information"
+	// ],
+	// "errorLens.warningBackground": "#00000000", // transparent background
+	// "errorLens.infoBackground": "#00000000",    // transparent background
+	// "errorLens.messageTemplate": "${message}"   // optional: hide prefix
+}

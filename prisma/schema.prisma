@@ -56,3 +56,11 @@ model purchase {
     @@unique([userId, videoId]) //$ We can allow repeated it's but not repeated pairs! DON'T DO "userId String @unique"
     @@map("purchases")
 }
+
+
+//$ Storing event id's to prevent idempotency
+model ProcessedStripeEvents { 
+    id String @id //$ This will be the  event ID
+    eventType String
+    createdAt DateTime @default(now())
+}
