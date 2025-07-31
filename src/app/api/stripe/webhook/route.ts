@@ -21,24 +21,28 @@ export const POST = async (req: NextRequest) => {
 
 
     switch(event.type){
-        case "checkout.session.completedAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA":
+        case "checkout.session.completed":
             const data = event.data.object;
             const metadata = data.metadata as PurchaseMetadata //$ Assuming this was added when creating the Stripe session.
             const paymentIntentId = data.payment_intent as string //! CRITICAL TO STORE THIS
             const checkoutSessionId = data.id
 
 
+            console.dir({data}, {depth: null});
+            
 
-            const logTest = await prisma.purchase.create({
-                data: {
-                    paymentIntentId,
-                    checkoutSessionId,
-                    videoId: metadata.videoId,
-                    userId: metadata.userId
-                }
-            })
 
-            console.log({logTest});
+
+            // const logTest = await prisma.purchase.create({
+            //     data: {
+            //         paymentIntentId,
+            //         checkoutSessionId,
+            //         videoId: metadata.videoId,
+            //         userId: metadata.userId
+            //     }
+            // })
+
+            // console.log({logTest});
             
 
 

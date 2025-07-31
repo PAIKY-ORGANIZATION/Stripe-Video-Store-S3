@@ -1,16 +1,31 @@
 'use client';
 
+import { generateStripeSession } from '@/actions/generate-stripe-session';
 import { useCartContext } from '@/components/CartContext';
+import toast from 'react-hot-toast';
 
 //prettier-ignore
 export default function  MyCart() {
 
     const {cart, handleRemoveItem} = useCartContext()
 
-    
     let total = 0
 
     cart.forEach((video)=> total += video.videoPrice)
+
+    const handleCheckout = async ()=>{
+        console.log('Test');
+        
+        const itemIds = cart.map((cartItem)=>cartItem.videoId)
+
+        const response: ActionResponse = await generateStripeSession(itemIds)
+
+        if(!response.success){toast.error(response.message); return}
+        
+        window.location.href = response.data.sessionUrl
+    
+        return
+    }
 
     return (
         <div className="h-full p-6 flex flex-col w-full px-40 bg-[#171615]">
@@ -42,7 +57,10 @@ export default function  MyCart() {
                 </p>
             </div>
             
-            <button className='self-center px-4 py-2 mt-4 font-bold text-white bg-green-600 rounded w-70 hover:bg-green-700 hover:cursor-pointer'>
+            <button 
+                className='self-center px-4 py-2 mt-4 font-bold text-white bg-green-600 rounded w-70 hover:bg-green-700 hover:cursor-pointer'
+                onClick={handleCheckout}    
+            >
                  Proceed to Checkout
             </button>
         </div>

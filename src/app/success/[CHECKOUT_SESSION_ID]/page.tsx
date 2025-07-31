@@ -14,12 +14,18 @@ export default async function SuccessPage({ params }: Props) {
     // })
     
 
-    if(!video){
-        return <p> Something went wrong creating the success page :(</p>
-    }
+    console.log({CHECKOUT_SESSION_ID});
+    
+
+
+
+    // if(!video){
+    //     return <p> Something went wrong creating the success page :(</p>
+    // }
 
 
 	return (
-		<Success video={video}></Success>
+		// <Success video={video}></Success>
+        <>test</>
 	);
 }
