@@ -14,7 +14,7 @@ export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
 
     const handleBuy = async (videoId: string)=>{
     
-        const createSessionResponse = await generateStripeSession(videoId)
+        const createSessionResponse = await generateStripeSession([videoId]) //$ This func. only accepts an array
 
         if(!createSessionResponse.success){
             toast.error(createSessionResponse.message)
@@ -39,7 +39,7 @@ export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
 
     return (
         <div className="h-full bg-[#171615] w-full p-10">
-            <div className="w-full h-full gap-4 flex flex-col">
+            <div className="flex flex-col w-full h-full gap-4">
                 {videoArray.map((video, index)=>{
                     return (
                         <div className="w-full flex rounded-xl  bg-[#1f1e1d]" key={index}>
@@ -59,7 +59,7 @@ export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
                                         <span className="font-medium text-white">Author:</span> {video.author}
                                     </p>
                                 </div>
-                                <div className="flex gap-4 justify-around">
+                                <div className="flex justify-around gap-4">
 
                                     <button
                                         className="flex items-center justify-center rounded-lg bg-green-600 text-white p-2 mt-4 hover:bg-green-700 self-center w-[20%] text-center hover:cursor-pointer"

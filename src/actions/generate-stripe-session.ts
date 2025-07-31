@@ -44,7 +44,7 @@ export const _createStripeSessionObject = async (videos: video[], userId: string
             product_data: {
                 name: video.title,
                 description: video.description,
-                images:[ video.thumbnailLocalPath], //? Try to display these in success page
+                images:[ process.env.APP_HOST + video.thumbnailLocalPath], //? Try to display these in success page
                 metadata: {
                     videoId: video.id
                 }
@@ -58,8 +58,8 @@ export const _createStripeSessionObject = async (videos: video[], userId: string
     const session = await stripe.checkout.sessions.create({
 
         line_items: line_items,
-        success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
-        cancel_url: 'http://localhost:3000',
+        success_url: process.env.APP_HOST+ '/success?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url: process.env.APP_HOST,
         mode: 'payment',
         billing_address_collection: 'required',
         metadata: {

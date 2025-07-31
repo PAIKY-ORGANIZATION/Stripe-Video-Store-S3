@@ -22,7 +22,8 @@ const setENV = ()=>{
         "STRIPE_SECRET_KEY",
         "CLIENT_SECRET_GOOGLE",
         "CLIENT_ID_GOOGLE",
-        "STRIPE_SIGNING_SECRET"
+        "STRIPE_SIGNING_SECRET",
+        "APP_HOST"
     ];
 
     requiredVars.forEach((varName)=>{
