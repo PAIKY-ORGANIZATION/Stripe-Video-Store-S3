@@ -1,5 +1,5 @@
+import { getRelevantSessionData } from "@/actions/get-relevant-session-data"
 import { getUserBySessionEmail } from "@/actions/get-user-by-email"
-import { getRelevantSessionData } from "@/actions/get-user-purchase-history"
 import { prisma } from "@/lib/prisma"
 
 export default async function PurchaseHistory() {
