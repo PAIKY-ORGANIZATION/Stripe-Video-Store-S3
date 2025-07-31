@@ -8,6 +8,9 @@ export default function  Library({userVideos}: {userVideos: PrismaVideo[] }) {
                 {userVideos.map((video, index)=>{
                     return (
                         <div className="w-full flex rounded-xl  bg-[#1f1e1d]" key={index}>
+
+                            
+                            {/* //* Video thumbnail and details */}
                             <div className="flex flex-[3]">
                                 <img src={video.thumbnailLocalPath} className="object-cover rounded-xl"></img>
                             </div>
@@ -24,6 +27,9 @@ export default function  Library({userVideos}: {userVideos: PrismaVideo[] }) {
                                         <span className="font-medium text-white">Author:</span> {video.author}
                                     </p>
                                 </div>
+
+                                {/* //* Download and Watch buttons */}
+
                                 <div className="flex justify-around gap-4">
                                     <button
                                         className="flex items-center justify-center rounded-lg bg-green-600 text-white p-2 mt-4 hover:bg-green-700 self-center w-[20%] text-center hover:cursor-pointer"

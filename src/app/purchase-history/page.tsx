@@ -14,7 +14,7 @@ export default async function PurchaseHistoryComponent() {
     const purchases = await prisma.purchase.groupBy({
         by: ["checkoutSessionId"]
     })
-    //% purchases will look like "[ { checkoutSessionId: '1' }, { checkoutSessionId: '2' }, { checkoutSessionId: '3' } ]"
+    //% purchases will look like "[ { checkoutSessionId: '1' }, { checkoutSessionId: '2' } ]"
 
 
     const purchaseHistoryArray = await Promise.all(purchases.map((purchase)=>getRelevantSessionData(purchase.checkoutSessionId)))
