@@ -15,11 +15,13 @@ export const getRelevantSessionData = async (checkoutSessionId: string): Promise
 		}
 	); //% Another way might be to get the video purchased from db.
 
+	console.log(session.created);
+	
 
-	//?  Return that session and items. Show a list of all purchases and include a button to see details.
 	const relevantSessionData = {
-		date: new Date(session.created).toISOString(),
+		date: new Date(session.created * 1000).toISOString().slice(0, 10),
 		total: session.amount_total as number,
+		checkoutSessionId: checkoutSessionId,
 		videos: items.data.map((item) => {
 			const product = item.price?.product as Stripe.Product; //! I don't know if the type of this could change.
 			return {

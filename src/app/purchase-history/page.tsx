@@ -1,8 +1,9 @@
 import { getRelevantSessionData } from "@/actions/get-relevant-session-data"
 import { getUserBySessionEmail } from "@/actions/get-user-by-email"
+import PurchaseHistory from "@/components/PurchaseHistory"
 import { prisma } from "@/lib/prisma"
 
-export default async function PurchaseHistory() {
+export default async function PurchaseHistoryComponent() {
     
     const user = await getUserBySessionEmail()
 
@@ -19,6 +20,6 @@ export default async function PurchaseHistory() {
     const purchaseHistoryArray = await Promise.all(purchases.map((purchase)=>getRelevantSessionData(purchase.checkoutSessionId)))
 
     return (
-        <div>PurchaseHistory</div>
+        <PurchaseHistory relevantSessionDataArray={purchaseHistoryArray} ></PurchaseHistory>
     )
 }

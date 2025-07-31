@@ -39,6 +39,7 @@ type CartVideoObject = {
 type RelevantSessionData = {
     date: string;
     total: number;
+    checkoutSessionId: string;
     videos: {
         title: string;
         image: string;
