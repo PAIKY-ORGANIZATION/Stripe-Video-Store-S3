@@ -1,8 +1,13 @@
-import { getUserPurchaseHistory } from "@/actions/get-user-purchase-history"
+import { getUserBySessionEmail } from "@/actions/get-user-by-email"
+import { getRelevantSessionData } from "@/actions/get-user-purchase-history"
 
 export default async function PurchaseHistory() {
     
-    const purchaseHistory = await getUserPurchaseHistory()
+    const user = await getUserBySessionEmail()
+
+    if(!user?.purchases) return []
+
+    const purchaseHistory = await getRelevantSessionData()
 
     return (
         <div>PurchaseHistory</div>

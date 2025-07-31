@@ -21,7 +21,7 @@ export const POST = async (req: NextRequest) => {
 
 
     switch(event.type){
-        case "checkout.session.completed":
+        case "checkout.session.completedAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA":
             const data = event.data.object;
             const metadata = data.metadata as PurchaseMetadata //$ Assuming this was added when creating the Stripe session.
             const paymentIntentId = data.payment_intent as string //! CRITICAL TO STORE THIS
