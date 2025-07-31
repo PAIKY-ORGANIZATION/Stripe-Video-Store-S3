@@ -37,12 +37,13 @@ export default function  Library({userVideos}: {userVideos: PrismaVideo[] }) {
                                     >
                                         <p>Watch</p> 
                                     </button>
-                                    <button 
+                                    <a 
                                         className="flex items-center justify-center rounded-lg bg-red-600 text-white p-2 mt-4   hover:bg-red-700 self-center w-[20%] text-center hover:cursor-pointer"
-                                        onClick={()=>{console.log('test2');}}
+                                        download={video.title}
+                                        href={'/api/download/' + video.id}
                                     > 
                                         Download
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
