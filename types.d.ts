@@ -15,15 +15,6 @@ type VideoProduct = {
 
 
 
-type Merch = {
-    title: string,
-    description: string,
-    price: number,
-    currency: string,
-    image: string
-}
-
-
 type ActionResponse = {
     success: boolean,
     message: string,

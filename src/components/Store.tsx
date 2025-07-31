@@ -1,11 +1,15 @@
 "use client"
 
 import { generateStripeSession } from "@/actions/generate-stripe-session"
-
 import type { video  as  PrismaVideo } from "@/generated/prisma/client"
-
 import { toast } from "react-hot-toast"
 
+
+type VideoObjectLocalStorage = {
+    videoId: string,
+    videoTitle: string,
+    videoPrice: number
+}
 
 export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
 
@@ -23,6 +27,25 @@ export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
         return
     }
 
+    const handleAddToCart = (videoId: string, videoPrice: number, videoTitle: string)=>{
+
+
+        //* Parsing the ids array.
+        const localStorageJSONold: VideoObjectLocalStorage[] = JSON.parse(localStorage.getItem('cart') || '[]') || [] 
+
+        //* If there is an object with the same video ID that's being added, don't add it
+        if(!localStorageJSONold.find((videoOject: VideoObjectLocalStorage)=> videoOject.videoId === videoId)){
+
+            const localStorageJSONnew = [...localStorageJSONold, {videoId, videoTitle, videoPrice}]
+
+            console.log({localStorageJSONnew});
+            
+
+            localStorage.setItem('cart', JSON.stringify(localStorageJSONnew)) //* Setting the local storage back to a stringified array
+        }
+
+
+    }
 
     return (
         <div className="h-full bg-[#171615] w-full p-10">
@@ -46,12 +69,22 @@ export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
                                         <span className="font-medium text-white">Author:</span> {video.author}
                                     </p>
                                 </div>
-                                <button
-                                    className="flex items-center justify-center rounded-lg bg-green-600 text-white p-2 mt-4 hover:bg-green-700 self-center w-[20%] text-center hover:cursor-pointer"
-                                    onClick={()=>{handleBuy(video.id)}}
-                                >
-                                    <p>Buy for {video.price}$</p> 
-                                </button>
+                                <div className="flex gap-4 justify-around">
+
+                                    <button
+                                        className="flex items-center justify-center rounded-lg bg-green-600 text-white p-2 mt-4 hover:bg-green-700 self-center w-[20%] text-center hover:cursor-pointer"
+                                        onClick={()=>{handleBuy(video.id)}}
+                                    >
+                                        Buy for {video.price}$ 
+                                    </button>
+                                    <button
+                                        className="flex items-center justify-center rounded-lg bg-blue-500 text-white p-2 mt-4 hover:bg-blue-700 self-center w-[20%] text-center hover:cursor-pointer"
+                                        onClick={()=>{handleAddToCart(video.id, video.price, video.title)}}
+                                    >
+                                        Add to cart
+                                    </button>
+                                    
+                                </div>
                             </div>
                         </div>
                     )

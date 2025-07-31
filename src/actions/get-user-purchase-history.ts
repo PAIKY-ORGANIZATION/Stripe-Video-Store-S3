@@ -7,21 +7,21 @@ export const getUserPurchaseHistory = async ()=>{
 
     if(!user?.purchases) return []
 
+    const purchaseHistoryArray = []
 
     for(const purchase of user.purchases){
 
-        console.log(purchase.paymentIntentId);
-        
 
-        const sessions = await stripe.checkout.sessions.list({
-            payment_intent: purchase.paymentIntentId,
-            limit: 1 // It avoids retrieving unnecessary data in case multiple sessions SOMEHOW match the same payment_intent.
+        const session = await stripe.checkout.sessions.retrieve(purchase.checkoutSessionId)
+        const items = await stripe.checkout.sessions.listLineItems(purchase.checkoutSessionId) //% Another way might be to get the video purchased from db. 
+
+        //?  Return that session and items. show a list of all purchases and include a button to see details
+        purchaseHistoryArray.push({
+            sessionId: session.id,
+            date: new Date(session.created).toISOString(),
+            price: session.amount_total,
+            videoId: (session.metadata as PurchaseMetadata)
         })
-
-        const sessionData = sessions.data[0]
-
-        console.log({sessionData});
-        
 
     }
 

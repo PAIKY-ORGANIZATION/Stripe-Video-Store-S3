@@ -15,6 +15,7 @@ export default function Navbar() {
                 <Link className="hover:cursor-pointer hover:underline" href={'/'}> Store</Link>
                 <Link className="hover:cursor-pointer hover:underline" href={'/library'}> Your library</Link>
                 <Link className="hover:cursor-pointer hover:underline" href={'/purchase-history'}> Purchase History</Link>
+                <Link className="hover:cursor-pointer hover:underline" href={'/my-cart'}> Your cart</Link>
             </div>
 
             <div className="h-full flex items-center gap-4  justify-end">
