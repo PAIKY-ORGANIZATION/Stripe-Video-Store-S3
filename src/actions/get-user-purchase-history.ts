@@ -10,10 +10,18 @@ export const getUserPurchaseHistory = async ()=>{
 
     for(const purchase of user.purchases){
 
-        const purchaseData = await stripe.checkout.sessions.list({
+        console.log(purchase.paymentIntentId);
+        
+
+        const sessions = await stripe.checkout.sessions.list({
             payment_intent: purchase.paymentIntentId,
             limit: 1 // It avoids retrieving unnecessary data in case multiple sessions SOMEHOW match the same payment_intent.
         })
+
+        const sessionData = sessions.data[0]
+
+        console.log({sessionData});
+        
 
     }
 

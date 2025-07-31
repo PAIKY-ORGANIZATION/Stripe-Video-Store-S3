@@ -48,6 +48,7 @@ model purchase { //$ This is a custom junction table. I can admit creating this 
   user user @relation(fields: [userId], references: [id], onDelete: Cascade)
   video video @relation(fields: [videoId], references: [id], onDelete: Cascade)
   paymentIntentId String
+  checkoutSessionId String //$ For the Purchase History
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
