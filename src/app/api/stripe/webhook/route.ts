@@ -32,7 +32,14 @@ export const POST = async (req: NextRequest) => {
             const relevantSessionData: RelevantSessionData = await getRelevantSessionData(checkoutSessionId) //$ The productId's are stored as metadata per each product
                 
             for(const video of relevantSessionData.videos){
-
+                await prisma.purchase.create({
+                    data: {
+                        userId: metadata.userId,
+                        videoId: video.videoId,
+                        checkoutSessionId,
+                        paymentIntentId,
+                    }
+                })
             }
  
             break;
