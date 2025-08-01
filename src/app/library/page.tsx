@@ -1,5 +1,5 @@
 
-import { getUserVideos } from '@/actions/get-user-videos'
+import { getUserVideos } from '@/actions/users-and-videos/get-user-videos'
 import Library from '@/components/Library'
 
 

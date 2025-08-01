@@ -1,6 +1,6 @@
 'use client';
 
-import { generateStripeSession } from '@/actions/generate-stripe-session';
+import { generateStripeSession } from '@/actions/stripe/generate-stripe-session';
 import { useCartContext } from '@/components/CartContext';
 import toast from 'react-hot-toast';
 
