@@ -1,3 +1,4 @@
+import { sendEmail } from "@/actions/brevo/send-email";
 import { getRelevantSessionData } from "@/actions/stripe/get-relevant-session-data";
 import { prisma } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
@@ -54,6 +55,12 @@ export const POST = async (req: NextRequest) => {
                     }
                 })
             }
+
+            await sendEmail({
+                content: 'Thanks for your purchase! \n Your payment intent is:' + paymentIntentId, 
+                receiverEmail: data.customer_email!,
+                subject: "Thanks for your purchase!"
+            })
  
             break;
     }

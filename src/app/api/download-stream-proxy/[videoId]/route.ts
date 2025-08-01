@@ -10,8 +10,6 @@ import { NextRequest, NextResponse } from "next/server"
 //! Read the readme.md ⚠️
 
 
-
-
 export const GET = async (_req: NextRequest, {params}: {params: Promise<{videoId: string}>})=>{
     //* Checking Auth
     const user = await getUserBySessionEmail() //$ This will take care of authentication
