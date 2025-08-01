@@ -1,6 +1,4 @@
-import { sendEmail } from "@/actions/brevo/send-email";
-import { getRelevantSessionData } from "@/actions/stripe/get-relevant-session-data";
-import { prisma } from "@/lib/prisma";
+import { handleSuccessSessionWebhook } from "@/actions/stripe/handle-success-session-webhook";
 import { stripe } from "@/lib/stripe";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -24,48 +22,14 @@ export const POST = async (req: NextRequest) => {
 
     switch(event.type){
         case "checkout.session.completed":
-            //* Prevent idempotency by preventing a duplicated Event ID.
-            const existingEvent = await prisma.processedStripeEvents.findFirst({where:{id: event.id}})
-            if(existingEvent){return new Response('Received', {status: 200})}
+            return await handleSuccessSessionWebhook(event)
+            
+        default: {
 
-            //* Store event ID to handle idempotency:
-            await prisma.processedStripeEvents.create({
-                data: {
-                    id: event.id,
-                    eventType: event.type
-                }
-            })
-
-            //*  Store purchase/s to database
-            const data = event.data.object;
-            const metadata = data.metadata as PurchaseMetadata //$ Assuming this was added when creating the Stripe session.
-            const paymentIntentId = data.payment_intent as string
-            const checkoutSessionId = data.id
-
-
-            const relevantSessionData: RelevantSessionData = await getRelevantSessionData(checkoutSessionId) //$ The productId's are stored as metadata per each product
-                
-            for(const video of relevantSessionData.videos){ //% Even though it's a single session purchases are stored product-wise. Stripe will handle the "concept" of a cart, not us.
-                await prisma.purchase.create({
-                    data: {
-                        userId: metadata.userId,
-                        videoId: video.videoId,
-                        checkoutSessionId,
-                        paymentIntentId,
-                    }
-                })
-            }
-
-            await sendEmail({
-                content: 'Thanks for your purchase! \n Your payment intent is:' + paymentIntentId, 
-                receiverEmail: data.customer_email!,
-                subject: "Thanks for your purchase!"
-            })
- 
-            break;
+            return new Response('Received', {status: 200})
+        }
     }
 
-    return new Response('Received', {status: 200})
 
     
 
