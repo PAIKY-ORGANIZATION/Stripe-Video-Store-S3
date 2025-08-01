@@ -2,8 +2,11 @@ import Stripe from "stripe"
 import { getSessionByPaymentIntentId } from "./get-session-by-payment-intent-id"
 import { getRelevantSessionData } from "./get-relevant-session-data"
 import { prisma } from "@/lib/prisma"
+import { handleEventIdempotency } from "./handle-event-idempotency"
 
 export const handlePaymentFailureWebhook = async (event: Stripe.PaymentIntentPaymentFailedEvent)=>{
+
+    await handleEventIdempotency(event.id, event.type)
 
     const {last_payment_error, id, metadata} = event.data.object as Stripe.PaymentIntent
     const {code, message, type} = last_payment_error!
@@ -27,7 +30,6 @@ export const handlePaymentFailureWebhook = async (event: Stripe.PaymentIntentPay
             }
         })
     }
-    
 
     return new Response('Received', {status: 200})
 }
