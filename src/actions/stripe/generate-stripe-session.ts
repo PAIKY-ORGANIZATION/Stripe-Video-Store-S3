@@ -3,9 +3,9 @@
 import { prisma } from '@/lib/prisma';
 import { stripe } from '@/lib/stripe';
 import { redirect } from 'next/navigation';
-import { getUserBySessionEmail } from './get-user-by-email';
 import Stripe from 'stripe';
 import { video } from '@/generated/prisma';
+import { getUserBySessionEmail } from '../users-and-videos/get-user-by-email';
 
 
 //% This function will:

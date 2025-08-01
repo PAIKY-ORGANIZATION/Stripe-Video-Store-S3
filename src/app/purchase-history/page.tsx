@@ -1,5 +1,5 @@
-import { getRelevantSessionData } from "@/actions/get-relevant-session-data"
-import { getUserBySessionEmail } from "@/actions/get-user-by-email"
+import { getRelevantSessionData } from "@/actions/stripe/get-relevant-session-data"
+import { getUserBySessionEmail } from "@/actions/users-and-videos/get-user-by-email"
 import PurchaseHistory from "@/components/PurchaseHistory"
 import { prisma } from "@/lib/prisma"
 

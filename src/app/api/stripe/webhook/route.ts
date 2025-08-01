@@ -1,4 +1,4 @@
-import { getRelevantSessionData } from "@/actions/get-relevant-session-data";
+import { getRelevantSessionData } from "@/actions/stripe/get-relevant-session-data";
 import { prisma } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
 import { NextRequest, NextResponse } from "next/server";

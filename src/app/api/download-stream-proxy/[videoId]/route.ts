@@ -1,4 +1,4 @@
-import { getUserBySessionEmail } from "@/actions/get-user-by-email";
+import { getUserBySessionEmail } from "@/actions/users-and-videos/get-user-by-email";
 import { prisma } from "@/lib/prisma";
 import { s3Client } from "@/lib/s3Client";
 import { GetObjectCommand } from "@aws-sdk/client-s3";

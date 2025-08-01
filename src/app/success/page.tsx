@@ -1,4 +1,4 @@
-import { getRelevantSessionData } from "@/actions/get-relevant-session-data";
+import { getRelevantSessionData } from "@/actions/stripe/get-relevant-session-data";
 import Success from "@/components/Success";
 import { prisma } from "@/lib/prisma";
 
