@@ -1,7 +1,8 @@
+"use server"
+
+import { getVideoStream } from "@/actions/aws/get-video-stream";
 import { getUserBySessionEmail } from "@/actions/users-and-videos/get-user-by-email";
 import { prisma } from "@/lib/prisma";
-import { s3Client } from "@/lib/s3Client";
-import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { NextRequest, NextResponse } from "next/server"
 
 //! Read the readme.md ⚠️
@@ -23,15 +24,10 @@ export const GET = async (_req: NextRequest, {params}: {params: Promise<{videoId
     const video = await prisma.video.findFirst({ where: {id: videoId}})
     if(!video){return new NextResponse('Video not found with specified ID', {status: 404})}
 
-    const getObjectCommand = new GetObjectCommand({
-        Bucket: process.env.AWS_BUCKET_NAME!,
-        Key: video.s3VideoKey,
-    })
-    
-    const {Body, } = await s3Client.send(getObjectCommand) 
+    const stream = await getVideoStream(video.s3VideoKey)
 
 
-    return new NextResponse(Body as ReadableStream, {
+    return new NextResponse(stream, {
         status: 200,
         headers: {
             'Content-Type': 'video/mp4',
