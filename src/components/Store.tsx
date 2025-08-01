@@ -1,9 +1,9 @@
 "use client"
 
-import { generateStripeSession } from "@/actions/generate-stripe-session"
 import type { video  as  PrismaVideo } from "@/generated/prisma/client"
 import { toast } from "react-hot-toast"
 import { useCartContext } from "./CartContext"
+import { generateStripeSession } from "@/actions/stripe/generate-stripe-session"
 
 
 

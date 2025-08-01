@@ -1,4 +1,4 @@
-import { loadVideosShow } from "@/actions/load-videos-show"
+import { loadVideosShow } from "@/actions/users-and-videos/load-videos-show"
 import {Store} from "@/components/Store"
 import type { video  as  PrismaVideo } from "@/generated/prisma/client"
 

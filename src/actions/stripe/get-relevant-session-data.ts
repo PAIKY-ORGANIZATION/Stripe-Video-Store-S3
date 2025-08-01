@@ -15,9 +15,6 @@ export const getRelevantSessionData = async (checkoutSessionId: string): Promise
 		}
 	); //% Another way might be to get the video purchased from db.
 
-	console.log(session.created);
-	
-
 	const relevantSessionData = {
 		date: new Date(session.created * 1000).toISOString().slice(0, 10),
 		total: session.amount_total as number,

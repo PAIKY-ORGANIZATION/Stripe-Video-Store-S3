@@ -10,12 +10,21 @@ type Props = {
 
 export const sendEmail = async ({content, receiverEmail, subject}: Props)=>{
 
-    const email = new SendSmtpEmail()
-    email.sender = {email: "miguel.mendez@miguel-mendez.click", name: "miguel"}
-    email.to = [{email: receiverEmail, name: 'UNKNOWN'}]
-    email.subject = subject
-    email.htmlContent = content
+    try{
+        const email = new SendSmtpEmail()
+        email.sender = {email: "miguel.mendez@miguel-mendez.click", name: "miguel"}
 
-    await brevoEmailApiInstance.sendTransacEmail(email)
-    return
+        email.to = [{email: receiverEmail, name: 'UNKNOWN'}]
+        email.subject = subject
+        
+        email.htmlContent = content
+    
+        await brevoEmailApiInstance.sendTransacEmail(email)
+        return
+        
+    }catch(e){
+        console.log('ERROR SENDING EMAIL');	
+        console.dir(e, {depth: 2});	
+    }
+
 }

@@ -18,6 +18,7 @@ export const generateStripeSession = async (videoIdArray: string[]): Promise<Act
     const user = await getUserBySessionEmail() //* Getting the user session with nextauth.
     if(!user)   redirect('/api/auth/signin')
 
+
     //* Getting video info from Prisma
     const videos = await prisma.video.findMany({ where: {id: {in: videoIdArray }},});
     

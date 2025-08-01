@@ -21,7 +21,6 @@ export const loadVideosShow = async (): Promise<PrismaVideo[]>=>{
     const ownedVideosIdsArray: string[] = user.purchases.map((purchase)=> purchase.video.id)
     //% It ends like this: [ '1', '2', '3' ]
 
-    console.log({ownedVideosIdsArray});
     
 
 
