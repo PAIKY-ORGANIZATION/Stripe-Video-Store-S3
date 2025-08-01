@@ -26,8 +26,7 @@ export const handleSuccessSessionWebhook = async (event: Stripe.CheckoutSessionC
 	const paymentIntentId = data.payment_intent as string;
 	const checkoutSessionId = data.id;
 
-	const relevantSessionData: RelevantSessionData =
-		await getRelevantSessionData(checkoutSessionId); //$ The productId's are stored as metadata per each product
+	const relevantSessionData: RelevantSessionData = await getRelevantSessionData(checkoutSessionId); //$ The productId's are stored as metadata per each product
 
 	for (const video of relevantSessionData.videos) {
 		//% Even though it's a single session purchases are stored product-wise. Stripe will handle the "concept" of a cart, not us.
@@ -37,6 +36,7 @@ export const handleSuccessSessionWebhook = async (event: Stripe.CheckoutSessionC
 				videoId: video.videoId,
 				checkoutSessionId,
 				paymentIntentId,
+                success: true
 			},
 		});
 	}

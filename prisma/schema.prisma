@@ -44,11 +44,18 @@ model purchase {
     id      String @id @default(uuid())
     userId  String
     videoId String
-    user    user   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    video   video  @relation(fields: [videoId], references: [id], onDelete: Cascade)
 
     paymentIntentId   String
     checkoutSessionId String //$ For the Purchase History
+
+    success Boolean
+
+    //* If it's an error:
+    failureCode    String?
+    failureMessage String?
+
+    user  user  @relation(fields: [userId], references: [id], onDelete: Cascade)
+    video video @relation(fields: [videoId], references: [id], onDelete: Cascade)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -57,10 +64,9 @@ model purchase {
     @@map("purchases")
 }
 
-
 //$ Storing event id's to prevent idempotency
-model ProcessedStripeEvents { 
-    id String @id //$ This will be the  event ID
+model ProcessedStripeEvents {
+    id        String   @id //$ This will be the  event ID
     eventType String
     createdAt DateTime @default(now())
 }

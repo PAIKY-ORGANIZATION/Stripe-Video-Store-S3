@@ -1,3 +1,4 @@
+import { handlePaymentFailureWebhook } from "@/actions/stripe/handle-payment-failure-webhook";
 import { handleSuccessSessionWebhook } from "@/actions/stripe/handle-success-session-webhook";
 import { stripe } from "@/lib/stripe";
 import { NextRequest, NextResponse } from "next/server";
@@ -23,11 +24,16 @@ export const POST = async (req: NextRequest) => {
     switch(event.type){
         case "checkout.session.completed":
             return await handleSuccessSessionWebhook(event)
+        
             
-        default: {
+        case  "payment_intent.payment_failed":
 
+            return await handlePaymentFailureWebhook(event)
+
+            
+        default: 
             return new Response('Received', {status: 200})
-        }
+
     }
 
 
