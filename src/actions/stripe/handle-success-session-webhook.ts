@@ -9,15 +9,16 @@ export const handleSuccessSessionWebhook = async (event: Stripe.CheckoutSessionC
 	await handleEventIdempotency(event.id, event.type)
 
 	//*  Store purchase/s to database
-	const data = event.data.object;
-	const metadata = data.metadata as PurchaseMetadata; //$ Assuming this was added when creating the Stripe session.
-	const paymentIntentId = data.payment_intent as string;
-	const checkoutSessionId = data.id;
+	const checkoutSession: Stripe.Checkout.Session = event.data.object;
 
-	const relevantSessionData: RelevantSessionData = await getRelevantSessionData(checkoutSessionId); //$ The productId's are stored as metadata per each product
+	const metadata = checkoutSession.metadata as PurchaseMetadata; //$ Assuming this was added when creating the Stripe session.
+	const paymentIntentId = checkoutSession.payment_intent as string;
+	const checkoutSessionId = checkoutSession.id;
+
+	const relevantSessionData: RelevantSessionData = await getRelevantSessionData(checkoutSession); //$ The productId's are stored as metadata per each product
 
 	for (const video of relevantSessionData.videos) {
-		//% Even though it's a single session purchases are stored product-wise. Stripe will handle the "concept" of a cart, not us.
+		//% Even though it's a single session, purchases are stored product-wise in our db. Stripe will handle the "concept" of a cart, not us.
 		await prisma.purchase.create({
 			data: {
 				userId: metadata.userId,
@@ -31,7 +32,7 @@ export const handleSuccessSessionWebhook = async (event: Stripe.CheckoutSessionC
 
 	await sendEmail({
 		content: 'Thanks for your purchase! \n Your payment intent is:' + paymentIntentId,
-		receiverEmail: data.customer_details?.email!,
+		receiverEmail: checkoutSession.customer_details?.email!, //$ Could also query Postgres to get the user's email.
 		subject: 'Thanks for your purchase!',
 	});
 	return new Response('Received', { status: 200 });

@@ -3,6 +3,7 @@ import { getSessionByPaymentIntentId } from "./get-session-by-payment-intent-id"
 import { getRelevantSessionData } from "./get-relevant-session-data"
 import { prisma } from "@/lib/prisma"
 import { handleEventIdempotency } from "./handle-event-idempotency"
+import { sendEmail } from "../brevo/send-email"
 
 export const handlePaymentFailureWebhook = async (event: Stripe.PaymentIntentPaymentFailedEvent)=>{
 
@@ -11,9 +12,9 @@ export const handlePaymentFailureWebhook = async (event: Stripe.PaymentIntentPay
     const {last_payment_error, id, metadata} = event.data.object as Stripe.PaymentIntent
     const {code, message, type} = last_payment_error!
 
-    const session = await getSessionByPaymentIntentId(id)
+    const checkoutSession = await getSessionByPaymentIntentId(id)
 
-    const relevantSessionData = await getRelevantSessionData(session.id)
+    const relevantSessionData = await getRelevantSessionData(checkoutSession)
 
     console.log({id, code, message, relevantSessionData});
 
@@ -22,7 +23,7 @@ export const handlePaymentFailureWebhook = async (event: Stripe.PaymentIntentPay
             data: {
                 userId: (metadata as PurchaseMetadata).userId,
                 paymentIntentId: id,
-                checkoutSessionId: session.id,
+                checkoutSessionId: checkoutSession.id,
                 success: false,
                 videoId: video.videoId,
                 failureCode: code,
@@ -30,6 +31,10 @@ export const handlePaymentFailureWebhook = async (event: Stripe.PaymentIntentPay
             }
         })
     }
+
+    await sendEmail({
+        content: 'We detected a payment failure. \n Payment intent ID: ' + id + '\n Failure code: ' + code + '\n Failure message: ' + message,
+    })
 
     return new Response('Received', {status: 200})
 }

@@ -4,18 +4,18 @@ import Stripe from 'stripe';
 
 
 //prettier-ignore
-export const getRelevantSessionData = async (checkoutSessionId: string): Promise<RelevantSessionData> => {
-	const session = await stripe.checkout.sessions.retrieve(
-		checkoutSessionId
-	);
-	const items = await stripe.checkout.sessions.listLineItems(checkoutSessionId,
+export const getRelevantSessionData = async (CheckoutSession: Stripe.Checkout.Session): Promise<RelevantSessionData> => {
+
+	//% We accept a stripe session object and return formatted relevant information about it.
+
+	const items = await stripe.checkout.sessions.listLineItems(CheckoutSession.id,
 		{ expand: ['data.price.product']} //$  We add this to get all: "name", "description", "images", "metadata"}
-	); //% Another way might be to get the video purchased from db.
+	); 
 
 	const relevantSessionData = {
-		date: new Date(session.created * 1000).toISOString().slice(0, 10),
-		total: session.amount_total as number,
-		checkoutSessionId: checkoutSessionId,
+		date: new Date(CheckoutSession.created * 1000).toISOString().slice(0, 10),
+		total: CheckoutSession.amount_total as number,
+		checkoutSessionId: CheckoutSession.id,
 		videos: items.data.map((item) => {
 			const product = item.price?.product as Stripe.Product; //! I don't know if the type of this could change.
 			return {
@@ -26,6 +26,6 @@ export const getRelevantSessionData = async (checkoutSessionId: string): Promise
 			};
 		}),
 	};
-
+	
 	return relevantSessionData;
 };

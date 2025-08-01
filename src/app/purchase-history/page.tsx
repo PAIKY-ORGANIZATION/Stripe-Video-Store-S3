@@ -1,4 +1,5 @@
 import { getRelevantSessionData } from "@/actions/stripe/get-relevant-session-data"
+import { getStripeSessionById } from "@/actions/stripe/get-stripe-session-by-id"
 import { getUserBySessionEmail } from "@/actions/users-and-videos/get-user-by-email"
 import PurchaseHistory from "@/components/PurchaseHistory"
 import { prisma } from "@/lib/prisma"
@@ -20,7 +21,10 @@ export default async function PurchaseHistoryComponent() {
     //% purchases will look like "[ { checkoutSessionId: '1' }, { checkoutSessionId: '2' } ]"
 
 
-    const purchaseHistoryArray = await Promise.all(purchases.map((purchase)=>getRelevantSessionData(purchase.checkoutSessionId)))
+    const purchaseHistoryArray = await Promise.all(purchases.map( async (purchase)=>{
+        const checkoutSession = await getStripeSessionById(purchase.checkoutSessionId) //* First get the session by id
+        return getRelevantSessionData(checkoutSession)} //* Then get relevant session data.
+    ))
 
     return (
         <PurchaseHistory relevantSessionDataArray={purchaseHistoryArray} ></PurchaseHistory>
