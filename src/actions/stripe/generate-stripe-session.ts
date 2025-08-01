@@ -65,10 +65,14 @@ export const _createStripeSessionObject = async (videos: video[], userId: string
         mode: 'payment',
         billing_address_collection: 'required',
         metadata: {
-            // videoIds: videoIdArray.join(','), //*  This is so I can set the relationshipS of the user with the productS after success purchase webhook.
             //! I will be adding the metadata to the product data of each item.
             userId
-        } as PurchaseMetadata
+        } as PurchaseMetadata,
+        payment_intent_data: { //- We need the speakers in case of failures we only have access to the payment intent, not the session.
+            metadata: {
+                userId
+            } as PurchaseMetadata
+        }
     });
 
     return  session

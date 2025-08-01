@@ -24,7 +24,6 @@ type ActionResponse = {
 
 
 type PurchaseMetadata = {
-    videoIds: string
     userId: string
 }
 

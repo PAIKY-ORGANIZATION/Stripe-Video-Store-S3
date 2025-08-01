@@ -14,11 +14,14 @@ export const loadVideosShow = async (): Promise<PrismaVideo[]>=>{
 
     if(!user) return allVideos //* If there is no user session, return all videos available for purchase.
     
-
+    const purchases = await prisma.purchase.findMany({
+        where: {userId: user.id},
+        include: {video: true}
+    })
 
     //% user.purchases looks like this: 
     //% [ { video: {. . . . . id: string} }, { video: {. . . . . id: string} }, { video: {. . . . . id: string} } ]
-    const ownedVideosIdsArray: string[] = user.purchases.map((purchase)=> purchase.video.id)
+    const ownedVideosIdsArray: string[] = purchases.map((purchase)=> purchase.video.id)
     //% It ends like this: [ '1', '2', '3' ]
 
     
