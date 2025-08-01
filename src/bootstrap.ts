@@ -23,7 +23,8 @@ const setENV = ()=>{
         "CLIENT_SECRET_GOOGLE",
         "CLIENT_ID_GOOGLE",
         "STRIPE_SIGNING_SECRET",
-        "APP_HOST"
+        "APP_HOST",
+        'BREVO_API_KEY'
     ];
 
     requiredVars.forEach((varName)=>{
