@@ -34,6 +34,8 @@ export const handlePaymentFailureWebhook = async (event: Stripe.PaymentIntentPay
 
     await sendEmail({
         content: 'We detected a payment failure. \n Payment intent ID: ' + id + '\n Failure code: ' + code + '\n Failure message: ' + message,
+        receiverEmail: checkoutSession.customer_details?.email!,
+        subject: 'Payment failure detected',
     })
 
     return new Response('Received', {status: 200})

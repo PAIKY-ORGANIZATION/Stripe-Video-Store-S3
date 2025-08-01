@@ -60,7 +60,7 @@ model purchase {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    @@unique([userId, videoId]) //$ We can allow repeated it's but not repeated pairs! DON'T DO "userId String @unique"
+    // @@unique([userId, videoId]) //$ ⚠️⚠️ Had to remove this uniqueness to allow failed payments.
     @@map("purchases")
 }
 

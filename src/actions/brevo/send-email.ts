@@ -12,7 +12,7 @@ export const sendEmail = async ({content, receiverEmail, subject}: Props)=>{
 
     try{
         const email = new SendSmtpEmail()
-        email.sender = {email: "miguel.mendez@miguel-mendez.click", name: "miguel"}
+        email.sender = {email: "miguel.mendez@miguel-mendez.click", name: "Minecraft_Store"}
 
         email.to = [{email: receiverEmail, name: 'UNKNOWN'}]
         email.subject = subject

@@ -18,6 +18,13 @@ export const generateStripeSession = async (videoIdArray: string[]): Promise<Act
     const user = await getUserBySessionEmail() //* Getting the user session with nextauth.
     if(!user)   redirect('/api/auth/signin')
 
+    const existingPurchase =  await prisma.purchase.findFirst({where:{
+        userId: user.id,
+        videoId: {in: videoIdArray},
+        success: true 
+    }})
+
+    if(existingPurchase) return {message: 'You already own one or more of these videos', success: false}
 
     //* Getting video info from Prisma
     const videos = await prisma.video.findMany({ where: {id: {in: videoIdArray }},});
