@@ -1,7 +1,6 @@
 import { getRelevantSessionData } from "@/actions/stripe/get-relevant-session-data";
 import { getStripeSessionById } from "@/actions/stripe/get-stripe-session-by-id";
 import Success from "@/components/Success";
-import { prisma } from "@/lib/prisma";
 import Stripe from "stripe";
 
 type Props = {

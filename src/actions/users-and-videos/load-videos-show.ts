@@ -14,8 +14,9 @@ export const loadVideosShow = async (): Promise<PrismaVideo[]>=>{
 
     if(!user) return allVideos //* If there is no user session, return all videos available for purchase.
     
+    //* ⬇️⬇️⬇️ The purpose of this is to return only videos that a logged-in user has NOT bought. ⬇️⬇️⬇️
     const purchases = await prisma.purchase.findMany({
-        where: {userId: user.id},
+        where: {userId: user.id, success: true},
         include: {video: true}
     })
 
@@ -27,7 +28,6 @@ export const loadVideosShow = async (): Promise<PrismaVideo[]>=>{
     
 
 
-    //* The purpose of this is to return only videos that a logged-in user has NOT bought
     return allVideos.filter((videoObject)=>{
         if(!ownedVideosIdsArray.includes(videoObject.id)){
             return videoObject
