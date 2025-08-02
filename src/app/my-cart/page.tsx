@@ -14,8 +14,6 @@ export default function  MyCart() {
     cart.forEach((video)=> total += video.videoPrice)
 
     const handleCheckout = async ()=>{
-        console.log('Test');
-        
         const itemIds = cart.map((cartItem)=>cartItem.videoId)
 
         const response: ActionResponse = await generateStripeSession(itemIds)
@@ -23,8 +21,6 @@ export default function  MyCart() {
         if(!response.success){toast.error(response.message); return}
         
         window.location.href = response.data.sessionUrl
-    
-        return
     }
 
     return (

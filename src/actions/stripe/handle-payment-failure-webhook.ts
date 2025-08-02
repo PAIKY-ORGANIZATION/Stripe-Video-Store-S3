@@ -9,7 +9,7 @@ export const handlePaymentFailureWebhook = async (event: Stripe.PaymentIntentPay
 
     await handleEventIdempotency(event.id, event.type)
 
-    const {last_payment_error, id, metadata} = event.data.object as Stripe.PaymentIntent
+    const {last_payment_error, id, metadata, amount} = event.data.object as Stripe.PaymentIntent
     const {code, message, type} = last_payment_error!
 
     const checkoutSession = await getSessionByPaymentIntentId(id)

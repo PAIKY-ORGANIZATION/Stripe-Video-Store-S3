@@ -13,28 +13,19 @@ export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
     const {handleAddItem} = useCartContext()
 
     const handleBuy = async (videoId: string)=>{
-    
         const createSessionResponse = await generateStripeSession([videoId]) //$ This func. only accepts an array
 
         if(!createSessionResponse.success){
             toast.error(createSessionResponse.message)
             return
         }
-
         window.location.href = createSessionResponse.data.sessionUrl as string
-
-        return
     }
 
     const handleAddToCart = (videoId: string, videoPrice: number, videoTitle: string)=>{
-
         const cartItem: CartVideoObject = { videoId, videoPrice, videoTitle}
-        
         const success = handleAddItem(cartItem)
-        
         success ? toast.success('Item added to cart'): toast.error('Item already in cart')
-
-
     }
 
     return (

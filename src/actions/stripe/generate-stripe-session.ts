@@ -15,13 +15,13 @@ import { getUserBySessionEmail } from '../users-and-videos/get-user-by-email';
 
 export const generateStripeSession = async (videoIdArray: string[]): Promise<ActionResponse> => {
 
-    const user = await getUserBySessionEmail() //* Getting the user session with nextauth.
+    const user = await getUserBySessionEmail() //* Getting the user session with next-auth.
     if(!user)   redirect('/api/auth/signin')
 
-    const existingPurchase =  await prisma.purchase.findFirst({where:{
+    const existingPurchase =  await prisma.purchase.findFirst({where:{ //* Preventing duplicate purchase
         userId: user.id,
         videoId: {in: videoIdArray},
-        success: true 
+        success: true //* ONLY SUCCESSFUL PURCHASES 
     }})
 
     if(existingPurchase) return {message: 'You already own one or more of these videos', success: false}
