@@ -79,7 +79,8 @@ export const _createStripeSessionObject = async (videos: video[], userId: string
             metadata: {
                 userId
             } as PurchaseMetadata
-        }
+        },
+        // customer_creation: 'always',
     });
 
     return  session

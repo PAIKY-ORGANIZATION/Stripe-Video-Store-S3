@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
+import { stripe } from "./stripe"
 
 
 const CLIENT_ID_GOOGLE = process.env.CLIENT_ID_GOOGLE!
@@ -33,12 +34,10 @@ export const authOptions: NextAuthOptions = {
             // account?.provider //$ This exists
             // account?.userId //$ This exists
 
-
-
-
-
             if(!profile?.email){ throw new Error('Email is required')}
-            await prisma.user.upsert({
+            
+            
+            const appUser = await prisma.user.upsert({
                 where: {email: profile.email},
                 create: {
                     email: profile.email,
@@ -47,7 +46,25 @@ export const authOptions: NextAuthOptions = {
                 },
                 update: {}
             })
-
+            
+            //* Creating Stripe customer only for new users.
+            if(!appUser.stripeCustomerId){
+                const stripeUser = await stripe.customers.create({
+                    email:  profile.email,
+                    metadata: {
+                        appUserId: appUser.id
+                    }
+                })
+            
+                await prisma.user.update({
+                    where: {
+                        id: appUser.id
+                    },
+                    data: {
+                        stripeCustomerId: stripeUser.id  
+                    }
+                })
+            }
 
             return true
         },
