@@ -20,11 +20,12 @@ export default function Navbar() {
 
             <div className="flex items-center justify-end h-full gap-4">
                 {session?.user ? (
-                    <>
-                        <ProfilePicture profilePicturePath={session?.user?.image!} />
-                        <span className="text-white">{session.user.name}</span>
-                        <button onClick={() => signOut()} className="px-2 py-1 text-white bg-red-500 hover:cursor-pointer rounded-xl"> Sign Out</button>
-                    </>
+                    <div className="flex items-center gap-4">
+                        <Link href={'/my-account'}>
+                            <ProfilePicture profilePicturePath={session?.user?.image!} />
+                        </Link>
+                        <button onClick={() => signOut()} className="px-2 py-1 text-white bg-red-500 hover:cursor-pointer rounded-xl"> Log  Out</button>
+                    </div>
                 ) : (
                     <button onClick={() => signIn('google', { callbackUrl: '/' })} className="p-1 text-white bg-blue-400 rounded-md hover:cursor-pointer">
                         Sign In

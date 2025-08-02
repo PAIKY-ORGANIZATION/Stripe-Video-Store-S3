@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { stripe } from '@/lib/stripe';
 import { redirect } from 'next/navigation';
 import Stripe from 'stripe';
-import { video } from '@/generated/prisma';
+import { user, video } from '@/generated/prisma';
 import { getUserBySessionEmail } from '../users-and-videos/get-user-by-email';
 
 
@@ -33,7 +33,7 @@ export const generateStripeSession = async (videoIdArray: string[]): Promise<Act
     
     try{
         //* Creating Stripe session object
-        const session = await _createStripeSessionObject(videos, user.id)
+        const session = await _createStripeSessionObject(videos, user)
         return {message: 'Session created successfully', success: true, data: {sessionUrl: session.url}}
         
     }catch(e){
@@ -44,7 +44,7 @@ export const generateStripeSession = async (videoIdArray: string[]): Promise<Act
 
 
 
-export const _createStripeSessionObject = async (videos: video[], userId: string)=>{
+export const _createStripeSessionObject = async (videos: video[], user: user)=>{
     
     //* Setting line items
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = videos.map((video)=>{return {
@@ -73,14 +73,15 @@ export const _createStripeSessionObject = async (videos: video[], userId: string
         billing_address_collection: 'required',
         metadata: {
             //! I will be adding the metadata to the product data of each item.
-            userId
+            userId: user.id
         } as PurchaseMetadata,
         payment_intent_data: { //- We need the speakers in case of failures we only have access to the payment intent, not the session.
             metadata: {
-                userId
+                userId: user.id
             } as PurchaseMetadata
         },
         // customer_creation: 'always',
+        customer: user.stripeCustomerId!  //* Assuming this ID is present because all users get a Stripe Account created when singing up.
     });
 
     return  session

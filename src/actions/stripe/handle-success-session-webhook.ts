@@ -15,6 +15,11 @@ export const handleSuccessSessionWebhook = async (event: Stripe.CheckoutSessionC
 	const paymentIntentId = checkoutSession.payment_intent as string;
 	const checkoutSessionId = checkoutSession.id;
 
+
+	console.log({checkoutSession});
+
+
+
 	const relevantSessionData: RelevantSessionData = await getRelevantSessionData(checkoutSession); //$ The productId's are stored as metadata per each product
 
 	for (const video of relevantSessionData.videos) {
