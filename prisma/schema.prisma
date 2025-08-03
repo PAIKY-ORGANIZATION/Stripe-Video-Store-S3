@@ -57,6 +57,7 @@ model purchase {
 
     user  user  @relation(fields: [userId], references: [id], onDelete: Cascade)
     video video @relation(fields: [videoId], references: [id], onDelete: Cascade)
+    refund Refunds?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -64,6 +65,19 @@ model purchase {
     // @@unique([userId, videoId]) //$ ⚠️⚠️ Had to remove this uniqueness to allow failed payments.
     @@map("purchases")
 }
+
+
+
+model Refunds {
+    id String @id @default(uuid())
+    stripeRefundId String
+
+    purchaseId String @unique 
+    purchase purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+}
+
+
+
 
 //$ Storing event id's to prevent idempotency
 model ProcessedStripeEvents {
