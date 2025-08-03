@@ -31,9 +31,11 @@ export const approveRefundRequests = async ()=>{
             }
         }
     })
+
+    if(refunds.length === 0) { console.log('No refund requests ☺️'); return}
     
 
-    console.dir(refunds, {depth: null});
+    console.dir(refunds, {depth: null}); //! Don't remove this
     
     const answer = await inquirer.prompt([
         {
@@ -55,7 +57,12 @@ export const approveRefundRequests = async ()=>{
         const payment_intent = refunds.find((refund)=> refund.id === answer.refundId)?.purchases[0]?.paymentIntentId
 
         await stripe.refunds.create({
-            payment_intent: payment_intent
+            payment_intent: payment_intent,
+            metadata: {
+                postgresRefundId: answer.refundId //% This will be used to find the POSTGRES REFUND in the webhook and:
+                //% 1- Mark it as solved
+                //% 2 Attach the real Stripe refundId to it 
+            } as RefundMetadata
         })        
     }
 

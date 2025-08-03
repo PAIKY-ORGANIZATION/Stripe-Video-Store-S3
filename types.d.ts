@@ -27,6 +27,10 @@ type PurchaseMetadata = {
     userId: string
 }
 
+type RefundMetadata = {
+    postgresRefundId: string
+}
+
 
 //* For the cart React Context
 type CartVideoObject = {
