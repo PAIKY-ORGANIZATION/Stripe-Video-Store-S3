@@ -42,11 +42,5 @@ export const submitRefundRequest = async (paymentIntentId: string)=>{
         data: {refundId: refund.id}
     })
 
-
-    console.log({paymentIntentId});
-    
-
-    console.log({updatedPurchases});
-
     return true
 }

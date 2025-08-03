@@ -5,7 +5,7 @@ import inquirer from "inquirer";
 
 
 
-export const manageRefundRequests = async ()=>{
+export const approveRefundRequests = async ()=>{
 
     const refunds = await prisma.refunds.findMany({
         include: {

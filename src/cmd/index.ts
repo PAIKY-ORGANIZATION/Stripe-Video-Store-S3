@@ -5,7 +5,7 @@ import '@/bootstrap'
 import inquirer from "inquirer";
 import { seedDb } from "./actions/seed_db";
 import { wipeDb } from "./actions/wipe_db";
-import { manageRefundRequests } from "./actions/manage-refund-requests";
+import { approveRefundRequests } from "./actions/manage-refund-requests";
 
 
 
@@ -45,7 +45,7 @@ const main = async ()=>{
             await seedDb()
             break
         case manageRefundsKey:
-            await manageRefundRequests()
+            await approveRefundRequests()
             break
     }
 }

@@ -76,14 +76,12 @@ model purchase {
 //✨✨ Refunds are associated with  a Stripe Session (Cart). While we don't manage the context of a cart, we need only one refund per session, because that is WHAT STRIPE ALLOWS. Maybe we could also use partial refunds (like x% of it)✨✨
 model Refunds {
     id String @id @default(uuid())
-    stripeRefundId String? // ✨✨ It's optional because once a client REQUESTS a refund, the Stripe refund won't exist until manually  approved ✨✨.
+    stripeRefundId String? @unique // ✨✨ It's optional because once a client REQUESTS a refund, the Stripe refund won't exist until manually  approved ✨✨.
     reason String
     solved Boolean
 
     purchases purchase[]
 }
-
-
 
 
 //$ ✨✨ Storing event id's to prevent idempotency ✨✨
