@@ -18,18 +18,47 @@ export const GET = async (_req: NextRequest, {params}: {params: Promise<{videoId
     const {videoId} = await params
     if(!videoId){return new NextResponse('Video ID not found', {status: 400})}
 
-    //* Find video in prisma
-    const video = await prisma.video.findFirst({ where: {id: videoId}})
-    if(!video){return new NextResponse('Video not found with specified ID', {status: 404})}
+    //! If you want to first inform wether or not the video exists in the first place. IF NOT, just do a single Prisma query.
+    // const video = await prisma.video.findFirst({
+    //     where: {
+    //         id: videoId,
 
-    const stream = await getVideoStream(video.s3VideoKey)
+    //     }
+    // })
+    // if(!video){return new NextResponse('Video not found with specified ID', {status: 404})}
+
+
+    const validPurchase = await prisma.purchase.findFirst({
+        where: {
+            user: {
+                id: user.id
+            },
+            video: {
+                id: videoId
+            },
+            status: 'SUCCESS'
+        },
+        select: {
+            video: {
+                select: {
+                    id: true,
+                    s3VideoKey: true
+                }
+            }
+        }
+    })
+
+
+    if(!validPurchase){return new NextResponse("You can't watch this video or video doesn't exist", {status: 401})}
+
+    const stream = await getVideoStream(validPurchase.video.s3VideoKey)
 
 
     return new NextResponse(stream, {
         status: 200,
         headers: {
             'Content-Type': 'video/mp4',
-            "Content-Disposition": `attachment; filename=${video.s3VideoKey}`
+            "Content-Disposition": `attachment; filename=${validPurchase.video.s3VideoKey}`
         }
     })
 }
