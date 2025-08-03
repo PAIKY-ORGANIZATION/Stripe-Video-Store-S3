@@ -6,13 +6,25 @@ import { prisma } from "@/lib/prisma"
 //% When updating or solving the refund we will modify all purchases. This is the best for our current model.
 export const submitRefundRequest = async (paymentIntentId: string)=>{
 
-    const existingRefund = await prisma.refunds.findFirst({
+    //*  Since I'm not too familiar with "Some", I'll leave this NOTE:
+    //* To know if a refund is associated with a purchase with the paymentIntentId being requested for refund, we can use "SOME":
+    //$ "some": Checks if at least one related record satisfies the given condition.
+    //$ "every": All related records must match the condition.
+    //$ "none": No related record must match the condition.
+
+    
+    //*  Know if a refund is associated with a purchase with the paymentIntentId being requested for refund.
+    const existingPurchaseWithRefund = await prisma.refunds.findFirst({
         where: {
             purchases: {
-                
+                some: {
+                    paymentIntentId
+                }
             }
         }
     })
+
+    if(existingPurchaseWithRefund) return false
 
     //% Purchases have an optional refund relationship. We can:
         //% 1- Create the refund
@@ -25,10 +37,16 @@ export const submitRefundRequest = async (paymentIntentId: string)=>{
         }
     })
 
-    await prisma.purchase.updateMany({
-        where: {id: paymentIntentId},
+    const updatedPurchases = await prisma.purchase.updateManyAndReturn({
+        where: {paymentIntentId: paymentIntentId},
         data: {refundId: refund.id}
     })
+
+
+    console.log({paymentIntentId});
+    
+
+    console.log({updatedPurchases});
 
     return true
 }
