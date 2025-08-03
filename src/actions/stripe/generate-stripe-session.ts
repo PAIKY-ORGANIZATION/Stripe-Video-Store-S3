@@ -81,7 +81,7 @@ export const _createStripeSessionObject = async (videos: video[], user: user)=>{
             } as PurchaseMetadata
         },
         // customer_creation: 'always',
-        customer: user.stripeCustomerId!  //* Assuming this ID is present because all users get a Stripe Account created when singing up.
+        customer: user.stripeCustomerId!  //% Assuming this ID is present because all users get a Stripe Account created when singing up. This will link users with their email during session and will link their purchases with their unique stripe customer.
     });
 
     return  session

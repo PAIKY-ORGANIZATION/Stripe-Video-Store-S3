@@ -21,9 +21,7 @@ export default function Navbar() {
             <div className="flex items-center justify-end h-full gap-4">
                 {session?.user ? (
                     <div className="flex items-center gap-4">
-                        <Link href={'/my-account'}>
-                            <ProfilePicture profilePicturePath={session?.user?.image!} />
-                        </Link>
+                        <ProfilePicture profilePicturePath={session?.user?.image!} />
                         <button onClick={() => signOut()} className="px-2 py-1 text-white bg-red-500 hover:cursor-pointer rounded-xl"> Log  Out</button>
                     </div>
                 ) : (

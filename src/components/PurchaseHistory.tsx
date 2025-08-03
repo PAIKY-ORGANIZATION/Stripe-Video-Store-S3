@@ -5,7 +5,14 @@ import { useState } from 'react';
 //prettier-ignore
 export default function  PurchaseHistory({relevantSessionDataArray}: {relevantSessionDataArray: RelevantSessionData[]}) {
 
-    const [productDetails, setProductDetails] = useState<RelevantSessionData['videos']>([])
+    const [sessionDetails, setSessionDetails] = useState<RelevantSessionData | null>(null)
+
+    const handleRequestRefund = async (sessionId: string)=>{
+    
+        await submitRefundRequest(sessionId)
+    
+        return
+    }
 
     return (
         <div className="w-full p-10">
@@ -21,7 +28,7 @@ export default function  PurchaseHistory({relevantSessionDataArray}: {relevantSe
                             <p className="font-bold text-right w-30 ">{r.date}</p>
                             <p>${r.total}</p>
                             <button
-                                onClick={() => setProductDetails(r.videos)}
+                                onClick={() => setSessionDetails(r)}
                                 className="ml-8 text-sm text-white underline hover:underline hover:cursor-pointer"
                             >
                                 Details
@@ -30,34 +37,30 @@ export default function  PurchaseHistory({relevantSessionDataArray}: {relevantSe
                     ))}
                 </div>
 
-
-                {/* //* Video details  */}
-
-                <div className="w-full max-w-[50%] flex flex-col gap-6 p-6">
-                    {productDetails.map((video, i) => (
-                        <div key={i} className="flex items-start gap-4">
-                            <img
-                                src={video.image}
-                                alt="Thumbnail"
-                                className="object-cover w-40 h-auto rounded shadow-md"
-                            />
+                <div className="w-full max-w-[50%] flex flex-col gap-6 items-center ">
+                    {/* //* Video details  */}
+                    {sessionDetails?.videos.map((video, i) => (
+                        <div key={i} className="flex items-start gap-4 ">
+                            <img src={video.image} alt="Thumbnail" className="object-cover w-40 h-auto rounded shadow-md"/>
                             <div className="flex flex-col justify-center gap-2">
                                 <p className="text-sm font-bold">
-                                    Title:
-                                    <span className="block text-sm font-normal truncate max-w-[200px]">
-                                        {video.title}
-                                    </span>
+                                    Title: <span className="block text-sm font-normal truncate max-w-[200px]"> {video.title} </span>
                                 </p>
                                 <p className="text-sm font-bold">
-                                    Price:
-                                    <span className="text-sm font-normal">${video.videoPrice}</span>
+                                    Price: <span className="text-sm font-normal">${video.videoPrice}</span>
                                 </p>
                             </div>
                         </div>
                     ))}
+                    {sessionDetails &&  
+                        <button className='text-sm p-1 bg-red-500 hover:cursor-pointer w-[35%] rounded-md'
+                            onClick={()=>{handleRequestRefund(sessionDetails.checkoutSessionId)}}
+                        >
+                            Request refund
+                        </button>
+                    }
                 </div>
             </div>
-
         </div>
     )
 }

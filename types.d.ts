@@ -39,6 +39,7 @@ type RelevantSessionData = {
     date: string;
     total: number;
     checkoutSessionId: string;
+    paymentIntentId: string;
     videos: {
         title: string;
         image: string;
