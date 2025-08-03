@@ -8,6 +8,11 @@ import inquirer from "inquirer";
 export const approveRefundRequests = async ()=>{
 
     const refunds = await prisma.refunds.findMany({
+
+        where: {
+            solved: false
+        },
+
         include: {
             purchases: {
                 select: {
@@ -26,7 +31,6 @@ export const approveRefundRequests = async ()=>{
             }
         }
     })
-
     
 
     console.dir(refunds, {depth: null});
@@ -46,9 +50,6 @@ export const approveRefundRequests = async ()=>{
         }
     ])
 
-
-
-    //?  WILL TRY THIS UNTIL TOMORROW ✨✨✨✨✨✨✨✨✨✨
     if(answer.action === 'Approve'){
         //* From one of the purchases with the same paymentIntentId (linked to the same refund), get the paymentIntentId
         const payment_intent = refunds.find((refund)=> refund.id === answer.refundId)?.purchases[0]?.paymentIntentId

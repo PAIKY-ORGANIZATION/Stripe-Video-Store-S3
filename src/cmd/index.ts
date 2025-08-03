@@ -5,7 +5,7 @@ import '@/bootstrap'
 import inquirer from "inquirer";
 import { seedDb } from "./actions/seed_db";
 import { wipeDb } from "./actions/wipe_db";
-import { approveRefundRequests } from "./actions/manage-refund-requests";
+import { approveRefundRequests } from "./actions/approve-refund-requests";
 
 
 
