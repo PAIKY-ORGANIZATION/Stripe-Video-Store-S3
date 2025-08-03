@@ -1,15 +1,15 @@
-"use server"
+'use server';
 
-import { getVideoStream } from "@/actions/aws/get-video-stream";
-import { getUserBySessionEmail } from "@/actions/users-and-videos/get-user-by-email";
-import { prisma } from "@/lib/prisma";
-import { NextRequest, NextResponse } from "next/server"
+import { getVideoStream } from '@/actions/aws/get-video-stream';
+import { getUserBySessionEmail } from '@/actions/users-and-videos/get-user-by-email';
+import { prisma } from '@/lib/prisma';
+import { NextRequest, NextResponse } from 'next/server';
 
 //! Read the readme.md ⚠️
 //! Read the readme.md ⚠️
 //! Read the readme.md ⚠️
 
-
+//prettier-ignore
 export const GET = async (_req: NextRequest, {params}: {params: Promise<{videoId: string}>})=>{
     //* Checking Auth
     const user = await getUserBySessionEmail() //$ This will take care of authentication
@@ -30,12 +30,8 @@ export const GET = async (_req: NextRequest, {params}: {params: Promise<{videoId
 
     const validPurchase = await prisma.purchase.findFirst({
         where: {
-            user: {
-                id: user.id
-            },
-            video: {
-                id: videoId
-            },
+            user: { id: user.id },
+            video: { id: videoId },
             status: 'SUCCESS'
         },
         select: {
