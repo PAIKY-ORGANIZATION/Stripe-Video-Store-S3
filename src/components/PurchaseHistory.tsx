@@ -1,17 +1,20 @@
 'use client';
 
+import { submitRefundRequest } from '@/actions/stripe/submit-refund-request';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 //prettier-ignore
 export default function  PurchaseHistory({relevantSessionDataArray}: {relevantSessionDataArray: RelevantSessionData[]}) {
 
     const [sessionDetails, setSessionDetails] = useState<RelevantSessionData | null>(null)
 
-    const handleRequestRefund = async (sessionId: string)=>{
-    
-        await submitRefundRequest(sessionId)
-    
-        return
+    const handleRequestRefund = async (paymentIntentId: string)=>{
+        const success = await submitRefundRequest(paymentIntentId)
+
+        if(!success) {toast.error('Refund already requested'); return;}
+
+        toast.success('Refund request submitted')
     }
 
     return (
@@ -54,7 +57,7 @@ export default function  PurchaseHistory({relevantSessionDataArray}: {relevantSe
                     ))}
                     {sessionDetails &&  
                         <button className='text-sm p-1 bg-red-500 hover:cursor-pointer w-[35%] rounded-md'
-                            onClick={()=>{handleRequestRefund(sessionDetails.checkoutSessionId)}}
+                            onClick={()=>{handleRequestRefund(sessionDetails.paymentIntentId)}}
                         >
                             Request refund
                         </button>

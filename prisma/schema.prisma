@@ -18,7 +18,7 @@ model user {
     id    String @id @default(uuid())
     email String @unique
 
-    stripeCustomerId String? // This  gets attached right after the user is created. See "authOptions.ts"
+    stripeCustomerId String? // ✨✨ This gets attached right after the user is created. See "authOptions.ts ✨✨"
     username         String
     avatar           String?
     createdAt        DateTime   @default(now())
@@ -47,11 +47,11 @@ model purchase {
     videoId String
 
     paymentIntentId   String
-    checkoutSessionId String //$ For the Purchase History
+    checkoutSessionId String //$ ✨✨ For the Purchase History ✨✨
 
     success Boolean
 
-    //* If it's an error:
+    //* 🟠🟠 If it's an error 🟠🟠:
     failureCode    String?
     failureMessage String?
 
@@ -70,18 +70,20 @@ model purchase {
 
 model Refunds {
     id String @id @default(uuid())
-    stripeRefundId String
+    stripeRefundId String? // ✨✨ It's optional because once a client REQUESTS a refund, the Stripe refund won't exist until manually  approved ✨✨.
 
     purchaseId String @unique 
     purchase purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+    
+    solved Boolean
 }
 
 
 
 
-//$ Storing event id's to prevent idempotency
+//$ ✨✨ Storing event id's to prevent idempotency ✨✨
 model ProcessedStripeEvents {
-    id        String   @id //$ This will be the  event ID
+    id        String   @id //$ ✨✨This will be the  event ID✨✨
     eventType String
     createdAt DateTime @default(now())
 }
