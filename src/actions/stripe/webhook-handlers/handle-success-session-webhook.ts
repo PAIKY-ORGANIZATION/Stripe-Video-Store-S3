@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
-import { sendEmail } from "../brevo/send-email";
-import { getRelevantSessionData } from "./get-relevant-session-data";
 import {Stripe} from "stripe";
 import { handleEventIdempotency } from "./handle-event-idempotency";
+import { sendEmail } from "@/actions/brevo/send-email";
+import { getRelevantSessionData } from "../get-relevant-session-data";
 
 export const handleSuccessSessionWebhook = async (event: Stripe.CheckoutSessionCompletedEvent) => {
 	//* Prevent idempotency by preventing a duplicated Event ID.
@@ -25,7 +25,7 @@ export const handleSuccessSessionWebhook = async (event: Stripe.CheckoutSessionC
 				videoId: video.videoId,
 				checkoutSessionId,
 				paymentIntentId,
-                success: true
+                status: "SUCCESS"
 			},
 		});
 	}

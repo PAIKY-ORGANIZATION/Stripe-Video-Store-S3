@@ -13,7 +13,7 @@ export default async function library() {
     if(!user) { redirect('/api/auth/signin')}
 
     const purchases = await prisma.purchase.findMany({
-        where: { userId: user.id, success: true  },
+        where: { userId: user.id, status: "SUCCESS" },
         include: { video: true}
     })
 

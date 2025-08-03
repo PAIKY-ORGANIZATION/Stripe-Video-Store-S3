@@ -16,7 +16,7 @@ export default async function PurchaseHistoryComponent() {
     // % But in the database purchas will be stored product-wise, meaning multiple sold products with the same session ID. 
     const purchases = await prisma.purchase.groupBy({
         by: ["checkoutSessionId"],
-        where: {success: true, userId: user.id},
+        where: {status: "SUCCESS" , userId: user.id}, //$ Using the Enum ✨
         
     })
     //% purchases will look like "[ { checkoutSessionId: '1' }, { checkoutSessionId: '2' } ]"

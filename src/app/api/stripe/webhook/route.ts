@@ -1,5 +1,6 @@
-import { handlePaymentFailureWebhook } from "@/actions/stripe/handle-payment-failure-webhook";
-import { handleSuccessSessionWebhook } from "@/actions/stripe/handle-success-session-webhook";
+import { handleChargeRefundedWebhook } from "@/actions/stripe/webhook-handlers/handle-charge-refunded";
+import { handlePaymentFailureWebhook } from "@/actions/stripe/webhook-handlers/handle-payment-failure-webhook";
+import { handleSuccessSessionWebhook } from "@/actions/stripe/webhook-handlers/handle-success-session-webhook";
 import { stripe } from "@/lib/stripe";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -19,7 +20,7 @@ export const POST = async (req: NextRequest) => {
         console.log(e);	
         return NextResponse.json({ error: e }, { status: 400 });
     }
-
+    
 
     switch(event.type){
         case "checkout.session.completed":
@@ -27,8 +28,10 @@ export const POST = async (req: NextRequest) => {
         
             
         case  "payment_intent.payment_failed":
-
             return await handlePaymentFailureWebhook(event)
+
+        case "charge.refunded": //% Technically, a charge can contain many refunds.
+            return await handleChargeRefundedWebhook(event)
 
 
         default: 

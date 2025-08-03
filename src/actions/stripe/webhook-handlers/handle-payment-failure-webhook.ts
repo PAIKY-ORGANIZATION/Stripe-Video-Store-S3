@@ -1,9 +1,9 @@
 import Stripe from "stripe"
-import { getSessionByPaymentIntentId } from "./get-session-by-payment-intent-id"
-import { getRelevantSessionData } from "./get-relevant-session-data"
 import { prisma } from "@/lib/prisma"
 import { handleEventIdempotency } from "./handle-event-idempotency"
-import { sendEmail } from "../brevo/send-email"
+import { getSessionByPaymentIntentId } from "../get-session-by-payment-intent-id"
+import { getRelevantSessionData } from "../get-relevant-session-data"
+import { sendEmail } from "@/actions/brevo/send-email"
 
 export const handlePaymentFailureWebhook = async (event: Stripe.PaymentIntentPaymentFailedEvent)=>{
 
@@ -24,7 +24,7 @@ export const handlePaymentFailureWebhook = async (event: Stripe.PaymentIntentPay
                 userId: (metadata as PurchaseMetadata).userId,
                 paymentIntentId: id,
                 checkoutSessionId: checkoutSession.id,
-                success: false,
+                status: "REFUNDED",
                 videoId: video.videoId,
                 failureCode: code,
                 failureMessage: message

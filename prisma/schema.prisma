@@ -55,7 +55,7 @@ model purchase {
     paymentIntentId   String
     checkoutSessionId String //$ ✨✨ For the Purchase History ✨✨
 
-    status Status //✨✨ Enum ✨✨
+    status Status // ✨ Enum: On success webhook becomes "SUCCESS", on failure webhook becomes "FAILURE", on refund webhook becomes "REFUNDED" ✨
 
     //* 🟠🟠 If it's an error 🟠🟠:
     failureCode    String?
