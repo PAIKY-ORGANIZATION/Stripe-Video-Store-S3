@@ -45,7 +45,7 @@ model purchase {
     id      String @id @default(uuid())
     userId  String
     videoId String
-
+    refundId String?
     paymentIntentId   String
     checkoutSessionId String //$ ✨✨ For the Purchase History ✨✨
 
@@ -57,7 +57,7 @@ model purchase {
 
     user  user  @relation(fields: [userId], references: [id], onDelete: Cascade)
     video video @relation(fields: [videoId], references: [id], onDelete: Cascade)
-    refund Refunds?
+    refund Refunds?  @relation(fields: [refundId], references:  [id])
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -67,15 +67,14 @@ model purchase {
 }
 
 
-
+//✨✨ Refunds are associated with  a Stripe Session (Cart). While we don't manage the context of a cart, we need only one refund per session, because that is WHAT STRIPE ALLOWS. Maybe we could also use partial refunds (like x% of it)✨✨
 model Refunds {
     id String @id @default(uuid())
     stripeRefundId String? // ✨✨ It's optional because once a client REQUESTS a refund, the Stripe refund won't exist until manually  approved ✨✨.
-
-    purchaseId String @unique 
-    purchase purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
-    
+    reason String
     solved Boolean
+
+    purchases purchase[]
 }
 
 
