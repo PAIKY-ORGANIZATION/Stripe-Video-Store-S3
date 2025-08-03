@@ -54,7 +54,8 @@ export const manageRefundRequests = async ()=>{
         const payment_intent = refunds.find((refund)=> refund.id === answer.refundId)?.purchases[0]?.paymentIntentId
 
         await stripe.refunds.create({
-            payment_intent: payment_intent
+            payment_intent: payment_intent,
+            
         })        
     }
 

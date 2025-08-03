@@ -13,7 +13,7 @@ export default async function PurchaseHistoryComponent() {
 
 
     //% The purpose of "groupBy" is to display purchases to customers as they were added to the cart based on sessionId's.
-    // % But in the database purchases will be stored product-wise, meaning multiple sold products with the same session ID. 
+    // % But in the database purchas will be stored product-wise, meaning multiple sold products with the same session ID. 
     const purchases = await prisma.purchase.groupBy({
         by: ["checkoutSessionId"],
         where: {success: true, userId: user.id},

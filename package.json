@@ -6,7 +6,7 @@
     "dev_local": "ENVIRONMENT=local next dev",
     "build": "next build",
     "start": "next start",
-    "cmd": "npx tsx src/cmd",
+    "cmd": "ENVIRONMENT=local npx tsx src/cmd",
     "lint": "next lint"
   },
   "dependencies": {
@@ -22,7 +22,6 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hot-toast": "^2.5.2",
-    "react-json-view": "^1.21.3",
     "stripe": "^18.3.0",
     "tsx": "^4.20.3"
   },

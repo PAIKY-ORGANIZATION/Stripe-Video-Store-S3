@@ -1,3 +1,7 @@
+import '@/bootstrap'
+
+
+
 import inquirer from "inquirer";
 import { seedDb } from "./actions/seed_db";
 import { wipeDb } from "./actions/wipe_db";
@@ -5,7 +9,10 @@ import { manageRefundRequests } from "./actions/manage-refund-requests";
 
 
 
-import '@/bootstrap'
+
+
+
+console.log({a: process.env.STRIPE_SECRET_KEY});
 
 
 const seedDbKey = 'Seed videos in database'
