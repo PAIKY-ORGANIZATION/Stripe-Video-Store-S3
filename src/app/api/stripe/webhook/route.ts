@@ -30,7 +30,7 @@ export const POST = async (req: NextRequest) => {
 
             return await handlePaymentFailureWebhook(event)
 
-            
+
         default: 
             return new Response('Received', {status: 200})
 

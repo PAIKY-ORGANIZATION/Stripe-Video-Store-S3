@@ -41,6 +41,12 @@ model video {
     @@map("videos")
 }
 
+enum Status {
+    SUCCESS
+    FAILURE
+    REFUNDED
+}
+
 model purchase {
     id      String @id @default(uuid())
     userId  String
@@ -49,7 +55,7 @@ model purchase {
     paymentIntentId   String
     checkoutSessionId String //$ ✨✨ For the Purchase History ✨✨
 
-    success Boolean
+    status Status //✨✨ Enum ✨✨
 
     //* 🟠🟠 If it's an error 🟠🟠:
     failureCode    String?

@@ -55,12 +55,18 @@ export default function  PurchaseHistory({relevantSessionDataArray}: {relevantSe
                             </div>
                         </div>
                     ))}
-                    {sessionDetails &&  
+
+                    {/* //* Refund section   */}
+                    {sessionDetails && !sessionDetails.wasRefunded &&
                         <button className='text-sm p-1 bg-red-500 hover:cursor-pointer w-[35%] rounded-md'
                             onClick={()=>{handleRequestRefund(sessionDetails.paymentIntentId)}}
                         >
                             Request refund
                         </button>
+                    }
+                    {
+                        sessionDetails?.wasRefunded && 
+                        <p className='text-sm font-bold'>This item was refunded</p>
                     }
                 </div>
             </div>
