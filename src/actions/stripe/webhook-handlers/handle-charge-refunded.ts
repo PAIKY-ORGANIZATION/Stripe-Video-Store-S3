@@ -6,7 +6,6 @@ export const handleChargeRefundedWebhook = async (event: Stripe.ChargeRefundedEv
     const {payment_intent} = event.data.object
 
     //* Invalidate ALL (updateMany) purchases with paymentIntent from refunded charge
-
     await prisma.purchase.updateMany({
         where: {
             paymentIntentId: payment_intent as string
@@ -15,7 +14,4 @@ export const handleChargeRefundedWebhook = async (event: Stripe.ChargeRefundedEv
             status: "REFUNDED"
         }
     })
-
-
-    return
 }

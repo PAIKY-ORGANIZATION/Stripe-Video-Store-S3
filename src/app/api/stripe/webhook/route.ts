@@ -1,4 +1,5 @@
 import { handleChargeRefundedWebhook } from "@/actions/stripe/webhook-handlers/handle-charge-refunded";
+import { handleEventIdempotency } from "@/actions/stripe/webhook-handlers/handle-event-idempotency";
 import { handlePaymentFailureWebhook } from "@/actions/stripe/webhook-handlers/handle-payment-failure-webhook";
 import { handleSuccessSessionWebhook } from "@/actions/stripe/webhook-handlers/handle-success-session-webhook";
 import { stripe } from "@/lib/stripe";
@@ -20,7 +21,11 @@ export const POST = async (req: NextRequest) => {
         console.log(e);	
         return NextResponse.json({ error: e }, { status: 400 });
     }
-    
+
+
+    	//* Prevent idempotency by preventing a duplicated Event ID.
+        const isDuplicated = await handleEventIdempotency(event.id, event.type)
+        if(isDuplicated) return new Response('Received', { status: 200 });
 
     switch(event.type){
         case "checkout.session.completed":

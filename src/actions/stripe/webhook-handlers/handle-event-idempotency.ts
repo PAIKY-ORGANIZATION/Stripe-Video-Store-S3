@@ -2,12 +2,12 @@ import { prisma } from "@/lib/prisma";
 
 export const handleEventIdempotency = async (eventId: string, eventType: string)=>{
 
+    //% If the event exists, return true. Else, save the event and return false.
+
     const existingEvent = await prisma.processedStripeEvents.findFirst({
         where: { id: eventId },
     });
-    if (existingEvent) {
-        return new Response('Received', { status: 200 });
-    }
+    if (existingEvent) {true}
 
     //* Store event ID to handle idempotency:
     await prisma.processedStripeEvents.create({
@@ -17,5 +17,5 @@ export const handleEventIdempotency = async (eventId: string, eventType: string)
         },
     });
 
-    return
+    return  false
 }

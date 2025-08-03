@@ -1,12 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import {Stripe} from "stripe";
-import { handleEventIdempotency } from "./handle-event-idempotency";
 import { sendEmail } from "@/actions/brevo/send-email";
 import { getRelevantSessionData } from "../get-relevant-session-data";
 
 export const handleSuccessSessionWebhook = async (event: Stripe.CheckoutSessionCompletedEvent) => {
-	//* Prevent idempotency by preventing a duplicated Event ID.
-	await handleEventIdempotency(event.id, event.type)
 
 	//*  Store purchase/s to database
 	const checkoutSession: Stripe.Checkout.Session = event.data.object;
