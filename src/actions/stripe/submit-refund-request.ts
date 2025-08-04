@@ -1,10 +1,14 @@
 "use server"
 
 import { prisma } from "@/lib/prisma"
+import { getUserBySessionEmail } from "../users-and-videos/get-user-by-email"
 
 //% Refunds are associated with  a Stripe Session (Cart). While we don't manage the context of a cart, we need only one refund per session, because that is WHAT STRIPE ALLOWS. Maybe we could also use partial refunds (like x% of it)
 //% When updating or solving the refund we will modify all purchases. This is the best for our current model.
 export const submitRefundRequest = async (paymentIntentId: string)=>{
+        //* Auth
+        const user = await getUserBySessionEmail()
+        if(!user) return false
 
     //*  Since I'm not too familiar with "Some", I'll leave this NOTE:
     //* To know if a refund is associated with a purchase with the paymentIntentId being requested for refund, we can use "SOME":
@@ -23,23 +27,44 @@ export const submitRefundRequest = async (paymentIntentId: string)=>{
             }
         }
     })
-
     if(existingPurchaseWithRefund) return false
+
+    //// We are not checking if the videos belong to the user who requested this refund
+    //// We could: Pass an array of videosIDs and make sure that there matches with VideoID, 
+    
+    //* Check if payment intent belongs to user on any of their purchases
+    const userData = await prisma.user.findFirst({
+        where: {
+            id: user.id
+        },
+        select: {
+            purchases: {
+                select: {
+                    paymentIntentId: true
+                }
+            }
+        }
+    })
+    const paymentIntentIdBelongsToUser = userData?.purchases.map((purchase)=>{
+        if(purchase.paymentIntentId === paymentIntentId) return true    
+    })
+    if(!paymentIntentIdBelongsToUser) return false
+
 
     //% Purchases have an optional refund relationship. We can:
         //% 1- Create the refund
         //% 2- Attach the refund Id to all purchases with the same paymentIntentId
         
-    const refund = await prisma.refunds.create({
+    const refund = await prisma.refunds.create({ //* Create the refund
         data: {
             solved: false,
             reason: 'Requested by customeeeeer'
         }
     })
-
-    const updatedPurchases = await prisma.purchase.updateManyAndReturn({
+    //* Actually linking purchases to their refunds
+    await prisma.purchase.updateMany({
         where: {paymentIntentId: paymentIntentId},
-        data: {refundId: refund.id}
+        data: {refundId: refund.id,} //! Still don't mark as "REFUNDED" until the refund is approved.
     })
 
     return true

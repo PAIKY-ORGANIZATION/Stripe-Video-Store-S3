@@ -59,7 +59,7 @@ export const _createStripeSessionObject = async (videos: video[], user: user)=>{
                 }
             },
             unit_amount: video.price * 100,
-            currency: 'usd'
+            currency: 'mxn',
         },
         quantity: 1
     }})

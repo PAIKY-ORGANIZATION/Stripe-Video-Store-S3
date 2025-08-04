@@ -13,3 +13,4 @@ export const getSessionByPaymentIntentId = async (paymentIntentId: string)=>{
     const session = sessions.data[0]
     return session
 }
+

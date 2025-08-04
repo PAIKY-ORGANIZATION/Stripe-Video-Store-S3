@@ -18,7 +18,7 @@ console.log({a: process.env.STRIPE_SECRET_KEY});
 const seedDbKey = 'Seed videos in database'
 const wipeDbKey = 'Wipe entire database'
 const wipeDbAndSeedKey = 'Wipe database and seed'
-const manageRefundsKey = 'Manage refunds'
+const manageRefundsKey = 'Approve refund requests'
 
 
 const main = async ()=>{

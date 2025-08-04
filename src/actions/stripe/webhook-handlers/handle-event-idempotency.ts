@@ -7,7 +7,7 @@ export const handleEventIdempotency = async (eventId: string, eventType: string)
     const existingEvent = await prisma.processedStripeEvents.findFirst({
         where: { id: eventId },
     });
-    if (existingEvent) {true}
+    if (existingEvent) {return true}
 
     //* Store event ID to handle idempotency:
     await prisma.processedStripeEvents.create({

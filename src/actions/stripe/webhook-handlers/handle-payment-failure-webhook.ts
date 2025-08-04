@@ -14,7 +14,7 @@ export const handlePaymentFailureWebhook = async (event: Stripe.PaymentIntentPay
 
     const relevantSessionData = await getRelevantSessionData(checkoutSession)
 
-    console.log({id, code, message, relevantSessionData});
+    // console.log({id, code, message, relevantSessionData}); //$ Relevant error data
 
     for (const video of relevantSessionData.videos){
         await prisma.purchase.create({
@@ -22,7 +22,7 @@ export const handlePaymentFailureWebhook = async (event: Stripe.PaymentIntentPay
                 userId: (metadata as PurchaseMetadata).userId,
                 paymentIntentId: id,
                 checkoutSessionId: checkoutSession.id,
-                status: "REFUNDED",
+                status: "FAILURE",
                 videoId: video.videoId,
                 failureCode: code,
                 failureMessage: message
