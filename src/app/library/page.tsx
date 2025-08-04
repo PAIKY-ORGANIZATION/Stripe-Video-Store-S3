@@ -3,6 +3,7 @@ import { getUserBySessionEmail } from '@/actions/users-and-videos/get-user-by-em
 import Library from '@/components/Library'
 import { video } from '@/generated/prisma'
 import { prisma } from '@/lib/prisma'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 
@@ -21,7 +22,14 @@ export default async function library() {
 
     const userVideos: video[] =  purchases.map((purchase)=> purchase.video) || []
 
-    if(userVideos.length === 0){ return <p className="flex items-center justify-center w-full h-full text-3xl text-white">No videos found 😔</p>}
+    if(userVideos.length === 0){ return(
+        <>
+            <p className="flex flex-col items-center justify-center w-full h-full text-2xl text-white">
+                You still don't own videos
+                <Link href={'/'} className="p-2 mt-4 text-white bg-blue-500 rounded hover:underline"> Visit the store </Link>
+            </p>
+        </>
+    )}
 
     return (
         <Library userVideos={userVideos} />

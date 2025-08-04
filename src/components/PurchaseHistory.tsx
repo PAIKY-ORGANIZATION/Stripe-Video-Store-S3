@@ -18,7 +18,7 @@ export default function  PurchaseHistory({relevantSessionDataArray}: {relevantSe
     }
 
     return (
-        <div className="w-full p-10">
+        <div className="w-full p-10 bg-[#1f1e1d]">
             <h1 className="mb-4 text-2xl font-bold">Your Purchase History</h1>
             
             {/* //* Purchase rows  */}
