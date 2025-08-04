@@ -85,6 +85,4 @@ export const _createStripeSessionObject = async (videos: video[], user: user)=>{
     });
 
     return  session
-
-
 }

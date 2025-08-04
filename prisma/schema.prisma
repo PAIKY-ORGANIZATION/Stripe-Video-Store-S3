@@ -48,6 +48,7 @@ enum Status {
 }
 
 model purchase {
+    //⚠️⚠️ Even though there are no unique constrains, when creating a session we look for uniqueness purchase ⚠️⚠️
     id      String @id @default(uuid())
     userId  String
     videoId String
