@@ -63,7 +63,7 @@ export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
                                         className="flex items-center justify-center rounded-lg bg-green-600 text-white p-2 mt-4 hover:bg-green-700 self-center w-[20%] text-center hover:cursor-pointer"
                                         onClick={()=>{handleBuy(video.id)}}
                                     >
-                                        Buy for {video.price}$ 
+                                        Buy now for {video.price}$ 
                                     </button>
                                     <button
                                         className="flex items-center justify-center rounded-lg bg-blue-500 text-white p-2 mt-4 hover:bg-blue-700 self-center w-[20%] text-center hover:cursor-pointer"

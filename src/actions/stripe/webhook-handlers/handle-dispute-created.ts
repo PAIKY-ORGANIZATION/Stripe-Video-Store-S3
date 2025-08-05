@@ -20,7 +20,7 @@ export const handleDisputeCreated = async (event: AnyDisputeType)=>{
 
     const {id, payment_intent, reason, status} = StripeDispute
 
-
+    //* Register the dispute in Postgres
     const prismaDispute = await prisma.disputes.create({
         data: {
             stripeDisputeId: id, //$ du_
@@ -28,9 +28,6 @@ export const handleDisputeCreated = async (event: AnyDisputeType)=>{
             status,
         }
     })
-
-
-    console.log({prismaDispute});
     
 
     //* Immediately invalidating

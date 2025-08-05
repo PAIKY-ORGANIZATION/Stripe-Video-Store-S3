@@ -10,11 +10,11 @@ export default function  PurchaseHistory({relevantSessionDataArray}: {relevantSe
     const [sessionDetails, setSessionDetails] = useState<RelevantSessionData | null>(null)
 
     const handleRequestRefund = async (paymentIntentId: string)=>{
-        const success = await submitRefundRequest(paymentIntentId)
+        const response = await submitRefundRequest(paymentIntentId)
 
-        if(!success) {toast.error('Refund already requested'); return;}
+        if(!response.success) {toast.error(response.message); return;}
 
-        toast.success('Refund request submitted to support')
+        toast.success(response.message)
     }
 
     return (
@@ -29,22 +29,32 @@ export default function  PurchaseHistory({relevantSessionDataArray}: {relevantSe
                         <div key={i} className="flex items-center justify-between gap-2 p-1 px-2 bg-purple-600 rounded-xl">
                             <p className="text-sm font-medium truncate w-70 ">{r.checkoutSessionId}</p>
                             <p className="text-sm w-30  whitespace-nowrap">{r.date}</p>
-                            <p className='font-bold text-sm'>${r.total}</p>
+                            <p className='text-sm'>${r.total}</p>
                             <button
                                 onClick={() => setSessionDetails(r)}
                                 className="ml-8 text-sm text-white underline hover:underline hover:cursor-pointer"
                             >
                                 Details
                             </button>
-
-                            {r.wasRefunded ? 
-                                <p className="ml-4 text-sm text-white whitespace-nowrap font-bold">Item Refunded</p>
-                                :
-                                <button className="ml-4 text-sm text-white  whitespace-nowrap underline hover:underline hover:cursor-pointer" onClick={()=>{handleRequestRefund(r.paymentIntentId)}}>
-                                    Req. Refund
+                            {/* //$ If refunded, show it was refunded.*/}
+                            {/* //$ If NOT but under dispute, show it was disputed. */}
+                            {/* //$ If NOT under dispute and NOT refunded, show button to request refund. */}
+                            {r.wasRefunded ? (
+                                <p className="ml-4 text-sm text-white whitespace-nowrap font-bold">
+                                    Item Refunded
+                                </p>
+                                ) : r.hasDispute ? (
+                                <p className="ml-4 text-sm whitespace-nowrap font-bold text-red-500">
+                                    Disputed ⚠️
+                                </p>
+                                ) : (
+                                <button
+                                    className="ml-4 text-sm text-white whitespace-nowrap underline hover:underline hover:cursor-pointer"
+                                    onClick={() => handleRequestRefund(r.paymentIntentId)}
+                                >
+                                    Request Refund
                                 </button>
-                            }
-                            {r.hasDispute && <p className="ml-4 text-sm text-white whitespace-nowrap font-bold">Disputed ⚠️</p>}
+                            )}
                         </div>
                     ))}
                 </div>
@@ -74,7 +84,10 @@ export default function  PurchaseHistory({relevantSessionDataArray}: {relevantSe
             </div>
             <div className='mt-30 w-[50%]'> 
                 <h1 className="text-xl font-bold"> How refunds work?</h1>
-                <p className="text-sm">If you are not satisfied with your purchase, you can request a refund. Our team will review your request and process the refund. Please note that Refunds will be processed within 5 business days.</p>
+                <p className="text-sm mb-5">If you are not satisfied with your purchase, you can request a refund. Our team will review your request and process the refund. Please note that Refunds will be processed within 5 business days.</p>
+
+                <h1 className="text-xl font-bold"> What if I filed a dispute with my card issuer?</h1>
+                <p className="text-sm"> You won't be able to request a refund through this application. We will resolve the dispute by providing our evidence to your card issuer. </p>
             </div>
         </div>
     )
