@@ -5,6 +5,9 @@ import { getRelevantSessionData } from "../get-relevant-session-data";
 
 export const handleSuccessSessionWebhook = async (event: Stripe.CheckoutSessionCompletedEvent) => {
 
+
+	
+
 	//*  Store purchase/s to database
 	const checkoutSession: Stripe.Checkout.Session = event.data.object;
 
@@ -16,7 +19,7 @@ export const handleSuccessSessionWebhook = async (event: Stripe.CheckoutSessionC
 
 	for (const video of relevantSessionData.videos) {
 		//% Even though it's a single session, purchases are stored product-wise in our db. Stripe will handle the "concept" of a cart, not us.
-		await prisma.purchase.create({
+		const testlogDELETE = await prisma.purchase.create({
 			data: {
 				userId: metadata.userId,
 				videoId: video.videoId,
@@ -25,6 +28,10 @@ export const handleSuccessSessionWebhook = async (event: Stripe.CheckoutSessionC
                 status: "SUCCESS"
 			},
 		});
+
+		console.log({testlogDELETE});
+		
+
 	}
 
 	await sendEmail({

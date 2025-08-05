@@ -4,6 +4,7 @@ import type { video  as  PrismaVideo } from "@/generated/prisma/client"
 import { toast } from "react-hot-toast"
 import { useCartContext } from "./CartContext"
 import { generateStripeSession } from "@/actions/stripe/generate-stripe-session"
+import { signIn, useSession } from "next-auth/react"
 
 
 
@@ -11,6 +12,8 @@ import { generateStripeSession } from "@/actions/stripe/generate-stripe-session"
 export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
 
     const {handleAddItem} = useCartContext()
+    const session = useSession().data //$ To make sure we can't add to cart if not logged in.
+
 
     const handleBuy = async (videoId: string)=>{
         const createSessionResponse = await generateStripeSession([videoId]) //$ This func. only accepts an array
@@ -22,7 +25,11 @@ export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
         window.location.href = createSessionResponse.data.sessionUrl as string
     }
 
-    const handleAddToCart = (videoId: string, videoPrice: number, videoTitle: string)=>{
+    const handleAddToCart = async (videoId: string, videoPrice: number, videoTitle: string)=>{
+        console.log({session});
+
+        if(!session) {await signIn('google', {callbackUrl: '/'}); return}
+
         const cartItem: CartVideoObject = { videoId, videoPrice, videoTitle}
         const success = handleAddItem(cartItem)
         success ? toast.success('Item added to cart'): toast.error('Item already in cart')
