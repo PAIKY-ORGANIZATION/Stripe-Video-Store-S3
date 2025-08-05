@@ -1,3 +1,4 @@
+import { findDisputeByPaymentIntent } from "@/actions/stripe/find-dispute-by-payment-intent";
 import { prisma } from "@/lib/prisma"
 import { stripe } from "@/lib/stripe";
 import inquirer from "inquirer";
@@ -8,23 +9,16 @@ import inquirer from "inquirer";
 export const approveRefundRequests = async ()=>{
 
     const refunds = await prisma.refunds.findMany({ //*  Find refunds to display
-
-        where: {
-            solved: false
-        },
+        where: { solved: false },
 
         include: {
             purchases: {
                 select: {
                     user: {
-                        select: {
-                            email: true
-                        }
+                        select: { email: true }
                     },
                     video: {
-                        select: {
-                            title: true
-                        }
+                        select: { title: true}
                     },
                     paymentIntentId: true,
                 }
@@ -46,14 +40,23 @@ export const approveRefundRequests = async ()=>{
 
     ])
 
-    //* From one of the purchases with the same paymentIntentId (linked to the same refund), get the paymentIntentId
-    const payment_intent = refunds.find((refund)=> refund.id === answer.refundId)?.purchases[0]?.paymentIntentId
+    //* From one of the refunds with the same paymentIntentId (linked to the same refund), get the paymentIntentId
+    const selectedRefund = refunds.find(
+        (refund)=> refund.id === answer.refundId
+    )
+    const selectedRefund_paymentIntent = selectedRefund?.purchases[0].paymentIntentId
+    
+    //* Check if there is a dispute associated
+    const hasDispute = await findDisputeByPaymentIntent(selectedRefund_paymentIntent as string) //! If a Stripe charge has a dispute, then there is a "Charge-back". If you try to issue a refund you  will get an error.
 
+    if(hasDispute) {
+        console.log('Dispute associated with this refund was found! Cannot refund.  ⚠️⚠️⚠️'); 
+        return
+    }
 
-    //¡ REFUND AMOUNT MISSING
-    //! It sees that if you don't pass an amount, it will refund the full amount.
+    //! No amount passed????? It seems that if you don't pass an amount, it will refund the full amount.
     await stripe.refunds.create({
-        payment_intent: payment_intent,
+        payment_intent: selectedRefund_paymentIntent,
         metadata: {
             postgresRefundId: answer.refundId //% This will be used to find the POSTGRES REFUND in the webhook and:
             //% 1- Mark it as solved

@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma"
 import { getUserBySessionEmail } from "../users-and-videos/get-user-by-email"
 import { sendEmail } from "../brevo/send-email"
+import { findDisputeByPaymentIntent } from "./find-dispute-by-payment-intent"
 
 //% Refunds are associated with  a Stripe Session (Cart). While we don't manage the context of a cart, we need only one refund per session, because that is WHAT STRIPE ALLOWS. We might also need partial refunds for a single charge (like x% of it)
 //% When updating or solving the refund we will modify all purchases. This is the best for our current model.
@@ -22,15 +23,13 @@ export const submitRefundRequest = async (paymentIntentId: string)=>{
     const existingPurchaseWithRefund = await prisma.refunds.findFirst({
         where: {
             purchases: {
-                some: {
-                    paymentIntentId
-                }
+                some: { paymentIntentId }
             }
         }
     })
     if(existingPurchaseWithRefund) return false
-    //// We are not checking if the videos belong to the user who requested this refund
-    //// We could: Pass an array of videosIDs and make sure that there matches with VideoID, 
+
+
     
     //* Check if payment intent belongs to user on any of their purchases (checking if the videos belong to the user who requested this refund
     const userData = await prisma.user.findFirst({
@@ -38,10 +37,7 @@ export const submitRefundRequest = async (paymentIntentId: string)=>{
             id: user.id
         },
         select: {
-            purchases: {
-                select: {
-                    paymentIntentId: true
-                }
+            purchases: { select: { paymentIntentId: true }
             }
         }
     })
