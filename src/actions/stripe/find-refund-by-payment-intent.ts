@@ -1,6 +1,6 @@
 import { stripe } from "@/lib/stripe"
 
-export const findRefundBtyPaymentIntent = async (payment_intent: string)=>{
+export const findRefundByPaymentIntent = async (payment_intent: string)=>{
 
     //% This will give an array of refunds. If the array is greater than 0, we know there was a refund.
 

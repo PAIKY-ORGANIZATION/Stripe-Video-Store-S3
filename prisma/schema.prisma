@@ -41,30 +41,38 @@ model video {
     @@map("videos")
 }
 
-enum Status {
+enum PurchaseStatus {
     SUCCESS
     FAILURE
     REFUNDED
+    DISPUTED
 }
 
 model purchase {
     //⚠️⚠️ Even though there are no unique constrains, when creating a session we look for uniqueness purchase ⚠️⚠️
-    id      String @id @default(uuid())
-    userId  String
-    videoId String
-    refundId String?
+    id String @id @default(uuid())
+
     paymentIntentId   String
     checkoutSessionId String //$ ✨✨ For the Purchase History ✨✨
 
-    status Status // ✨ Enum: On success webhook becomes "SUCCESS", on failure webhook becomes "FAILURE", on refund webhook becomes "REFUNDED" ✨
+    status PurchaseStatus // ✨ Enum: On success webhook becomes "SUCCESS", on failure webhook becomes "FAILURE", on refund webhook becomes "REFUNDED" ✨
 
     //* 🟠🟠 If it's an error 🟠🟠:
     failureCode    String?
     failureMessage String?
 
-    user  user  @relation(fields: [userId], references: [id], onDelete: Cascade)
-    video video @relation(fields: [videoId], references: [id], onDelete: Cascade)
-    refund Refunds?  @relation(fields: [refundId], references:  [id])
+    userId String
+    user   user   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    videoId String
+    video   video  @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+    //✨✨ These two are optional✨✨
+    refundId String?
+    refund   Refunds? @relation(fields: [refundId], references: [id], onDelete: Cascade)
+
+    disputeId String?
+    dispute   Disputes? @relation(fields: [disputeId], references: [id], onDelete: Cascade)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -73,17 +81,38 @@ model purchase {
     @@map("purchases")
 }
 
-
 //✨✨ Refunds are associated with  a Stripe Session (Cart). While we don't manage the context of a cart, we need only one refund per session, because that is WHAT STRIPE ALLOWS. Maybe we could also use partial refunds (like x% of it)✨✨
 model Refunds {
-    id String @id @default(uuid())
+    id             String  @id @default(uuid())
     stripeRefundId String? @unique // ✨✨ It's optional because once a client REQUESTS a refund, the Stripe refund won't exist until manually  approved ✨✨.
-    reason String
-    solved Boolean
+    reason         String
+    solved         Boolean
 
     purchases purchase[]
 }
 
+enum DisputeStatus {
+    won
+    lost
+    needs_response
+    under_review
+    closed
+    //⚠️⚠️ Read Notion for the meaning of these ⚠️⚠️
+    warning_closed
+    warning_under_review
+    warning_needs_response
+
+
+}
+
+model Disputes {
+    id              String        @id @default(uuid())
+    stripeDisputeId String        @unique
+    reason          String
+    status          DisputeStatus
+
+    purchases       purchase[]
+}
 
 //$ ✨✨ Storing event id's to prevent idempotency ✨✨
 model ProcessedStripeEvents {

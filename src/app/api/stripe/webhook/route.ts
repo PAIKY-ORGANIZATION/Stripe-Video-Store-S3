@@ -1,4 +1,5 @@
 import { handleChargeRefundedWebhook } from "@/actions/stripe/webhook-handlers/handle-charge-refunded-webhook";
+import { handleDisputeCreated } from "@/actions/stripe/webhook-handlers/handle-dispute-created";
 import { handleEventIdempotency } from "@/actions/stripe/webhook-handlers/handle-event-idempotency";
 import { handlePaymentFailureWebhook } from "@/actions/stripe/webhook-handlers/handle-payment-failure-webhook";
 import { handleSuccessSessionWebhook } from "@/actions/stripe/webhook-handlers/handle-success-session-webhook";
@@ -42,9 +43,26 @@ export const POST = async (req: NextRequest) => {
         case "charge.refunded": //% Technically, a charge can contain many refunds.
             await handleChargeRefundedWebhook(event)
             break
-        //* Disputes
+        //* Disputes ---------------------------------------------------------------
         case "charge.dispute.created":
+            await handleDisputeCreated(event)
+            //? Suspend services and  register dispute
             break            
+
+        case "charge.dispute.updated":
+            //? I guess just notify myself here
+            break
+
+        case "charge.dispute.closed":
+            //? Notify of outcome
+            break
+
+        case "charge.dispute.funds_reinstated":
+            //? Reactivate services
+        
+        case "charge.dispute.funds_withdrawn":
+            //? Notify of outcome
+        //*  ---------------------------------------------------------------------
 
         default: 
             return new Response('Received unknown event', {status: 200}) 
