@@ -36,13 +36,15 @@ export default function  PurchaseHistory({relevantSessionDataArray}: {relevantSe
                             >
                                 Details
                             </button>
-                            {!r.wasRefunded ? 
+
+                            {r.wasRefunded ? 
+                                <p className="ml-4 text-sm text-white whitespace-nowrap font-bold">Item Refunded</p>
+                                :
                                 <button className="ml-4 text-sm text-white  whitespace-nowrap underline hover:underline hover:cursor-pointer" onClick={()=>{handleRequestRefund(r.paymentIntentId)}}>
                                     Req. Refund
                                 </button>
-                                :
-                                <p className="ml-4 text-sm text-white whitespace-nowrap font-bold">Item Refunded</p>
                             }
+                            {r.hasDispute && <p className="ml-4 text-sm text-white whitespace-nowrap font-bold">Disputed ⚠️</p>}
                         </div>
                     ))}
                 </div>

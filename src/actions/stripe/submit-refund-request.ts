@@ -72,7 +72,7 @@ export const submitRefundRequest = async (paymentIntentId: string)=>{
     await sendEmail({
         subject: 'Received a refund',
         content: 'Received refund request from: ' + user.email,
-        receiverEmail: process.env.DEFAULT_BREVO_SENDER_EMAIL!, //$ (Self)
+        receiverEmail: process.env.ADMIN_EMAIL!, //$ (Self)
     })
 
     return true

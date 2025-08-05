@@ -1,3 +1,4 @@
+import { sendEmail } from "@/actions/brevo/send-email";
 import { prisma } from "@/lib/prisma"
 import Stripe from "stripe"
 
@@ -39,5 +40,11 @@ export const handleDisputeCreated = async (event: AnyDisputeType)=>{
             status: 'DISPUTED',
             disputeId: prismaDispute.id
         }
+    })
+
+    await sendEmail({
+        content: 'We detected a dispute. \n Dispute ID: ' + id + '\n Payment intent ID: ' + payment_intent + '\n Reason: ' + reason + '\n Status: ' + status,
+        receiverEmail: process.env.ADMIN_EMAIL!,
+        subject: 'Dispute detected',
     })
 }

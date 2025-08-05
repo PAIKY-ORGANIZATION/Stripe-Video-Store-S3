@@ -25,7 +25,7 @@ const setENV = ()=>{
         "STRIPE_SIGNING_SECRET",
         "APP_HOST",
         'BREVO_API_KEY',
-        'DEFAULT_BREVO_SENDER_EMAIL'
+        'ADMIN_EMAIL'
     ];
 
     requiredVars.forEach((varName)=>{
