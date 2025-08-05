@@ -3,7 +3,7 @@
 import { stripe } from "@/lib/stripe"
 
 
-export const getSessionByPaymentIntentId = async (paymentIntentId: string)=>{
+export const findSessionByPaymentIntentId = async (paymentIntentId: string)=>{
 
     const sessions = await stripe.checkout.sessions.list({
         payment_intent: paymentIntentId,

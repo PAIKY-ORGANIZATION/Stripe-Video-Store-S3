@@ -1,5 +1,5 @@
 import { getRelevantSessionData } from "@/actions/stripe/get-relevant-session-data"
-import { getStripeSessionById } from "@/actions/stripe/get-stripe-session-by-id"
+import { findStripeSessionById } from "@/actions/stripe/find-stripe-session-by-id"
 import { getUserBySessionEmail } from "@/actions/users-and-videos/get-user-by-email"
 import PurchaseHistory from "@/components/PurchaseHistory"
 import { prisma } from "@/lib/prisma"
@@ -19,12 +19,12 @@ export default async function PurchaseHistoryComponent() {
         by: ["checkoutSessionId"],
         where: { userId: user.id} //$ Even solved refunds are included.
         
-    })
-    //% purchases will look like "[ { checkoutSessionId: '1' }, { checkoutSessionId: '2' } ]"
+    }) //% purchases will look like "[ { checkoutSessionId: '1' }, { checkoutSessionId: '2' } ]"
 
 
+    //* For every sessionId obtained, find it's SESSION OBJECT, then get a formatted session-data object.
     const purchaseHistoryArray = await Promise.all(purchases.map( async (purchase)=>{
-        const checkoutSession = await getStripeSessionById(purchase.checkoutSessionId) //* First get the session by id
+        const checkoutSession = await findStripeSessionById(purchase.checkoutSessionId) //* First get the session by id
         return getRelevantSessionData(checkoutSession)} //* Then get relevant session data.
     ))
 

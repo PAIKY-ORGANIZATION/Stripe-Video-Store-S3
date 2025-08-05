@@ -49,6 +49,7 @@ type RelevantSessionData = {
     checkoutSessionId: string;
     paymentIntentId: string;
     wasRefunded: boolean;
+    hasDispute: boolean
     videos: {
         title: string;
         image: string;
