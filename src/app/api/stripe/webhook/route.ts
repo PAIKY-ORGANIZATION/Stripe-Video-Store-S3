@@ -23,28 +23,31 @@ export const POST = async (req: NextRequest) => {
     }
 
 
-    	//* Prevent idempotency by preventing a duplicated Event ID.
-        const isDuplicated = await handleEventIdempotency(event.id, event.type)
-        if(isDuplicated) return new Response('Received', { status: 200 });
+    //* Prevent idempotency by preventing a duplicated Event ID.
+    const isDuplicated = await handleEventIdempotency(event.id, event.type)
+    if(isDuplicated) return new Response('Received', { status: 200 });
 
     switch(event.type){
+        //* Successful session
         case "checkout.session.completed":
-            return await handleSuccessSessionWebhook(event)
+            await handleSuccessSessionWebhook(event)
+            break
         
-            
+        //* Failure (example: invalid CV, insufficient funds)
         case  "payment_intent.payment_failed":
-            return await handlePaymentFailureWebhook(event)
-
+            await handlePaymentFailureWebhook(event)
+            break
+        
+        //* Refunds
         case "charge.refunded": //% Technically, a charge can contain many refunds.
-            return await handleChargeRefundedWebhook(event)
-
+            await handleChargeRefundedWebhook(event)
+            break
+        //* Disputes
+        case "charge.dispute.created":
+            break            
 
         default: 
-            return new Response('Received', {status: 200})
-
+            return new Response('Received unknown event', {status: 200}) 
     }
-
-
-    
-
+	return new Response('Received', { status: 200 }); //% Only after known cases this will be reached
 }

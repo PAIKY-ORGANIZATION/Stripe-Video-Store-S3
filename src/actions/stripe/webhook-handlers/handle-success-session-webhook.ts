@@ -32,5 +32,4 @@ export const handleSuccessSessionWebhook = async (event: Stripe.CheckoutSessionC
 		receiverEmail: checkoutSession.customer_details?.email!, //$ Could also query Postgres to get the user's email.
 		subject: 'Thanks for your purchase!',
 	});
-	return new Response('Received', { status: 200 });
 };

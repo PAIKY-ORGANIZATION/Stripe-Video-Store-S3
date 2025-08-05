@@ -56,7 +56,7 @@ export const _createStripeSessionObject = async (videos: video[], user: user)=>{
                 images:[ process.env.APP_HOST + video.thumbnailLocalPath], //? Try to display these in success page
                 metadata: {
                     videoId: video.id
-                }
+                } as VideoMetadata
             },
             unit_amount: video.price * 100,
             currency: 'mxn',

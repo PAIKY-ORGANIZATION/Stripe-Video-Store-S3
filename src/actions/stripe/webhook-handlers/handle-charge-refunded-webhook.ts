@@ -17,7 +17,7 @@ export const handleChargeRefundedWebhook = async (event: Stripe.ChargeRefundedEv
 
     //% When we create a refund it still doesn't have a Stripe refund ID, so we need to find it by it's postgres ID, which we added to the metadata when emitting the refund event.
     
-    await prisma.refunds.updateManyAndReturn({
+    await prisma.refunds.updateMany({
         where: {
             id: refundMetadata.postgresRefundId
         },
@@ -36,7 +36,7 @@ export const handleChargeRefundedWebhook = async (event: Stripe.ChargeRefundedEv
             }
         },
         data: {
-            status: "REFUNDED"
+            status: "REFUNDED" //! Invalidation
         }
     })
 }

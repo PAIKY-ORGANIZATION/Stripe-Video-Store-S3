@@ -27,6 +27,10 @@ type PurchaseMetadata = {
     userId: string
 }
 
+type VideoMetadata = {
+    videoId: string
+}
+
 type RefundMetadata = {
     postgresRefundId: string
 }

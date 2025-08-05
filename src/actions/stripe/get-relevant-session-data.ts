@@ -23,10 +23,11 @@ export const getRelevantSessionData = async (checkoutSession: Stripe.Checkout.Se
 		wasRefunded,
 		videos: items.data.map((item) => {
 			const product = item.price?.product as Stripe.Product; //! I don't know if the type of this could change.
+			const metadata = product.metadata as VideoMetadata; //$ Assuming this was added when creating the Stripe session.
 			return {
 				title: product.name,
 				image: product.images[0],
-				videoId: product?.metadata?.videoId,
+				videoId: metadata.videoId,
 				videoPrice: item.price?.unit_amount as number,
 			};
 		}),
