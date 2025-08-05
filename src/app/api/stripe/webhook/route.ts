@@ -45,12 +45,12 @@ export const POST = async (req: NextRequest) => {
             break
         //* Disputes ---------------------------------------------------------------
         case "charge.dispute.created":
+            //* Suspending services and  register dispute
             await handleDisputeCreated(event)
-            //? Suspend services and  register dispute
             break            
 
         case "charge.dispute.updated":
-            //? I guess just notify myself here
+            //? Notify myself.
             break
 
         case "charge.dispute.closed":
