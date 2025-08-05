@@ -39,6 +39,4 @@ export const handleChargeRefundedWebhook = async (event: Stripe.ChargeRefundedEv
             status: "REFUNDED"
         }
     })
-
-
 }

@@ -27,7 +27,7 @@ export default async function RootLayout({children,}: { children: React.ReactNod
 				<Toaster></Toaster>
 				<SessionProviderUseClient session={session}>
 					<CartContextProvider>
-						<div className="h-[100vh] flex flex-col">
+						<div className="h-[100vh] flex flex-col bg-[#171615]">
 							<div className="flex flex-[1]">
 								<Navbar></Navbar>
 							</div>

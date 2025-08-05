@@ -14,33 +14,40 @@ export default function  PurchaseHistory({relevantSessionDataArray}: {relevantSe
 
         if(!success) {toast.error('Refund already requested'); return;}
 
-        toast.success('Refund request submitted')
+        toast.success('Refund request submitted to support')
     }
 
     return (
-        <div className="w-full p-10 bg-[#1f1e1d]">
-            <h1 className="mb-4 text-2xl font-bold">Your Purchase History</h1>
+        <div className="w-full p-7">
+            <h1 className="mb-30 text-2xl font-bold text-center">Order history</h1>
             
             {/* //* Purchase rows  */}
 
             <div className="flex gap-4">
-                <div className="flex flex-col gap-4 max-w-[50%] w-full">
+                <div className="flex flex-col gap-4 max-w-[60%] w-full">
                     {relevantSessionDataArray.map((r, i) => (
                         <div key={i} className="flex items-center justify-between gap-2 p-1 px-2 bg-purple-600 rounded-xl">
                             <p className="text-sm font-medium truncate w-70 ">{r.checkoutSessionId}</p>
-                            <p className="font-bold text-right w-30 ">{r.date}</p>
-                            <p>${r.total}</p>
+                            <p className="text-sm w-30  whitespace-nowrap">{r.date}</p>
+                            <p className='font-bold text-sm'>${r.total}</p>
                             <button
                                 onClick={() => setSessionDetails(r)}
                                 className="ml-8 text-sm text-white underline hover:underline hover:cursor-pointer"
                             >
                                 Details
                             </button>
+                            {!r.wasRefunded ? 
+                                <button className="ml-4 text-sm text-white  whitespace-nowrap underline hover:underline hover:cursor-pointer" onClick={()=>{handleRequestRefund(r.paymentIntentId)}}>
+                                    Req. Refund
+                                </button>
+                                :
+                                <p className="ml-4 text-sm text-white whitespace-nowrap font-bold">Item Refunded</p>
+                            }
                         </div>
                     ))}
                 </div>
 
-                <div className="w-full max-w-[50%] flex flex-col gap-6 items-center ">
+                <div className="w-full max-w-[40%] flex flex-col gap-6 items-center ">
                     {/* //* Video details  */}
                     {sessionDetails?.videos.map((video, i) => (
                         <div key={i} className="flex items-start gap-4 ">
@@ -57,18 +64,15 @@ export default function  PurchaseHistory({relevantSessionDataArray}: {relevantSe
                     ))}
 
                     {/* //* Refund section   */}
-                    {sessionDetails && !sessionDetails.wasRefunded &&
-                        <button className='text-sm p-1 bg-red-500 hover:cursor-pointer w-[35%] rounded-md'
-                            onClick={()=>{handleRequestRefund(sessionDetails.paymentIntentId)}}
-                        >
-                            Request refund
-                        </button>
-                    }
                     {
                         sessionDetails?.wasRefunded && 
                         <p className='text-sm font-bold'>This item was refunded</p>
                     }
                 </div>
+            </div>
+            <div className='mt-30 w-[50%]'> 
+                <h1 className="text-xl font-bold"> How refunds work?</h1>
+                <p className="text-sm">If you are not satisfied with your purchase, you can request a refund. Our team will review your request and process the refund. Please note that Refunds will be processed within 5 business days.</p>
             </div>
         </div>
     )

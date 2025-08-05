@@ -24,7 +24,7 @@ export default async function library() {
 
     if(userVideos.length === 0){ return(
         <>
-            <p className="flex flex-col items-center justify-center w-full h-full text-2xl text-white">
+            <p className="flex flex-col items-center justify-center w-full h-full text-xl text-white">
                 You still don't own videos
                 <Link href={'/'} className="p-2 mt-4 text-white bg-blue-500 rounded hover:underline"> Visit the store </Link>
             </p>

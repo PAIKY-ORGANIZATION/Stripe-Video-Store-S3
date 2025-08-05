@@ -20,7 +20,7 @@ export default function  Library({userVideos}: {userVideos: PrismaVideo[] }) {
         <>
             {isModalOpen &&  <VideoModal videoId={videoId} setIsModalOpen={setIsModalOpen}></VideoModal>}
             
-            <div className="h-full bg-[#171615] w-full p-10">
+            <div className="h-full w-full p-10">
                 <div className="flex flex-col w-full h-full gap-4">
                     {userVideos.map((video, index)=>{
                         return (

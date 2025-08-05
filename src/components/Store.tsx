@@ -29,7 +29,7 @@ export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
     }
 
     return (
-        <div className="h-full bg-[#1f1e1d] w-full p-10">
+        <div className="h-full w-full p-10">
             <div className="flex flex-col w-full h-full gap-4">
                 {videoArray.map((video, index)=>{
                     return (
