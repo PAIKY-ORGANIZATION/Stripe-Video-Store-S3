@@ -32,14 +32,16 @@ jobs:
 
             rm ./config/shared.env #! Important to remove
 
+            #* AWS
             echo "AWS_BUCKET_REGION=${{secrets.AWS_BUCKET_REGION}}" >> ./config/shared.env
             echo "AWS_BUCKET_NAME=${{secrets.AWS_BUCKET_NAME}}" >> ./config/shared.env
-
             echo "AWS_ACCESS_KEY=${{secrets.AWS_ACCESS_KEY}}" >> ./config/shared.env
-
             echo "AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}}" >> ./config/shared.env
 
-            echo "NEXTAUTH_SECRET=${{secrets.NEXTAUTH_SECRET}}" >> ./config/shared.env
+            #OAUTH (Google)
+            echo "CLIENT_ID_GOOGLE=${{secrets.CLIENT_ID_GOOGLE}}" >> ./config/shared.env
+            echo "CLIENT_SECRET_GOOGLE=${{secrets.CLIENT_SECRET_GOOGLE}}" >> ./config/shared.env
+            echo "NEXTAUTH_SECRET=${{secrets.NEXTAUTH_SECRET}}" >> ./config/shared.env #* Read readme -> Oauth
 
             echo "STRIPE_SECRET_KEY=${{secrets.STRIPE_SECRET_KEY}}" >> ./config/shared.env
             echo "STRIPE_SIGNING_SECRET=${{secrets.STRIPE_SIGNING_SECRET}}" >> ./config/shared.env
