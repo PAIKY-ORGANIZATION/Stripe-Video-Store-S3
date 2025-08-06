@@ -8,4 +8,4 @@ RUN npm i
 
 COPY . .
 
-CMD ["sh", "-c", "npx prisma migrate dev && npm run build && npm run start"]
+CMD ["sh", "-c", "npx prisma migrate dev && npm run build_cloud && npm run start_cloud"]

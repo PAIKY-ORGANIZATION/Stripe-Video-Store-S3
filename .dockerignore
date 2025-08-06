@@ -5,4 +5,3 @@ node_modules
 .git
 Dockerfile
 *.log
-config/shared.env

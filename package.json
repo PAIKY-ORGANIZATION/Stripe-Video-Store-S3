@@ -5,7 +5,7 @@
   "scripts": {
     "dev_local": "ENVIRONMENT=local next dev",
     "build_cloud": "ENVIRONMENT=cloud next build",
-    "start_cloud": "ENVIRONMENT=cloud next start_docker",
+    "start_cloud": "ENVIRONMENT=cloud next start",
     "cmd": "npx tsx src/cmd",
     "lint": "next lint"
   },
