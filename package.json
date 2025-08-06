@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev_local": "ENVIRONMENT=local next dev",
-    "build": "next build",
-    "start": "next start",
-    "cmd": "ENVIRONMENT=local npx tsx src/cmd",
+    "build_cloud": "ENVIRONMENT=cloud next build",
+    "start_cloud": "ENVIRONMENT=cloud next start_docker",
+    "cmd": "npx tsx src/cmd",
     "lint": "next lint"
   },
   "dependencies": {

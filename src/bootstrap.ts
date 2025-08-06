@@ -14,11 +14,12 @@ const setENV = ()=>{
      //* Check for required environment variables or throw stop execution.   
     
     const requiredVars = [
-        //* These come from ../shared/
         "AWS_BUCKET_REGION",
         "AWS_ACCESS_KEY",
         "AWS_SECRET_ACCESS_KEY",
         "AWS_BUCKET_NAME",
+        "NEXTAUTH_URL",
+        "NEXTAUTH_SECRET",
         "STRIPE_SECRET_KEY",
         "CLIENT_SECRET_GOOGLE",
         "CLIENT_ID_GOOGLE",

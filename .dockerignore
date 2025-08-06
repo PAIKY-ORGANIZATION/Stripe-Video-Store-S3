@@ -1,0 +1,8 @@
+node_modules
+.nextc
+.turbo
+.env
+.git
+Dockerfile
+*.log
+config/shared.env

@@ -50,7 +50,7 @@ export const approveRefundRequests = async ()=>{
     const hasDispute = await findDisputeByPaymentIntent(selectedRefund_paymentIntent as string) //! If a Stripe charge has a dispute, then there is a "Charge-back". If you try to issue a refund you  will get an error.
 
     if(hasDispute) {
-        console.log('Dispute associated with this refund was found! Cannot refund.  ⚠️⚠️⚠️'); 
+        console.log('Dispute associated with this refund was found! Cannot refund.  ⚠️⚠️⚠️'); //! Don't remove this
         return
     }
 

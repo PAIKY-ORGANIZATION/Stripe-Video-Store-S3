@@ -26,7 +26,6 @@ export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
     }
 
     const handleAddToCart = async (videoId: string, videoPrice: number, videoTitle: string)=>{
-        console.log({session});
 
         if(!session) {await signIn('google', {callbackUrl: '/'}); return}
 
