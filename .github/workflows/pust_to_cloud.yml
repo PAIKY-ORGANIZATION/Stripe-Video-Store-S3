@@ -30,6 +30,7 @@ jobs:
             git fetch
             git merge origin/master
 
+            rm ./config/shared.env #! Important to remove
 
             echo "AWS_BUCKET_REGION=${{secrets.AWS_BUCKET_REGION}}" >> ./config/shared.env
             echo "AWS_BUCKET_NAME=${{secrets.AWS_BUCKET_NAME}}" >> ./config/shared.env
@@ -44,7 +45,7 @@ jobs:
             echo "STRIPE_SIGNING_SECRET=${{secrets.STRIPE_SIGNING_SECRET}}" >> ./config/shared.env
 
             echo "BREVO_API_KEY=${{secrets.STRIPE_SIGNING_SECRET}}" >> ./config/shared.env
-            echo "ADMIN_EMAIL=${{vars.STRIPE_SIGNING_SECRET}}" >> ./config/shared.env
+            echo "ADMIN_EMAIL=${{vars.ADMIN_EMAIL}}" >> ./config/shared.env
 
             #* ================================= Docker commands =============================================
             docker rm -f "$UNIQUE_APP_NAME"
