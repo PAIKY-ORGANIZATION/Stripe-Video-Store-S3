@@ -57,7 +57,4 @@ export const approveRefundRequests = async ()=>{
         } as RefundMetadata
     })        
 
-
-
-    return
 }
