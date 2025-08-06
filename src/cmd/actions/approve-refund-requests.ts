@@ -46,13 +46,6 @@ export const approveRefundRequests = async ()=>{
     )
     const selectedRefund_paymentIntent = selectedRefund?.purchases[0].paymentIntentId
     
-    //* Check if there is a dispute associated
-    const hasDispute = await findDisputeByPaymentIntent(selectedRefund_paymentIntent as string) //! If a Stripe charge has a dispute, then there is a "Charge-back". If you try to issue a refund you  will get an error.
-
-    if(hasDispute) {
-        console.log('Dispute associated with this refund was found! Cannot refund.  ⚠️⚠️⚠️'); //! Don't remove this
-        return
-    }
 
     //! No amount passed????? It seems that if you don't pass an amount, it will refund the full amount.
     await stripe.refunds.create({

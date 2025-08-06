@@ -117,3 +117,4 @@ const _sendEmail = async (email: string)=>{
         receiverEmail: process.env.ADMIN_EMAIL!, //$ (Self)
     })
 }
+
