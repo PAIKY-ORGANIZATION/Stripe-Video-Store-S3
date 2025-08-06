@@ -20,5 +20,6 @@ The .dockerignore file doesn't include the .env file that should be located at c
 To include your environment variables once you run the docker container:
 
 ``` bash 
-    docker run --env-file ./config/shared.env -p <port>:3000 -it <image_name>
+    # Run from the project root to match the location of the .env file
+    docker run --env-file ./config/shared.env -p <port>:3000 -it -d <image_name>
 ```
