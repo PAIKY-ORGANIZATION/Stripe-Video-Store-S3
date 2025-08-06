@@ -39,6 +39,18 @@ jobs:
 
             echo "NEXTAUTH_SECRET=${{secrets.NEXTAUTH_SECRET}}" >> ./config/shared.env
 
-            echo "CLIENT_ID_GOOGLE=${{secrets.CLIENT_ID_GOOGLE}}" >> ./config/shared.env
+            echo "STRIPE_SECRET_KEY=${{secrets.STRIPE_SECRET_KEY}}" >> ./config/shared.env
+            echo "STRIPE_SIGNING_SECRET=${{secrets.STRIPE_SIGNING_SECRET}}" >> ./config/shared.env
+
+            echo "BREVO_API_KEY=${{secrets.STRIPE_SIGNING_SECRET}}" >> ./config/shared.env
+            echo "ADMIN_EMAIL=${{vars.STRIPE_SIGNING_SECRET}}" >> ./config/shared.env
+
+
+            #* ================================= Docker commands =============================================
+            docker rm -f "$UNIQUE_APP_NAME"
+            docker build -t "$UNIQUE_APP_NAME" .
+            docker run --env-file ./config/shared.env  --name "$UNIQUE_APP_NAME"  -p 3009:3000 -it -d --rm "$UNIQUE_APP_NAME"
+
+
 
 
