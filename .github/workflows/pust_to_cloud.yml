@@ -45,7 +45,6 @@ jobs:
             echo "BREVO_API_KEY=${{secrets.STRIPE_SIGNING_SECRET}}" >> ./config/shared.env
             echo "ADMIN_EMAIL=${{vars.STRIPE_SIGNING_SECRET}}" >> ./config/shared.env
 
-
             #* ================================= Docker commands =============================================
             docker rm -f "$UNIQUE_APP_NAME"
             docker build -t "$UNIQUE_APP_NAME" .
