@@ -5,7 +5,7 @@ To include your environment variables once you run the docker container:
 
 ``` bash 
     # Run from the project root to match the location of the .env file
-    docker run --env-file ./config/shared.env -p <port>:3000 -it -d <image_name>
+    docker run --env-file ./config/shared.env -p <port>:3000 -it -d --rm <image_name>
 ```
 
 
@@ -34,4 +34,6 @@ You add two items the card in the front end pay for them and it'll generate a si
 
 So we didn't handle the concept of a cart ourselves.
 
+
+# Oauth
 
