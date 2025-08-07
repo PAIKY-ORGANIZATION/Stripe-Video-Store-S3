@@ -21,9 +21,9 @@ const setENV = ()=>{
         "NEXTAUTH_URL",
         "NEXTAUTH_SECRET",
         "STRIPE_SECRET_KEY",
+        "STRIPE_SIGNING_SECRET",
         "CLIENT_SECRET_GOOGLE",
         "CLIENT_ID_GOOGLE",
-        "STRIPE_SIGNING_SECRET",
         "APP_HOST",
         'BREVO_API_KEY',
         'ADMIN_EMAIL'

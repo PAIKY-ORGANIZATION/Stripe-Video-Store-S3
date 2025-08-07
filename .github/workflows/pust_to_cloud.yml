@@ -30,7 +30,7 @@ jobs:
             git fetch
             git merge origin/master
 
-            rm ./config/shared.env #! Important to remove
+            rm ./config/shared.env || true #! Important to remove
 
             #* AWS
             echo "AWS_BUCKET_REGION=${{secrets.AWS_BUCKET_REGION}}" >> ./config/shared.env

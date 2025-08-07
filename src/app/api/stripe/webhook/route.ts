@@ -13,7 +13,16 @@ export const POST = async (req: NextRequest) => {
 
     const bodyBinary = await req.text() //? Might need extra configuration to receive in binary form
 
+
+    console.log({bodyBinary,});
+    
+
     const binaryHeader = req.headers.get('stripe-signature')!
+
+    console.log({binaryHeader});
+    
+
+
     let event
 
     try{
