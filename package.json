@@ -6,7 +6,7 @@
     "dev_local": "ENVIRONMENT=local next dev",
     "build_cloud": "ENVIRONMENT=cloud next build",
     "start_cloud": "ENVIRONMENT=cloud next start",
-    "cmd": "npx tsx src/cmd",
+    "cmd": "ENVIRONMENT=local npx tsx src/cmd",
     "lint": "next lint"
   },
   "dependencies": {
