@@ -17,17 +17,7 @@ export const GET = async (_req: NextRequest, {params}: {params: Promise<{videoId
 
     const {videoId} = await params
     if(!videoId){return new NextResponse('Video ID not found', {status: 400})}
-
-    //! If you want to first inform wether or not the video exists in the first place. IF NOT, just do a single Prisma query.
-    // const video = await prisma.video.findFirst({
-    //     where: {
-    //         id: videoId,
-
-    //     }
-    // })
-    // if(!video){return new NextResponse('Video not found with specified ID', {status: 404})}
-
-
+    
     const validPurchase = await prisma.purchase.findFirst({
         where: {
             user: { id: user.id },
