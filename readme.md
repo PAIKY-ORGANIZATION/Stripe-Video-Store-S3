@@ -17,7 +17,8 @@ Based on the Public URL of your app, register the endpoint like the following ex
 http/://your-app-url.com/api/stripe/webhook
 ```
 
-
+## Copy new secret
+Also if you generate a new endpoint, it will give you a distinct STRIPE_SIGNING_SECRET for you to update in the environment variables.
 
 
 # How Stripe handles "carts with multiple items"  
@@ -36,4 +37,10 @@ So we didn't handle the concept of a cart ourselves.
 
 
 # Oauth
+
+
+
+
+
+
 
