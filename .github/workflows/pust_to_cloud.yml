@@ -24,7 +24,7 @@ jobs:
             REPO_PATH="${{github.repository}}"
 
             cd ~/vsCodeMain
-            [ -d "$UNIQUE_APP_NAME/.git" ] || git clone git@github.com:$REPO_PATH.git  "$UNIQUE_APP_NAME"
+            [ -d "$UNIQUE_APP_NAME/.git" ] || git clone git@github.com:$REPO_PATH.git  "$UNIQUE_APP_NAME" #! YOU NEED TO USE A KEY THAT HAS NO PASSPHRASE
             cd "$UNIQUE_APP_NAME"
             git fetch
             git merge origin/master
