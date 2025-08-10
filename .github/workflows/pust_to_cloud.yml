@@ -31,6 +31,7 @@ jobs:
 
             rm ./config/shared.env || true #! Important to remove
 
+
             #* AWS
             echo "AWS_BUCKET_REGION=${{secrets.AWS_BUCKET_REGION}}" >> ./config/shared.env
             echo "AWS_BUCKET_NAME=${{secrets.AWS_BUCKET_NAME}}" >> ./config/shared.env
