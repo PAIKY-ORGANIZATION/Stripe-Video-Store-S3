@@ -19,7 +19,7 @@ export const POST = async (req: NextRequest) => {
     try{
         event = stripe.webhooks.constructEvent(bodyBinary, binaryHeader, signingSecret)
     }catch(e){
-        console.log(e);	
+        console.log('Error constructing event ⚠️: ' + e);	
         return NextResponse.json({ error: e }, { status: 400 });
     }
 
