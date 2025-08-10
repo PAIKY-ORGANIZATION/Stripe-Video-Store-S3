@@ -64,8 +64,11 @@ export const _createStripeSessionObject = async (videos: video[], user: user)=>{
         quantity: 1
     }})
 
-    const session = await stripe.checkout.sessions.create({
 
+    console.log(process.env.APP_HOST+ '/success?session_id={CHECKOUT_SESSION_ID}');
+    
+
+    const session = await stripe.checkout.sessions.create({
         line_items: line_items,
         success_url: process.env.APP_HOST+ '/success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url: process.env.APP_HOST,
