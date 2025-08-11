@@ -32,6 +32,7 @@ jobs:
             rm ./config/shared.env || true #! Important to remove
 
 
+
             #* CURRENTLY USING HETZNER SETTINGS
             echo "OBJECT_STORAGE_BUCKET_REGION=${{secrets.HETZNER_OBJECT_STORAGE_BUCKET_REGION}}" >> ./config/shared.env
             echo "OBJECT_STORAGE_BUCKET_NAME=${{secrets.HETZNER_OBJECT_STORAGE_BUCKET_NAME}}" >> ./config/shared.env
