@@ -15,7 +15,7 @@ jobs:
           host: ${{vars.PAID_CLOUD_HOST}} #$ for SSH, don't include port unless not using :22 . Example: 132.84.129.77.
           username: ${{secrets.HETZNER_USER}}
           key: ${{secrets.HETZNER_SSH_PRIVATE_KEY}}
-          passphrase: ${{ secrets.EC2_SSH_PRIVATE_KEY_PASSPHRASE }} #$ Only if required.
+          passphrase: ${{ secrets.PRIVATE_KEY_PASSPHRASE }} #$ Only if required.
 
           script: |
             UNIQUE_APP_NAME="${{ vars.UNIQUE_APP_NAME }}"  #! UNIQUE_APP_NAME must be all lowercase and without underscores for Docker to accept it.
