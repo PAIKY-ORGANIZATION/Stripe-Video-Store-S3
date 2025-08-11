@@ -4,8 +4,8 @@ type VideoProduct = {
     s3VideoKey: string,
     thumbnailLocalPath: string,
     description: string,
-    likes: number,
-    views: number,
+    likes: string,
+    views: string,
     price: number,
 }
 

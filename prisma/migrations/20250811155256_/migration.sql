@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "public"."videos" ALTER COLUMN "likes" SET DATA TYPE TEXT,
+ALTER COLUMN "views" SET DATA TYPE TEXT;

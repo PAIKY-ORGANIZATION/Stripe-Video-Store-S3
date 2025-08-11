@@ -35,13 +35,16 @@ export default function  Library({userVideos}: {userVideos: PrismaVideo[] }) {
                                     <div className="space-y-2">
                                         <p className="text-xl font-semibold text-white">{video.title}</p>
                                         <p className="text-sm text-gray-300">
-                                            <span className="font-medium text-white">Views:</span> {video.views}
+                                            <span className="font-bold">Views:</span> {video.views}
                                         </p>
                                         <p className="text-sm text-gray-300">
-                                            <span className="font-medium text-white">Likes:</span> {video.likes}
+                                            <span className="font-bold">Likes:</span> {video.likes}
                                         </p>
                                         <p className="text-sm text-gray-300">
-                                            <span className="font-medium text-white">Author:</span> {video.author}
+                                            <span className="font-bold">Author:</span> {video.author}
+                                        </p>
+                                        <p className="text-sm text-gray-300">
+                                            <span className="font-bold">Description:</span> {video.description}
                                         </p>
                                     </div>
 
