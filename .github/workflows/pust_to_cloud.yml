@@ -32,11 +32,12 @@ jobs:
             rm ./config/shared.env || true #! Important to remove
 
 
-            #* AWS
-            echo "OBJECT_STORAGE_BUCKET_REGION=${{secrets.OBJECT_STORAGE_BUCKET_REGION}}" >> ./config/shared.env
-            echo "OBJECT_STORAGE_BUCKET_NAME=${{secrets.OBJECT_STORAGE_BUCKET_NAME}}" >> ./config/shared.env
-            echo "OBJECT_STORAGE_ACCESS_KEY=${{secrets.OBJECT_STORAGE_ACCESS_KEY}}" >> ./config/shared.env
-            echo "OBJECT_STORAGE_SECRET_KEY=${{secrets.OBJECT_STORAGE_SECRET_KEY}}" >> ./config/shared.env
+            #* CURRENTLY USING HETZNER SETTINGS
+            echo "OBJECT_STORAGE_BUCKET_REGION=${{secrets.HETZNER_OBJECT_STORAGE_BUCKET_REGION}}" >> ./config/shared.env
+            echo "OBJECT_STORAGE_BUCKET_NAME=${{secrets.HETZNER_OBJECT_STORAGE_BUCKET_NAME}}" >> ./config/shared.env
+            echo "OBJECT_STORAGE_ACCESS_KEY=${{secrets.HETZNER_OBJECT_STORAGE_ACCESS_KEY}}" >> ./config/shared.env
+            echo "OBJECT_STORAGE_SECRET_KEY=${{secrets.HETZNER_OBJECT_STORAGE_SECRET_KEY}}" >> ./config/shared.env
+            echo "OBJECT_STORAGE_ENDPOINT=${{secrets.HETZNER_OBJECT_STORAGE_SECRET_KEY}}" >> ./config/shared.env #! Only required by Hetzner
 
             #OAUTH (Google)
             echo "CLIENT_ID_GOOGLE=${{secrets.CLIENT_ID_GOOGLE}}" >> ./config/shared.env
