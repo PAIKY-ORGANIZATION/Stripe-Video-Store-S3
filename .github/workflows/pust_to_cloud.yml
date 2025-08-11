@@ -12,7 +12,7 @@ jobs:
       - name: push
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{vars.HETZNER_HOST_PAID_INSTANCE}} #$ for SSH, don't include port unless not using :22 . Example: 132.84.129.77.
+          host: ${{vars.PAID_CLOUD_HOST}} #$ for SSH, don't include port unless not using :22 . Example: 132.84.129.77.
           username: ${{secrets.HETZNER_USER}}
           key: ${{secrets.HETZNER_SSH_PRIVATE_KEY}}
           passphrase: ${{ secrets.EC2_SSH_PRIVATE_KEY_PASSPHRASE }} #$ Only if required.
