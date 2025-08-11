@@ -33,10 +33,10 @@ jobs:
 
 
             #* AWS
-            echo "AWS_BUCKET_REGION=${{secrets.AWS_BUCKET_REGION}}" >> ./config/shared.env
-            echo "AWS_BUCKET_NAME=${{secrets.AWS_BUCKET_NAME}}" >> ./config/shared.env
-            echo "AWS_ACCESS_KEY=${{secrets.AWS_ACCESS_KEY}}" >> ./config/shared.env
-            echo "AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}}" >> ./config/shared.env
+            echo "OBJECT_STORAGE_BUCKET_REGION=${{secrets.OBJECT_STORAGE_BUCKET_REGION}}" >> ./config/shared.env
+            echo "OBJECT_STORAGE_BUCKET_NAME=${{secrets.OBJECT_STORAGE_BUCKET_NAME}}" >> ./config/shared.env
+            echo "OBJECT_STORAGE_ACCESS_KEY=${{secrets.OBJECT_STORAGE_ACCESS_KEY}}" >> ./config/shared.env
+            echo "OBJECT_STORAGE_SECRET_KEY=${{secrets.OBJECT_STORAGE_SECRET_KEY}}" >> ./config/shared.env
 
             #OAUTH (Google)
             echo "CLIENT_ID_GOOGLE=${{secrets.CLIENT_ID_GOOGLE}}" >> ./config/shared.env

@@ -1,24 +1,22 @@
 export const videos: VideoProduct[] = [
     {
-        author: 'SpeedSilver',
-        title: 'I Made 100 Players Simulate Medieval Civilization in Minecraft...',
-        description: '100 players will be forced to create civilizations in this realistic medieval Minecraft simulation! Resources are limited, and they must traded between kingdoms, or claimed through war.',
-        likes: 366000,
-        views: 15000000,
-        s3VideoKey: 'medieval.mp4',
-        thumbnailLocalPath: '/thumbnails/medieval_thumbnail.jpeg',
-        // s3PreviewKey: ,
+        author: 'Beluga',
+        title: 'Giving 841,709 people my Netflix password...',
+        description: 'What will happen if I give 841,709 people my Netflix password? Find out.',
+        likes: 227000,
+        views: 11000000,
+        s3VideoKey: 'netflix.mp4',
+        thumbnailLocalPath: '/thumbnails/netflix.png',
         price: 20,
     },
     {
-        author: 'SpeedSilver',
+        author: 'Beluga',
         title: '100 Players Simulate Civilization on Zombie Island in Minecraft...',
         description: "This is a Minecraft Social Experiment where 100 Players Simulate Civilization on a Zombie Island and are divided into two groups, Survivors and Scientists. They will have to face different challenges like the zombies, a blood moon and eventually go to war.",
         likes: 228000,
         views: 9737011,
         s3VideoKey: 'zombies.mp4',
         thumbnailLocalPath:'/thumbnails/zombies_thumbnail.jpeg',
-        // s3PreviewKey: ,
         price: 15,
     },
     {
@@ -29,7 +27,6 @@ export const videos: VideoProduct[] = [
         views: 19761199,
         s3VideoKey: 'prison.mp4',
         thumbnailLocalPath: '/thumbnails/prison_thumbnail.jpeg',
-        // s3PreviewKey: ,
         price: 25,
     }
 ]

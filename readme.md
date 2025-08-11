@@ -17,8 +17,12 @@ Based on the Public URL of your app, register the endpoint like the following ex
 http/://your-app-url.com/api/stripe/webhook
 ```
 
-## Copy new secret
+## Copy new secret from Stripe endpoint
 Also if you generate a new endpoint, it will give you a distinct STRIPE_SIGNING_SECRET for you to update in the environment variables.
+
+
+## Object storage (AWS or Hetzner)
+If you decide to host this application on AWS, you don't have to specify an environment variable for the S3 endpoint. If you will host it on another cloud that has compatible object (S3) storage, you do need to specify an endpoint for that object storage.
 
 
 # How Stripe handles "carts with multiple items"  

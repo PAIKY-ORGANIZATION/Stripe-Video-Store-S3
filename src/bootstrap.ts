@@ -14,10 +14,10 @@ const setENV = ()=>{
      //* Check for required environment variables or throw stop execution.   
     
     const requiredVars = [
-        "AWS_BUCKET_REGION",
-        "AWS_ACCESS_KEY",
-        "AWS_SECRET_ACCESS_KEY",
-        "AWS_BUCKET_NAME",
+        "OBJECT_STORAGE_BUCKET_REGION",
+        "OBJECT_STORAGE_ACCESS_KEY",
+        "OBJECT_STORAGE_SECRET_KEY",
+        "OBJECT_STORAGE_BUCKET_NAME",
         "NEXTAUTH_URL",
         "NEXTAUTH_SECRET",
         "STRIPE_SECRET_KEY",

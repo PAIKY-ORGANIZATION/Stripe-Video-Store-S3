@@ -41,31 +41,34 @@ export  function  Store({videoArray}: {videoArray: PrismaVideo[] }) {
                     return (
                         <div className="w-full flex rounded-xl  bg-[#1f1e1d]" key={index}>
                             <div className="flex flex-[3]">
-                                <img src={video.thumbnailLocalPath} className="rounded-xl"></img>
+                                <img src={video.thumbnailLocalPath} className="rounded-xl object-cover"></img>
                             </div>
                             <div className="flex flex-col flex-[5] p-4">
                                 <div className="space-y-2">
                                     <p className="text-xl font-semibold text-white">{video.title}</p>
                                     <p className="text-sm text-gray-300">
-                                        <span className="font-medium text-white">Views:</span> {video.views}
+                                        <span className="font-bold">Views:</span> {video.views}
                                     </p>
                                     <p className="text-sm text-gray-300">
-                                        <span className="font-medium text-white">Likes:</span> {video.likes}
+                                        <span className="font-bold">Likes:</span> {video.likes}
                                     </p>
                                     <p className="text-sm text-gray-300">
-                                        <span className="font-medium text-white">Author:</span> {video.author}
+                                        <span className="font-bold">Author:</span> {video.author}
+                                    </p>
+                                    <p className="text-sm text-gray-300">
+                                        <span className="font-bold">Description:</span> {video.description}
                                     </p>
                                 </div>
                                 <div className="flex justify-around gap-4">
 
                                     <button
-                                        className="flex items-center justify-center rounded-lg bg-green-600 text-white p-2 mt-4 hover:bg-green-700 self-center w-[20%] text-center hover:cursor-pointer"
+                                        className="flex items-center justify-center whitespace-nowrap rounded-lg bg-green-600 text-white p-2 mt-4 hover:bg-green-700 self-center  text-center hover:cursor-pointer"
                                         onClick={()=>{handleBuy(video.id)}}
                                     >
-                                        Buy now for {video.price}$ 
+                                        Test-Buy now | {video.price}$ 
                                     </button>
                                     <button
-                                        className="flex items-center justify-center rounded-lg bg-blue-500 text-white p-2 mt-4 hover:bg-blue-700 self-center w-[20%] text-center hover:cursor-pointer"
+                                        className="flex items-center justify-center rounded-lg whitespace-nowrap bg-blue-500 text-white p-2 mt-4 hover:bg-blue-700 self-center text-center hover:cursor-pointer"
                                         onClick={()=>{handleAddToCart(video.id, video.price, video.title)}}
                                     >
                                         Add to cart

@@ -11,7 +11,7 @@
 // export const getVideoSignedUrl = async (key: string)=>{
 
 //     const command = new GetObjectCommand({
-//         Bucket: process.env.AWS_BUCKET_NAME!,
+//         Bucket: process.env.OBJECT_STORAGE_BUCKET_NAME!,
 //         Key:  key
 //     })
 

@@ -4,7 +4,7 @@ import { GetObjectCommand } from "@aws-sdk/client-s3"
 export const getVideoStream = async (key: string): Promise<ReadableStream>=>{
 
     const getObjectCommand = new GetObjectCommand({
-        Bucket: process.env.AWS_BUCKET_NAME!,
+        Bucket: process.env.OBJECT_STORAGE_BUCKET_NAME!,
         Key: key
     })
     
