@@ -2,6 +2,7 @@ import { getRelevantSessionData } from "@/actions/stripe/get-relevant-session-da
 import { findStripeSessionById } from "@/actions/stripe/find-stripe-session-by-id";
 import Success from "@/components/Success";
 import Stripe from "stripe";
+import { logAction } from "@/utils/action-log";
 
 type Props = {
 	// params: Promise<{CHECKOUT_SESSION_ID: string}>
@@ -9,6 +10,14 @@ type Props = {
 };
 
 export default async function SuccessPage({ searchParams }: Props) {
+
+	//* Only for logging the request to Postgres
+	await logAction({
+		action: 'Reached success page',
+		filePath: 'all-requests-GIT-IGNORE.txt',
+	})
+
+
 
     const {session_id} = await searchParams
 

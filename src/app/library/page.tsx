@@ -3,12 +3,21 @@ import { getUserBySessionEmail } from '@/actions/users-and-videos/get-user-by-em
 import Library from '@/components/Library'
 import { video } from '@/generated/prisma'
 import { prisma } from '@/lib/prisma'
+import { logAction } from '@/utils/action-log'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 
 //prettier-ignore
 export default async function library() {
+
+    await logAction({
+        action: 'Visited "cart" page',
+        filePath: 'all-requests-GIT-IGNORE.txt',
+    })
+
+
+
 
     //* Check for session
     const user = await getUserBySessionEmail()

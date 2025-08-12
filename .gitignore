@@ -1,7 +1,26 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# ===================== My Personal Ignores ======================
+
+/src/generated/prisma
+
+config/shared.env
+
+all-requests-GIT-IGNORE.txt 
+
+/node_modules
+
+/.next/
+
+# ================================================================
+
+
+
+
+
+
+
 
 # dependencies
-/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -14,7 +33,6 @@
 /coverage
 
 # next.js
-/.next/
 /out/
 
 # production
@@ -38,7 +56,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-/src/generated/prisma
-
-config/shared.env

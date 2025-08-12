@@ -1,9 +1,18 @@
 import { loadVideosShow } from "@/actions/users-and-videos/load-videos-show"
 import {Store} from "@/components/Store"
 import type { video  as  PrismaVideo } from "@/generated/prisma/client"
+import { logAction } from "@/utils/action-log"
 import Link from "next/link"
 
 export default async function StorePage() {
+
+    //* Only for logging the request to Postgres
+    await logAction({
+        action: 'Visited main store page',
+        filePath: 'all-requests-GIT-IGNORE.txt',
+    })
+
+
     const videoArray: (PrismaVideo)[] = await loadVideosShow()
     if(videoArray.length === 0){ return(
         <>

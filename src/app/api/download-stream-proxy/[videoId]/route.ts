@@ -3,6 +3,7 @@
 import { getVideoStream } from '@/actions/aws/get-video-stream';
 import { getUserBySessionEmail } from '@/actions/users-and-videos/get-user-by-email';
 import { prisma } from '@/lib/prisma';
+import { logAction } from '@/utils/action-log';
 import { NextRequest, NextResponse } from 'next/server';
 
 //! Read the readme.md ⚠️
@@ -11,6 +12,15 @@ import { NextRequest, NextResponse } from 'next/server';
 
 //prettier-ignore
 export const GET = async (_req: NextRequest, {params}: {params: Promise<{videoId: string}>})=>{
+
+    ///* Only for logging the request to Postgres
+    await logAction({
+        action: 'Requested video from /api/download-stream-proxy!',
+        filePath: 'all-requests-GIT-IGNORE.txt',
+    })
+
+
+
     //* Checking Auth
     const user = await getUserBySessionEmail() //$ This will take care of authentication
     if(!user){return new NextResponse('Unauthorized', {status: 401})}

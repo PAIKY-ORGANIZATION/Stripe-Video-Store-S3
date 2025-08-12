@@ -5,9 +5,20 @@ import PurchaseHistory from "@/components/PurchaseHistory"
 import { prisma } from "@/lib/prisma"
 import Link from "next/link"
 import { redirect } from "next/navigation"
+import { logAction } from "@/utils/action-log"
 
 export default async function PurchaseHistoryComponent() {
     
+    //* Only for logging the request to Postgres
+    await logAction({
+        action: 'Visited purchase-history',
+        filePath: 'all-requests-GIT-IGNORE.txt',
+    })
+
+
+
+
+
     const user = await getUserBySessionEmail()
 
     if(!user) {redirect('api/auth/signin')}
