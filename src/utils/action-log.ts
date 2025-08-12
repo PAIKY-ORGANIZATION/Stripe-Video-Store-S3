@@ -17,11 +17,8 @@ export const logAction = async ({filePath, action, additionalLogInfo}: Params)=>
 
     const ip = headersStore.get('ip') || '' //$ The IP is set by middleware
     
-    console.log({ip});
-    
-
     //* If we are in development, avoid writing to the file system because it triggers a lot of hot reloads.
-    if(process.env.NODE_ENV === 'development') {
+    if(process.env.NODE_ENV === 'production') {
         await logRequest({
             action,
             appName: 'stripe-store',
